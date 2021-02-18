@@ -42,9 +42,13 @@ USE IEEE.std_logic_UNSIGNED.ALL;
 ENTITY maia_shift_register IS
 	GENERIC ( len : INTEGER := 32);
 	PORT (
-		clk, rst : IN STD_LOGIC;
+		clk : IN STD_LOGIC; 
+		rst : IN STD_LOGIC;
 		inReg : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0); 
-		shiftR, shiftL, load, zero : IN STD_LOGIC;
+		shiftR : IN STD_LOGIC;
+		shiftL : IN STD_LOGIC;
+		load : IN STD_LOGIC;
+		zero : IN STD_LOGIC;
 		serIn  : IN STD_LOGIC;
 		serOut : OUT STD_LOGIC;
 		outReg : OUT STD_LOGIC_VECTOR (len-1 DOWNTO 0)); 

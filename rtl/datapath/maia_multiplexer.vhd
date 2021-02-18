@@ -41,7 +41,8 @@ USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY maia_multiplexer IS
 	GENERIC ( len : INTEGER := 32);
 	PORT (
-		a, b : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
+		a    : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
+		b 	 : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
 		s0   : IN STD_LOGIC; 
 		s1   : IN STD_LOGIC; 
 		w    : OUT STD_LOGIC_VECTOR (len-1 DOWNTO 0)

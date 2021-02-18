@@ -45,7 +45,9 @@ ENTITY maia_comparator IS
 		ain : IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
 		bin : IN STD_LOGIC_VECTOR (n-1 DOWNTO 0);
 		compareSignedUnsignedBar : IN STD_LOGIC;
-		Lt, Eq, Gt : OUT STD_LOGIC
+		Lt : OUT STD_LOGIC; 
+		Eq : OUT STD_LOGIC; 
+		Gt : OUT STD_LOGIC
 	);
 END ENTITY maia_comparator;
 

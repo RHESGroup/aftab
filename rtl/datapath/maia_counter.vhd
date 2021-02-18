@@ -43,7 +43,8 @@ USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 ENTITY maia_counter IS 
 	GENERIC ( len : INTEGER := 2);
 	PORT (
-		clk,rst   : IN STD_LOGIC;
+		clk		: IN STD_LOGIC;
+		rst 	: IN STD_LOGIC;
 		zeroCnt   : IN STD_LOGIC;
 		incCnt    : IN STD_LOGIC;
 		initCnt   : IN STD_LOGIC;

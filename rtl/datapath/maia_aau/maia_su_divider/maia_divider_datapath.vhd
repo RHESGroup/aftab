@@ -42,10 +42,22 @@ USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 ENTITY maia_divider_datapath IS
 	GENERIC( len : INTEGER := 33);
 	PORT (
-		clk, rst : IN STD_LOGIC;
-		dividend, divisor : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0); 
-		shRRegR, ShLRegR, ldRegR, zeroRegR, QQ0, selMux1 : IN STD_LOGIC;
-		shRRegQ,ShLRegQ,ldRegQ,zeroRegQ,zeroRegM,ldRegM  : IN STD_LOGIC;
+		clk : IN STD_LOGIC;
+		rst : IN STD_LOGIC;
+		dividend : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0); 
+		divisor : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0); 
+		shRRegR : IN STD_LOGIC;
+		ShLRegR : IN STD_LOGIC;
+		ldRegR : IN STD_LOGIC;
+		zeroRegR : IN STD_LOGIC;
+		QQ0 : IN STD_LOGIC;
+		selMux1 : IN STD_LOGIC;
+		shRRegQ : IN STD_LOGIC;
+		ShLRegQ : IN STD_LOGIC;
+		ldRegQ : IN STD_LOGIC;
+		zeroRegQ : IN STD_LOGIC;
+		zeroRegM : IN STD_LOGIC;
+		ldRegM : IN STD_LOGIC;
 		R33 : OUT STD_LOGIC;
 		Q   : OUT STD_LOGIC_VECTOR (len-1 DOWNTO 0); 
         Remainder : OUT STD_LOGIC_VECTOR (len DOWNTO 0)
@@ -60,21 +72,34 @@ ARCHITECTURE behavioral OF maia_divider_datapath IS
 BEGIN
 
 	R33 <= sub(len);
+
 	-- ShReg 33 bit R
 	ShRegR : ENTITY work.maia_shift_register 
 				GENERIC MAP (len+1) 
-				PORT MAP (clk => clk, rst => rst, 
-					inReg => AddResult, shiftR => shRRegR, shiftL => ShLRegR, 
-					load => ldRegR, zero => zeroRegR, serIn => leftbitOutQ,
-					serOut => leftbitOutR, outReg => Rprev);
+				PORT MAP (clk => clk, 
+						rst => rst, 
+						inReg => AddResult, 
+						shiftR => shRRegR, 
+						shiftL => ShLRegR, 
+						load => ldRegR, 
+						zero => zeroRegR, 
+						serIn => leftbitOutQ,
+						serOut => leftbitOutR, 
+						outReg => Rprev);
+	
 	-- ShReg 32 bit Q
 	ShRegQ : ENTITY work.maia_shift_register
 				GENERIC MAP (len) 
-				PORT MAP (clk => clk, rst => rst, 
-					inReg => outMux1, shiftR => shRRegQ, shiftL => ShLRegQ,
-					load => ldRegQ, zero => zeroRegQ,
-					serIn => '0', serOut => leftbitOutQ,
-					outReg => Qprev);
+				PORT MAP (clk => clk, 
+						rst => rst, 
+						inReg => outMux1, 
+						shiftR => shRRegQ, 
+						shiftL => ShLRegQ,
+						load => ldRegQ, 
+						zero => zeroRegQ,
+						serIn => '0', 
+						serOut => leftbitOutQ,
+						outReg => Qprev);
 	
 	--rightbitInR <= Qprev(len-1);
 	-- concatenation
@@ -82,22 +107,35 @@ BEGIN
 	-- Reg 33 bit M
 	RegM: ENTITY WORK.maia_register 
 			  GENERIC MAP (len => len+1) 
-			  PORT MAP (clk => clk, rst => rst, zero => zeroRegM, 
-				  load => ldRegM, inReg => divisorp, outReg => M);
+			  PORT MAP (clk => clk, 
+			  			rst => rst, 
+			  			zero => zeroRegM, 
+				  		load => ldRegM, 
+				  		inReg => divisorp, 
+				  		outReg => M);
+
 	-- Subtractor 33 bit 
 	sub <= Rprev - M;
+	
 	-- line 1
 	line1 <= Qprev (len-1 DOWNTO 1) & QQ0;
+	
 	-- Mux 33 bit
 	Mux33b: ENTITY work.maia_multiplexer_div 
 				GENERIC MAP (len => len) 
-				PORT MAP (a => dividend, b => line1,
-					sel => selMux1,W => outMux1);
+				PORT MAP (a => dividend, 
+						b => line1,
+						sel => selMux1,
+						W => outMux1);
+	
 	-- Mux 34 bit
 	Mux34b: ENTITY work.maia_multiplexer_div 
 				GENERIC MAP (len => len+1) 
-				PORT MAP (a => sub, b => Rprev,
-					 sel => sub(len),W => AddResult);
+				PORT MAP (a => sub, 
+						b => Rprev,
+					 	sel => sub(len),
+					 	W => AddResult);
+				
 	Q <= Qprev;
 	Remainder <= Rprev;
 

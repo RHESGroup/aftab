@@ -42,7 +42,8 @@ USE IEEE.NUMERIC_STD.ALL;
 ENTITY maia_register_file IS
 	GENERIC (len : integer := 32);
 	PORT (
-		clk,rst      : IN STD_LOGIC;
+		clk			 : IN STD_LOGIC;
+		rst      	 : IN STD_LOGIC;
 		setZero      : IN STD_LOGIC;
 		setOne       : IN STD_LOGIC;
 		rs1          : IN STD_LOGIC_VECTOR (4 DOWNTO 0);

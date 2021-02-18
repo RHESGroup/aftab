@@ -47,8 +47,18 @@ ENTITY maia_imm_sel_sign_ext IS
 		IR19_12 : IN STD_LOGIC_VECTOR (7 DOWNTO 0);	
 		IR24_21 : IN STD_LOGIC_VECTOR (3 DOWNTO 0);
 		IR30_25 : IN STD_LOGIC_VECTOR (5 DOWNTO 0);
-		selI, selS, selBUJ, selIJ, selSB, selU,
-		selISBJ, selIS, selB, selJ, selISB, selUJ : IN STD_LOGIC;
+		selI : IN STD_LOGIC;
+		selS : IN STD_LOGIC;
+		selBUJ : IN STD_LOGIC;
+		selIJ : IN STD_LOGIC;
+		selSB : IN STD_LOGIC;
+		selU : IN STD_LOGIC;
+		selISBJ : IN STD_LOGIC;
+		selIS : IN STD_LOGIC;
+		selB : IN STD_LOGIC;
+		selJ : IN STD_LOGIC;
+		selISB : IN STD_LOGIC;
+		selUJ : IN STD_LOGIC;
 		Imm : OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
 	);
 END ENTITY maia_imm_sel_sign_ext;

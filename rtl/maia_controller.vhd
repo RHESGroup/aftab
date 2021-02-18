@@ -41,23 +41,58 @@ USE IEEE.std_logic_unsigned.ALL;
 
 
 ENTITY maia_controller IS
-GENERIC(len : INTEGER := 32);
+	GENERIC(len : INTEGER := 32);
 	PORT (
- 	 clk : IN std_logic;
- 	 rst : IN std_logic;
-	 completeDARU, completeDAWU, completeAAU, lt, eq, gt : IN std_logic;	 
- 	 IR  : IN std_logic_vector(len-1 DOWNTO 0);
-
-	 
- 	 muxCode  : OUT std_logic_vector(11 DOWNTO 0);
- 	 nBytes  : OUT std_logic_vector(1 DOWNTO 0);
- 	 selLogic  : OUT std_logic_vector(1 DOWNTO 0);
- 	 selShift  : OUT std_logic_vector(1 DOWNTO 0);
- 	 selPCJ, selPC, selADR, selI4, selP1, selP2, selJL, selImm, selAdd, selInc4PC, selBSU,selLLU, selASU, selAAU,selDARU, 
-	 dataInstrBar, writeRegFile, addSubBar, pass, selAuipc, comparedsignedunsignedbar,
-	 ldIR, ldADR, ldPC, ldDr,
-	 setOne, setZero,
-	 startDARU, startDAWU, loadSignedUnsignedBar, startMultiplyAAU, startDivideAAU, signedSigned, signedUnsigned, unsignedUnsigned, selAAL, selAAH    : OUT std_logic
+ 		clk : IN std_logic;
+ 		rst : IN std_logic;
+		completeDARU : IN std_logic;
+		completeDAWU : IN std_logic;
+		completeAAU : IN std_logic;
+		lt : IN std_logic;
+		eq : IN std_logic;
+		gt : IN std_logic;	 
+ 		IR  : IN std_logic_vector(len-1 DOWNTO 0);	 
+ 		muxCode  : OUT std_logic_vector(11 DOWNTO 0);
+ 		nBytes  : OUT std_logic_vector(1 DOWNTO 0);
+ 		selLogic  : OUT std_logic_vector(1 DOWNTO 0);
+ 		selShift  : OUT std_logic_vector(1 DOWNTO 0);
+ 		selPCJ : OUT std_logic;
+ 		selPC : OUT std_logic;
+ 		selADR : OUT std_logic;
+ 		selI4 : OUT std_logic;
+ 		selP1 : OUT std_logic;
+ 		selP2 : OUT std_logic;
+ 		selJL : OUT std_logic;
+ 		selImm : OUT std_logic;
+ 		selAdd : OUT std_logic;
+ 		selInc4PC : OUT std_logic;
+ 		selBSU : OUT std_logic;
+ 		selLLU : OUT std_logic;
+ 		selASU : OUT std_logic;
+ 		selAAU : OUT std_logic;
+ 		selDARU : OUT std_logic;
+		dataInstrBar : OUT std_logic;
+		writeRegFile : OUT std_logic;
+		addSubBar : OUT std_logic;
+		pass : OUT std_logic;
+		selAuipc : OUT std_logic;
+		comparedsignedunsignedbar : OUT std_logic;
+		ldIR : OUT std_logic;
+		ldADR : OUT std_logic;
+		ldPC : OUT std_logic;
+		ldDr : OUT std_logic;
+		setOne : OUT std_logic;
+		setZero : OUT std_logic;
+		startDARU : OUT std_logic;
+		startDAWU : OUT std_logic;
+		loadSignedUnsignedBar : OUT std_logic;
+		startMultiplyAAU : OUT std_logic;
+		startDivideAAU : OUT std_logic;
+		signedSigned : OUT std_logic;
+		signedUnsigned : OUT std_logic;
+		unsignedUnsigned : OUT std_logic;
+		selAAL : OUT std_logic;
+		selAAH : OUT std_logic
 
 	   );
 END maia_controller ;
@@ -100,7 +135,8 @@ BEGIN
 --	jTypeImm <= "101001001100";
 --	bTypeImm <= "010101010100";
 	
-	PROCESS (p_state, completeDARU, completeDAWU, completeAAU, opcode, func3, func7, lt, eq, gt  ) BEGIN
+	PROCESS (p_state, completeDARU, completeDAWU, completeAAU, opcode, func3, func7, lt, eq, gt  ) 
+	BEGIN
 		n_state <= fetch;	
 		j<='0'; i<='0';
 		CASE p_state IS
@@ -246,12 +282,47 @@ BEGIN
 	END PROCESS;   
 
     PROCESS (p_state, completeDARU, completeDAWU, completeAAU, opcode, func3, func7, lt, eq, gt ) BEGIN
-			selPCJ <= '0'; selPC <= '0'; selADR <= '0'; selI4 <= '0'; selP2 <= '0'; selJL <= '0'; selImm <= '0'; selAdd <= '0'; selInc4PC<= '0';  selBSU<= '0'; selLLU<= '0';  selASU<= '0';  selAAU<= '0'; selDARU<= '0'; 
-			dataInstrBar <= '0'; writeRegFile <= '0'; addSubBar<='0'; comparedsignedunsignedbar <= '0';
-			ldIR <= '0'; ldADR <= '0'; ldPC <= '0'; ldDr <= '0';
-			setOne <= '0'; setZero <= '0';
-			startDARU <= '0'; startDAWU <= '0'; startMultiplyAAU <= '0'; startDivideAAU <= '0'; signedSigned <= '0'; signedUnsigned <= '0'; unsignedUnsigned <= '0'; selAAL <= '0'; selAAH <= '0';
-			muxCode <= (OTHERS => '0'); nBytes <= "00"; selLogic <="00"; selShift <="00"; loadSignedUnsignedBar <= '0'; pass <= '0'; selAuipc <= '0'; selP1 <= '0';
+			selPCJ <= '0'; 
+			selPC <= '0'; 
+			selADR <= '0'; 
+			selI4 <= '0'; 
+			selP2 <= '0'; 
+			selJL <= '0'; 
+			selImm <= '0'; 
+			selAdd <= '0'; 
+			selInc4PC <= '0';  
+			selBSU <= '0'; 
+			selLLU <= '0';  
+			selASU <= '0';  
+			selAAU <= '0'; 
+			selDARU <= '0'; 
+			dataInstrBar <= '0'; 
+			writeRegFile <= '0'; 
+			addSubBar <='0'; 
+			comparedsignedunsignedbar <= '0';
+			ldIR <= '0'; 
+			ldADR <= '0'; 
+			ldPC <= '0'; 
+			ldDr <= '0';
+			setOne <= '0'; 
+			setZero <= '0';
+			startDARU <= '0'; 
+			startDAWU <= '0'; 
+			startMultiplyAAU <= '0'; 
+			startDivideAAU <= '0'; 
+			signedSigned <= '0'; 
+			signedUnsigned <= '0'; 
+			unsignedUnsigned <= '0'; 
+			selAAL <= '0'; 
+			selAAH <= '0';
+			muxCode <= (OTHERS => '0'); 
+			nBytes <= "00"; 
+			selLogic <= "00"; 
+			selShift <= "00"; 
+			loadSignedUnsignedBar <= '0'; 
+			pass <= '0'; 
+			selAuipc <= '0'; 
+			selP1 <= '0';
 			
 
 
@@ -490,12 +561,48 @@ BEGIN
 					 
 					
 						
-			WHEN OTHERS => 	selPCJ <= '0'; selPC <= '0'; selADR <= '0'; selI4 <= '0'; selP2 <= '0'; selJL <= '0'; selImm <= '0'; selAdd <= '0'; selInc4PC<= '0';  selBSU<= '0'; selLLU<= '0';  selASU<= '0';  selAAU<= '0'; selDARU<= '0'; 
-			dataInstrBar <= '0'; writeRegFile <= '0'; addSubBar<='0'; comparedsignedunsignedbar <= '0';
-			ldIR <= '0'; ldADR <= '0'; ldPC <= '0'; ldDr <= '0';
-			setOne <= '0'; setZero <= '0';
-			startDARU <= '0'; startDAWU <= '0'; startMultiplyAAU <= '0'; startDivideAAU <= '0'; signedSigned <= '0'; signedUnsigned <= '0'; unsignedUnsigned <= '0'; selAAL <= '0'; selAAH <= '0';
-			muxCode <= (OTHERS => '0'); nBytes <= "00"; selLogic <="00"; selShift <="00"; loadSignedUnsignedBar <= '0'; pass <= '0'; selAuipc <= '0'; selP1 <= '0';
+			WHEN OTHERS => 	
+					selPCJ <= '0'; 
+					selPC <= '0'; 
+					selADR <= '0'; 
+					selI4 <= '0'; 
+					selP2 <= '0'; 
+					selJL <= '0'; 
+					selImm <= '0'; 
+					selAdd <= '0'; 
+					selInc4PC <= '0';  
+					selBSU <= '0'; 
+					selLLU <= '0'; 
+					selASU <= '0'; 
+					selAAU <= '0'; 
+					selDARU<= '0'; 
+					dataInstrBar <= '0'; 
+					writeRegFile <= '0'; 
+					addSubBar <='0'; 
+					comparedsignedunsignedbar <= '0';
+					ldIR <= '0'; 
+					ldADR <= '0'; 
+					ldPC <= '0'; 
+					ldDr <= '0';
+					setOne <= '0'; 
+					setZero <= '0';
+					startDARU <= '0'; 
+					startDAWU <= '0'; 
+					startMultiplyAAU <= '0'; 
+					startDivideAAU <= '0'; 
+					signedSigned <= '0'; 
+					signedUnsigned <= '0'; 
+					unsignedUnsigned <= '0'; 
+					selAAL <= '0'; 
+					selAAH <= '0';
+					muxCode <= (OTHERS => '0'); 
+					nBytes <= "00"; 
+					selLogic <="00"; 
+					selShift <="00"; 
+					loadSignedUnsignedBar <= '0'; 
+					pass <= '0'; 
+					selAuipc <= '0'; 
+					selP1 <= '0';
 
 		END CASE;
 		END PROCESS;

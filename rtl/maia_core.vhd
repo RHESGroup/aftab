@@ -39,13 +39,15 @@ LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
 
 ENTITY maia_core IS
-GENERIC( len : INTEGER := 32);
-PORT (
-		clk, rst, memReady : IN std_logic;
-		memRead, memWrite : OUT std_logic;
+	GENERIC( len : INTEGER := 32);
+	PORT (
+		clk : IN std_logic;
+		rst : IN std_logic;
+		memReady : IN std_logic;
+		memRead : OUT std_logic;
+		memWrite : OUT std_logic;
 		memDataIN : IN std_logic_vector (7 DOWNTO 0);		
 		memDataOUT : OUT std_logic_vector (7 DOWNTO 0);
-
 		memAddr : OUT std_logic_vector (len-1 DOWNTO 0)
 		--memAddrDARU : OUT std_logic_vector (len-1 DOWNTO 0)
 		-- : IN std_logic; 
@@ -54,19 +56,60 @@ PORT (
 END ENTITY;
 --
 ARCHITECTURE procedural OF maia_core IS 
-SIGNAL selPCJ, selPC, selADR, selI4, selP2, selP1, selJL, selImm, selAdd, selI4PC, selInc4pc,selData, selBSU, selLLU, selDARU,selASU, selAAU, shr, shl, 
-		 dataInstrBar, writeRegFile, addSubBar, pass, selAuipc, comparedsignedunsignedbar,
-	    ldIR, ldADR, ldPC, ldDr,
-		 setOne, setZero,
-		 startDARU, startDAWU, completeDARU, completeDAWU, loadSignedUnsignedBar,
-		 startMultiplyAAU, startDivideAAU, completeAAU, signedSigned, signedUnsigned, unsignedUnsigned, selAAL,	selAAH, 
-		 eq, gt,lt,
-		 dataerror:std_logic;
-SIGNAL nBytes : std_logic_vector (1 DOWNTO 0);
-SIGNAL selLogic : std_logic_vector (1 DOWNTO 0);
-SIGNAL selShift : std_logic_vector (1 DOWNTO 0);
-SIGNAL muxCode : std_logic_vector (11 DOWNTO 0);
-SIGNAL IR : std_logic_vector (31 DOWNTO 0);
+	
+	SIGNAL selPCJ : std_logic;
+	SIGNAL selPC : std_logic;
+	SIGNAL selADR : std_logic;
+	SIGNAL selI4 : std_logic;
+	SIGNAL selP2 : std_logic;
+	SIGNAL selP1 : std_logic;
+	SIGNAL selJL : std_logic;
+	SIGNAL selImm : std_logic;
+	SIGNAL selAdd : std_logic;
+	SIGNAL selI4PC : std_logic;
+	SIGNAL selInc4pc : std_logic;
+	SIGNAL selData : std_logic;
+	SIGNAL selBSU : std_logic;
+	SIGNAL selLLU : std_logic;
+	SIGNAL selDARU : std_logic;
+	SIGNAL selASU : std_logic;
+	SIGNAL selAAU : std_logic;
+	SIGNAL shr : std_logic;
+	SIGNAL shl : std_logic;
+	SIGNAL dataInstrBar : std_logic;
+	SIGNAL writeRegFile : std_logic;
+	SIGNAL addSubBar : std_logic;
+	SIGNAL pass : std_logic;
+	SIGNAL selAuipc : std_logic;
+	SIGNAL comparedsignedunsignedbar : std_logic;
+	SIGNAL ldIR : std_logic;
+	SIGNAL ldADR : std_logic;
+	SIGNAL ldPC : std_logic;
+	SIGNAL ldDr : std_logic;
+	SIGNAL setOne : std_logic;
+	SIGNAL setZero : std_logic;
+	SIGNAL startDARU : std_logic;
+	SIGNAL startDAWU : std_logic;
+	SIGNAL completeDARU : std_logic;
+	SIGNAL completeDAWU : std_logic;
+	SIGNAL loadSignedUnsignedBar : std_logic;
+	SIGNAL startMultiplyAAU : std_logic;
+	SIGNAL startDivideAAU : std_logic;
+	SIGNAL completeAAU : std_logic;
+	SIGNAL signedSigned : std_logic;
+	SIGNAL signedUnsigned : std_logic;
+	SIGNAL unsignedUnsigned : std_logic;
+	SIGNAL selAAL : std_logic;
+	SIGNAL selAAH : std_logic;
+	SIGNAL eq : std_logic;
+	SIGNAL gt : std_logic;
+	SIGNAL lt : std_logic;
+	SIGNAL dataerror : std_logic;
+	SIGNAL nBytes : std_logic_vector (1 DOWNTO 0);
+	SIGNAL selLogic : std_logic_vector (1 DOWNTO 0);
+	SIGNAL selShift : std_logic_vector (1 DOWNTO 0);
+	SIGNAL muxCode : std_logic_vector (11 DOWNTO 0);
+	SIGNAL IR : std_logic_vector (31 DOWNTO 0);
 
 
 BEGIN

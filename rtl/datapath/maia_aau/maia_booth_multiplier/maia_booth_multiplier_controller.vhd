@@ -42,21 +42,31 @@ USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 ENTITY maia_booth_multiplier_controller IS
 	GENERIC (len : INTEGER := 33);
 	PORT (
-		clk, rst   : IN STD_LOGIC;
+		clk   : IN STD_LOGIC; 
+		rst   : IN STD_LOGIC;
 		startBooth : IN STD_LOGIC;	 
-		shrQ, ldQ, ldM, ldP, zeroP, sel, subSel : OUT STD_LOGIC;	 
+		shrQ : OUT STD_LOGIC;
+		ldQ : OUT STD_LOGIC;
+		ldM : OUT STD_LOGIC;
+		ldP : OUT STD_LOGIC;
+		zeroP : OUT STD_LOGIC;
+		sel : OUT STD_LOGIC;
+		subSel : OUT STD_LOGIC;	 
 		op    : IN STD_LOGIC_VECTOR (1 DOWNTO 0);
 		done  : OUT STD_LOGIC
 	);
 END ENTITY maia_booth_multiplier_controller ;
 
 ARCHITECTURE behavioral OF maia_booth_multiplier_controller IS 
+	
 	TYPE state IS (INIT, COUNT, SHIFT);
 	SIGNAL pstate, nstate : state;
 	SIGNAL cnt  : STD_LOGIC_VECTOR (5 DOWNTO 0);
 	SIGNAL temp : STD_LOGIC_VECTOR (6  DOWNTO 0);
 	SIGNAL co, cnt_en, cnt_rst  : STD_LOGIC;
+
 BEGIN
+
 	PROCESS (pstate, startBooth, co, op) BEGIN
 		nstate <= INIT;
 		CASE pstate IS
@@ -79,9 +89,18 @@ BEGIN
 		END CASE;
 	END PROCESS;   
 
-    PROCESS (pstate, startBooth, co, op ) BEGIN
-		ldM <= '0'; ldQ <= '0'; ldP <= '0'; zeroP <= '0'; shrQ <= '0'; 
-		sel <= '0'; subsel <= '0'; done <= '0'; cnt_rst <= '0'; cnt_en <= '0';
+    PROCESS (pstate, startBooth, co, op ) 
+    BEGIN
+		ldM <= '0'; 
+		ldQ <= '0'; 
+		ldP <= '0'; 
+		zeroP <= '0'; 
+		shrQ <= '0'; 
+		sel <= '0'; 
+		subsel <= '0'; 
+		done <= '0'; 
+		cnt_rst <= '0'; 
+		cnt_en <= '0';
 		CASE pstate IS
 			WHEN INIT => 
 				--done    <= '1';
@@ -101,8 +120,16 @@ BEGIN
                 sel <= '1'; 
 				END IF;
 			WHEN OTHERS =>
-				ldM <= '0'; ldQ <= '0'; ldP <= '0'; zeroP <= '0'; shrQ <= '0'; 
-		        sel <= '0'; subsel <= '0'; done <= '0'; cnt_rst <= '0'; cnt_en <= '0';
+				ldM <= '0'; 
+				ldQ <= '0'; 
+				ldP <= '0'; 
+				zeroP <= '0'; 
+				shrQ <= '0'; 
+				sel <= '0'; 
+				subsel <= '0'; 
+				done <= '0'; 
+				cnt_rst <= '0';
+				cnt_en <= '0';
 		END CASE;
 	END PROCESS;
 	  
@@ -131,5 +158,6 @@ BEGIN
 		END IF;
     END PROCESS counter; 
 	cnt <= temp (5 DOWNTO 0);
+	
 END ARCHITECTURE behavioral;
 		

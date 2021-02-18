@@ -42,10 +42,12 @@ USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 ENTITY maia_register IS
 	GENERIC ( len : INTEGER := 32);
 	PORT (
-		clk, rst   :  IN STD_LOGIC; 
-		zero, load : IN STD_LOGIC; 
-		inReg      : IN STD_LOGIC_VECTOR(len-1 DOWNTO 0); 
-		outReg     : OUT STD_LOGIC_VECTOR(len-1 DOWNTO 0)
+		clk     : IN STD_LOGIC; 
+		rst     : IN STD_LOGIC; 
+		zero    : IN STD_LOGIC;  
+		load 	: IN STD_LOGIC; 
+		inReg   : IN STD_LOGIC_VECTOR(len-1 DOWNTO 0); 
+		outReg  : OUT STD_LOGIC_VECTOR(len-1 DOWNTO 0)
 	);
 END ENTITY maia_register;
 

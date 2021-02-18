@@ -42,7 +42,8 @@ USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 ENTITY maia_multiplexer_div IS
 	GENERIC (len: INTEGER := 32);
 	PORT (
-		a, b : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
+		a : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
+		b : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
 		sel  : IN STD_LOGIC;
 	    W    : OUT STD_LOGIC_VECTOR (len-1 DOWNTO 0));
 END ENTITY maia_multiplexer_div;
