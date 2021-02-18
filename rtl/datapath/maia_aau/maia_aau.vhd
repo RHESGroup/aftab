@@ -31,7 +31,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Arithmetic unit of the TETRISC Maia core
+--	Attached arithmetic unit of the TETRISC Maia core
 --
 -- **************************************************************************************
 

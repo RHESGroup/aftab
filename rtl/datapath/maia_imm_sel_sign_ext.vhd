@@ -31,7 +31,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Immediate selector and sign extender for the TETRISC Maia core
+--	Immediate Selection and Sign Extension Unit (ISSEU) for the TETRISC Maia core
 --
 -- **************************************************************************************
 

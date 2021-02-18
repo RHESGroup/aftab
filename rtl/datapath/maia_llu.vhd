@@ -31,7 +31,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Bitwise logical unit of the TETRISC Maia core
+--	Logica Logic Unit (LLU) of the TETRISC Maia core
 --
 -- **************************************************************************************
 

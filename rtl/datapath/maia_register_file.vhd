@@ -31,7 +31,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Register file of the TETRISC Maia core
+--	Register File Unit (RFU) of the TETRISC Maia core
 --
 -- **************************************************************************************
 

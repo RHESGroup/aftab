@@ -31,7 +31,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Controller of the data read unit (DARU) of the TETRISC Maia core
+--	Controller of the Data Adjustment Read Unit (DARU) of the TETRISC Maia core
 --
 -- **************************************************************************************
 

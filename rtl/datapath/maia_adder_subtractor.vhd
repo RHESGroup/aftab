@@ -31,7 +31,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Generic adder/subtractor the TETRISC Maia core
+--	Adder/Subtractor Unit (ASU) of the TETRISC Maia core
 --
 -- **************************************************************************************
 

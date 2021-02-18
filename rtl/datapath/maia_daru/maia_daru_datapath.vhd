@@ -31,7 +31,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Datapath of the data read unit (DARU) of the TETRISC Maia core
+--	Datapath of the Data Adjustment Read Unit (DARU) of the TETRISC Maia core
 --
 -- **************************************************************************************
 

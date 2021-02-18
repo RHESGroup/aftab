@@ -31,7 +31,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Signed register for the data read unit (DARU) of the TETRISC Maia core
+--	Signed register for the Data Adjustment Read Unit (DARU) of the TETRISC Maia core
 --
 -- **************************************************************************************
 

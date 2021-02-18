@@ -31,7 +31,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Generic barrel shifter for the TETRISC Maia core
+--	Barrel Shifter Unit (BSU) for the TETRISC Maia core
 --
 -- **************************************************************************************
 

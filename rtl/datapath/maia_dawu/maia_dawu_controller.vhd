@@ -31,7 +31,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Controller of the data write unit (DAWU) of the TETRISC Maia core
+--	Controller of the Data Adjustment Write Unit (DAWU) of the TETRISC Maia core
 --
 -- **************************************************************************************
 
