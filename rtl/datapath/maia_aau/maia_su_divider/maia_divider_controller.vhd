@@ -62,7 +62,7 @@ ARCHITECTURE behavioral OF maia_divider_controller IS
 		:= STD_LOGIC_VECTOR (to_unsigned ((((2**lenCnt) - 1) - len), lenCnt));
  
     BEGIN
-    counter : ENTITY work.Counter1
+    counter : ENTITY work.maia_divider_counter
 				  GENERIC MAP ( len => lenCnt) 
 				  PORT MAP (clk =>clk, rst=>rst, zeroCnt=>zeroCnt, incCnt=>incCnt,
 					 initCnt=>initCnt, initValue=>initValue,

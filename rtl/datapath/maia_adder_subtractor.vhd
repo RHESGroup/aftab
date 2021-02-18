@@ -57,7 +57,7 @@ ARCHITECTURE behavioral OF maia_adder_subtractor IS
 	SIGNAL addSubResult: STD_LOGIC_VECTOR (len-1 DOWNTO 0);
 BEGIN
 	bSel <= NOT(b) WHEN (subsel = '1') ELSE b;
-	add : ENTITY WORK.Adder 
+	add : ENTITY WORK.maia_adder 
 			GENERIC MAP(N => len) 
 			PORT MAP( Cin => subSel, A => a, B => bSel,
 				addResult => addSubResult, carryOut => cout);
