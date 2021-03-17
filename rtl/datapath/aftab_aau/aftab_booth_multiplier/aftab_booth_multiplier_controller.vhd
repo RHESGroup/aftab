@@ -1,5 +1,5 @@
 -- **************************************************************************************
---	Filename:	aftab_booth_multiplier.vhd
+--	Filename:	aftab_booth_multiplier_controller.vhd
 --	Project:	CNL_RISC-V
 --      Engineer:
 --  Version:	1.0
@@ -32,65 +32,126 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Generic Booth multiplier for the AFTAB core
+--	Controller of the generic Booth multiplier for the AFTAB core
 --
 -- **************************************************************************************
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+USE IEEE.NUMERIC_STD.ALL;
 
-ENTITY aftab_booth_multiplier IS
-	GENERIC (len : INTEGER := 33);
+ENTITY aftab_booth_multiplier_controller IS
+	GENERIC (len : INTEGER := 33; lenCnt : INTEGER := 6);
 	PORT (
-		clk 	   : IN  STD_LOGIC;
-		rst        : IN  STD_LOGIC;
-		startBooth : IN  STD_LOGIC;
-		M          : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		Q          : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		P          : OUT STD_LOGIC_VECTOR (2 * len - 1 DOWNTO 0);
-		doneBooth  : OUT STD_LOGIC
+		clk            : IN  STD_LOGIC;
+		rst            : IN  STD_LOGIC;
+		startBooth     : IN  STD_LOGIC;
+		shrQ    	   : OUT STD_LOGIC;
+		ldQ 		   : OUT STD_LOGIC;
+		ldM 		   : OUT STD_LOGIC;
+		ldP			   : OUT STD_LOGIC;
+		zeroP 		   : OUT STD_LOGIC;
+		sel			   : OUT STD_LOGIC;
+		subSel         : OUT STD_LOGIC;
+		op             : IN  STD_LOGIC_VECTOR (1 DOWNTO 0);
+		done           : OUT STD_LOGIC
 	);
-END ENTITY aftab_booth_multiplier;
+END ENTITY aftab_booth_multiplier_controller;
 
-ARCHITECTURE behavioral OF aftab_booth_multiplier IS
-	SIGNAL op   	: STD_LOGIC_VECTOR (1 DOWNTO 0);
-	SIGNAL shrQ 	: STD_LOGIC;
-	SIGNAL ldQ 		: STD_LOGIC;
-	SIGNAL ldM 		: STD_LOGIC;
-	SIGNAL ldP 		: STD_LOGIC;
-	SIGNAL zeroP 	: STD_LOGIC;
-	SIGNAL sel 		: STD_LOGIC;
-	SIGNAL subSel 	: STD_LOGIC;
+ARCHITECTURE behavioral OF aftab_booth_multiplier_controller IS
+	TYPE state IS (INIT, COUNT, SHIFT);
+	SIGNAL pstate, nstate : state;
+	SIGNAL cnt	 	: STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0);
+	SIGNAL temp 	: STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0);
+	SIGNAL co 		: STD_LOGIC;
+	SIGNAL cnt_en 	: STD_LOGIC;
+	SIGNAL cnt_rst 	: STD_LOGIC;
+	SIGNAL initCnt 	: STD_LOGIC;
+	CONSTANT initValue : STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0) := STD_LOGIC_VECTOR (to_unsigned (((2 ** (lenCnt - 1)) - 2), lenCnt));
 BEGIN
-	Datapath :	 ENTITY WORK.aftab_booth_multiplier_datapath
-					GENERIC MAP(len => len)
-					PORT MAP(
-						clk => clk, 
-						rst => rst, 
-						shrQ => shrQ, 
-						ldQ => ldQ, 
-						ldM => ldM,
-						ldp => ldp, 
-						zeroP => zeroP, 
-						sel => sel,
-						subsel => subsel, 
-						M => M, 
-						Q => Q, 
-						P => P, 
-						op => op);
-						
-	Controller : ENTITY WORK.aftab_booth_multiplier_controller
-					GENERIC MAP(len => len)
-					PORT MAP(
-						clk => clk, 
-						rst => rst,
-						startBooth => startBooth,
-						shrQ => shrQ, 
-						ldQ => ldQ, 
-						ldM => ldM,
-						ldP => ldP, 
-						zeroP => zeroP, 
-						sel => sel,
-						subSel => subSel,
-						op => op, 
-						done => doneBooth);
+	PROCESS (pstate, startBooth, co, op) BEGIN
+		nstate <= INIT;
+		CASE pstate IS
+			WHEN INIT =>
+				IF (startBooth = '1') THEN
+					nstate <= COUNT;
+				ELSE
+					nstate <= INIT;
+				END IF;
+			WHEN COUNT =>
+				IF (co = '0') THEN
+					nstate <= SHIFT;
+				ELSE
+					nstate <= INIT;
+				END IF;
+			WHEN SHIFT =>
+				nstate <= COUNT;
+			WHEN OTHERS =>
+				nstate <= INIT;
+		END CASE;
+	END PROCESS;
+	PROCESS (pstate, startBooth, co, op) BEGIN
+		ldM <= '0'; 
+		ldQ <= '0'; 
+		ldP <= '0'; 
+		zeroP <= '0'; 
+		shrQ <= '0';
+		sel <= '0'; 
+		subsel <= '0'; 
+		done <= '0'; 
+		cnt_rst <= '0'; 
+		initCnt <= '0'; 
+		cnt_en <= '0';
+		CASE pstate IS
+			WHEN INIT =>
+				ldQ <= startBooth;
+				zeroP <= startBooth;
+				ldM <= '1';
+				initCnt <= '1';
+			WHEN COUNT =>
+				cnt_en <= '1';
+				done <= co;
+			WHEN SHIFT =>
+				shrQ <= '1';
+				ldP <= '1';
+				IF (op = "10") THEN
+					subsel <= '1';
+					sel <= '1';
+				ELSIF (op = "01") THEN
+					sel <= '1';
+				END IF;
+			WHEN OTHERS =>
+				ldM <= '0'; 
+				ldQ <= '0'; 
+				ldP <= '0'; 
+				zeroP <= '0'; 
+				shrQ <= '0';
+				sel <= '0'; 
+				subsel <= '0';
+				done <= '0'; 
+				cnt_rst <= '0';
+				initCnt <= '0'; 
+				cnt_en <= '0';
+		END CASE;
+	END PROCESS;
+	sequential : PROCESS (clk) BEGIN
+		IF (clk = '1' AND clk'EVENT) THEN
+			IF rst = '1' THEN
+				pstate <= INIT;
+			ELSE
+				pstate <= nstate;
+			END IF;
+		END IF;
+	END PROCESS sequential;
+	counter : ENTITY work.aftab_counter
+				GENERIC MAP(len => lenCnt)
+				PORT MAP(
+					clk => clk, 
+					rst => rst, 
+					zeroCnt => cnt_rst,
+					incCnt => cnt_en, 
+					initCnt => initCnt, 
+					initValue => initValue,
+					outCnt => cnt, 
+					coCnt => co);
 END ARCHITECTURE behavioral;
