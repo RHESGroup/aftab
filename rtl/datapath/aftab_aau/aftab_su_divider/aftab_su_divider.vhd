@@ -1,6 +1,7 @@
 -- **************************************************************************************
 --	Filename:	aftab_su_divider.vhd
 --	Project:	CNL_RISC-V 
+--      Engineer:
 --  Version:	1.0
 --	History:	
 --	Date:		16 February 2021
@@ -41,15 +42,15 @@ USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY aftab_su_divider IS
 	GENERIC (len : INTEGER := 32);
 	PORT (
-		clk  : IN STD_LOGIC;
-		rst  : IN STD_LOGIC;
-		startSDiv : IN STD_LOGIC;
+		clk  			  : IN STD_LOGIC;
+		rst  			  : IN STD_LOGIC;
+		startSDiv 		  : IN STD_LOGIC;
 		SignedUnsignedbar : IN STD_LOGIC;
-		dividend : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
-		divisor : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
-		doneSDiv : OUT STD_LOGIC;
-		Qout   : OUT STD_LOGIC_VECTOR (len-1 DOWNTO 0);
-		Remout : OUT STD_LOGIC_VECTOR (len-1 DOWNTO 0)
+		dividend 		  : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
+		divisor 		  : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
+		doneSDiv 		  : OUT STD_LOGIC;
+		Qout   			  : OUT STD_LOGIC_VECTOR (len-1 DOWNTO 0);
+		Remout            : OUT STD_LOGIC_VECTOR (len-1 DOWNTO 0)
 	);
 END ENTITY aftab_su_divider;
 
@@ -57,11 +58,11 @@ ARCHITECTURE behavioral OF aftab_su_divider IS
 	SIGNAL Remp : STD_LOGIC_VECTOR (len DOWNTO 0);
 	SIGNAL ddIn : STD_LOGIC_VECTOR (len-1 DOWNTO 0);
 	SIGNAL drIn : STD_LOGIC_VECTOR (len-1 DOWNTO 0);
-	SIGNAL Qp : STD_LOGIC_VECTOR (len-1 DOWNTO 0);
+	SIGNAL Qp   : STD_LOGIC_VECTOR (len-1 DOWNTO 0);
 	SIGNAL endd : STD_LOGIC;
 	SIGNAL endr : STD_LOGIC;
-	SIGNAL enQ : STD_LOGIC;
-	SIGNAL enR : STD_LOGIC;
+	SIGNAL enQ  : STD_LOGIC;
+	SIGNAL enR  : STD_LOGIC;
 BEGIN
 	
 	endd <= dividend (len-1) AND SignedUnsignedbar;
@@ -71,36 +72,43 @@ BEGIN
 	
 	TCLdividend : ENTITY work.aftab_tcl
 					  GENERIC MAP (len => len)
-					  PORT MAP (aIn => dividend, 
-					  			en => endd, 
-					  			aOut => ddIn);
+					  PORT MAP (
+						aIn => dividend, 
+						en => endd, 
+						aOut => ddIn);
 	
 	TCLdivisor  : ENTITY work.aftab_tcl
 					  GENERIC MAP (len => len)
-					  PORT MAP (aIn => divisor, 
-					  			en => endr, 
-					  			aOut => drIn);
+					  PORT MAP (
+						aIn => divisor, 
+						en => endr, 
+						aOut => drIn);
 
-	unsignedDiv : ENTITY work.aftab_divider
+	unsignedDiv : ENTITY work.aftab_divider 
 					GENERIC MAP (len => len) 
-					PORT MAP ( clk => clk, 
-								rst => rst, 
-								startDiv => startSDiv,
-								doneDiv => doneSDiv, 
-								dividend => ddIn, 
-								divisor => drIn,
-								Q => Qp, Remainder => Remp);
+					PORT MAP ( 
+						clk => clk, 
+						rst => rst, 
+						startDiv => startSDiv,
+						doneDiv => doneSDiv, 
+						dividend => ddIn, 
+						divisor => drIn,
+						Q => Qp, 
+						Remainder => Remp);
 	
 	TCLQ : ENTITY work.aftab_tcl
 			   GENERIC MAP (len => len)
-			   PORT MAP (aIn => Qp, 
-			   			en => enQ, 
-			   			aOut => Qout);
+			   PORT MAP (
+				aIn => Qp, 
+				en => enQ, 
+				aOut => Qout);
 	
 	TCLRem : ENTITY work.aftab_tcl
 				GENERIC MAP (len => len)
-				PORT MAP (aIn => Remp (len-1 DOWNTO 0), 
-							en => enR, 
-							aOut => Remout);												
+				PORT MAP (
+					aIn => Remp (len-1 DOWNTO 0), 
+					en => enR, 
+					aOut => Remout);												
                                                                   
 END ARCHITECTURE behavioral;
+	
