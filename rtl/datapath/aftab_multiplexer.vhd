@@ -1,6 +1,7 @@
 -- **************************************************************************************
 --	Filename:	aftab_multiplexer.vhd
 --	Project:	CNL_RISC-V 
+--      Engineer:
 --  Version:	1.0
 --	History:	
 --	Date:		16 February 2021
@@ -42,7 +43,7 @@ ENTITY aftab_multiplexer IS
 	GENERIC ( len : INTEGER := 32);
 	PORT (
 		a    : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
-		b 	 : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
+		b    : IN STD_LOGIC_VECTOR (len-1 DOWNTO 0);
 		s0   : IN STD_LOGIC; 
 		s1   : IN STD_LOGIC; 
 		w    : OUT STD_LOGIC_VECTOR (len-1 DOWNTO 0)
