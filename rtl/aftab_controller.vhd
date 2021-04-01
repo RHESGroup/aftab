@@ -388,6 +388,7 @@ BEGIN
 				writeRegFile <= '1';
 				selJL <= '1';
 				ldPC <= '1';
+				selP1 <= '1';
 				selAdd <= '1';
 				--conditionalBranch
 			WHEN conditionalBranch =>
