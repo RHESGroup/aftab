@@ -35,46 +35,55 @@
 --	Generic shift register for the AFTAB core
 --
 -- **************************************************************************************
-LIBRARY IEEE;
-USE IEEE.std_logic_1164.ALL;
-USE IEEE.std_logic_UNSIGNED.ALL;
-ENTITY aftab_shift_register IS
-	GENERIC (len : INTEGER := 32);
-	PORT (
-		clk     : IN  STD_LOGIC;
-		rst     : IN  STD_LOGIC;
-		inReg   : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		shiftR 	: IN  STD_LOGIC;
-		shiftL 	: IN  STD_LOGIC;
-		load  	: IN  STD_LOGIC;
-		zero 	: IN  STD_LOGIC;
-		serIn   : IN  STD_LOGIC;
-		serOut  : OUT STD_LOGIC;
-		outReg  : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0));
-END ENTITY aftab_shift_register;
-ARCHITECTURE behavioral OF aftab_shift_register IS
-BEGIN
-	PROCESS (clk, rst)
-		VARIABLE outReg_t : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		VARIABLE serOutp : STD_LOGIC;
-	BEGIN
-		IF (rst = '1') THEN
-			outReg_t := (OTHERS => '0');
-			serOutp := '0';
-		ELSIF (clk = '1' AND clk'event) THEN
-			IF zero = '1' THEN
-				outReg_t := (OTHERS => '0');
-			ELSIF load = '1' THEN
-				outReg_t := inReg;
-			ELSIF shiftL = '1' THEN
-				serOutp := outReg_t (len - 1);
-				outReg_t := outReg_t (len - 2 DOWNTO 0) & serIn;
-			ELSIF shiftR = '1' THEN
-				serOutp := outReg_t (0);
-				outReg_t := serIn & outReg_t (len - 1 DOWNTO 1);
-			END IF;
-		END IF;
-		outReg <= outReg_t;
-		serOut <= serOutp;
-	END PROCESS;
-END ARCHITECTURE behavioral;
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.std_logic_unsigned.all;
+use IEEE.numeric_std.all;
+use IEEE.math_real.all;
+use WORK.all;
+
+entity aftab_register_file is
+ generic (len: integer := 32);
+ port ( clk: 		IN std_logic;
+        rst: 	    IN std_logic;
+		setZero:     IN std_logic;
+	    setOne:      IN std_logic;
+		rd: 	IN std_logic_vector(integer(log2(real(len)))-1 downto 0);  
+		rs1: 	IN std_logic_vector(integer(log2(real(len)))-1 downto 0);
+		rs2: 	IN std_logic_vector(integer(log2(real(len)))-1 downto 0);
+		writedata: 	IN std_logic_vector(len-1 downto 0);
+		writeRegFile: 	IN std_logic;
+        p1: 		OUT std_logic_vector(len-1 downto 0);
+		p2: 		OUT std_logic_vector(len-1 downto 0));
+end aftab_register_file;
+
+architecture A of aftab_register_file is
+
+    -- suggested structures
+    subtype REG_ADDR is natural range 0 to len-1; -- using natural type
+	type REG_ARRAY is array(REG_ADDR) of std_logic_vector(len-1 downto 0); 
+	signal REGISTERS : REG_ARRAY; 
+		
+begin 
+
+RegProc: process(CLK)
+begin 
+	if CLK = '1' and CLK'EVENT then
+		if rst = '1' then 
+			REGISTERS <= (others => (others => '0'));
+		else 
+				   p1 <= Registers(to_integer(unsigned(rs1)));
+				   p2 <= Registers(to_integer(unsigned(rs2)));
+				if writeRegFile = '1' then 
+					if setZero = '1' then 
+						Registers(to_integer(unsigned(rd))) <= ((others => '0') ); 
+					elsif setOne= '1' then 
+						Registers(to_integer(unsigned(rd))) <= ((others => '1') ); 
+					else 
+					    Registers(to_integer(unsigned(rd))) <= ((others => '1') ); 
+					end if;
+				end if;
+		end if; 
+	end if;
+end process RegProc;
+end A;
