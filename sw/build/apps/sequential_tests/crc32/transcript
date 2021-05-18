@@ -1,0 +1,24 @@
+# source tcl_files/run.tcl
+# vsim -quiet tb -L pulpino_lib -L axi_node_lib -L apb_node_lib -L axi_mem_if_DP_lib -L axi_spi_slave_lib -L axi_spi_master_lib -L apb_uart_sv_lib -L apb_gpio_lib -L apb_event_unit_lib -L apb_spi_master_lib -L fpu_lib -L apb_pulpino_lib -L apb_fll_if_lib -L core2axi_lib -L apb_timer_lib -L axi2apb_lib -L apb_i2c_lib -L zero_riscy_lib -L axi_slice_dc_lib -L riscv_lib -L apb_uart_lib -L axi_slice_lib -L adv_dbg_if_lib -L apb2per_lib "+nowarnTRAN" "+nowarnTSCALE" "+nowarnTFMPC" "+MEMLOAD=PRELOAD" -t ps -voptargs="+acc -suppress 2103" -dpicpppath /usr/bin/gcc -GTEST="" -gRISCY_RV32F=0 -gZERO_RV32E=0 -gZERO_RV32M=0 -gUSE_ZERO_RISCY=0 
+# Start time: 14:34:24 on Oct 22,2020
+# ** Warning: (vsim-8311) System Verilog assertions are supported only in Questasim.
+# ** Note: (vsim-7082) For C/C++ auto compile, choosing compiler /usr/bin/gcc set by the -dpicpppath switch.
+# ** Warning: (vsim-16074) No C/C++ auto compile object files are found for the current platform 'linuxaloem_gcc-7'.
+# However some C/C++ auto compile objects are found on the following platform(s):
+#     linuxaloem_gcc-4.7.4 
+# Please check whether you are missing the C/C++ auto compile step on the current platform.
+# 
+#    Time: 0 ps  Iteration: 0  Instance: /tb File: /media/sf_Shared/pulpino/vsim/..//tb/tb.sv
+# ** Warning: (vsim-3770) Failed to find user specified function 'mem_init' in DPI C/C++ source files.
+#    Time: 0 ps  Iteration: 0  Instance: /tb File: /media/sf_Shared/pulpino/vsim/..//tb/tb.sv
+# ** Warning: (vsim-3770) Failed to find user specified function 'mem_poll' in DPI C/C++ source files.
+#    Time: 0 ps  Iteration: 0  Instance: /tb File: /media/sf_Shared/pulpino/vsim/..//tb/tb.sv
+# ** Warning: (vsim-3770) Failed to find user specified function 'mem_push' in DPI C/C++ source files.
+#    Time: 0 ps  Iteration: 0  Instance: /tb File: /media/sf_Shared/pulpino/vsim/..//tb/tb.sv
+# ** Warning: (vsim-3770) Failed to find user specified function 'mem_push' in DPI C/C++ source files.
+#    Time: 0 ps  Iteration: 0  Instance: /tb File: /media/sf_Shared/pulpino/vsim/..//tb/tb.sv
+# ** Warning: Design size of 20490 statements exceeds ModelSim-Intel FPGA Starter Edition recommended capacity.
+# Expect performance to be adversely affected.
+# 
+# End time: 14:34:32 on Oct 22,2020, Elapsed time: 0:00:08
+# Errors: 0, Warnings: 7

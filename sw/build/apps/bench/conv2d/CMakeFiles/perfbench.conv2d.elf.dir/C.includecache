@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../apps/bench/common.h
+stdint.h
+-
+stddef.h
+-
+string.h
+../apps/bench/string.h
+
+/home/user/Desktop/Thesis/mc2101/sw/apps/bench/conv2d/conv2d.c
+common.h
+/home/user/Desktop/Thesis/mc2101/sw/apps/bench/conv2d/common.h
+
+/home/user/Desktop/Thesis/mc2101/sw/apps/bench/conv2d/conv2d_test.c
+common.h
+/home/user/Desktop/Thesis/mc2101/sw/apps/bench/conv2d/common.h
+

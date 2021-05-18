@@ -1,0 +1,2 @@
+/opt/riscv/bin/riscv32-unknown-elf-ar qc libstring.a  CMakeFiles/string.dir/src/qprintf.c.o
+/opt/riscv/bin/riscv32-unknown-elf-ranlib libstring.a
