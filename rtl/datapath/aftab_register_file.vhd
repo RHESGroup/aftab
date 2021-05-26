@@ -80,7 +80,7 @@ begin
 					elsif setOne= '1' then 
 						Registers(to_integer(unsigned(rd))) <= ((others => '1') ); 
 					else 
-					    Registers(to_integer(unsigned(rd))) <= ((others => '1') ); 
+					    Registers(to_integer(unsigned(rd))) <= writedata; 
 					end if;
 				end if;
 		end if; 

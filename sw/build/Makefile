@@ -1500,6 +1500,318 @@ user_app0cpp.bin.cmd/fast:
 .PHONY : user_app0cpp.bin.cmd/fast
 
 #=============================================================================
+# Target rules for targets named test_add.kcg
+
+# Build rule for target.
+test_add.kcg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.kcg
+.PHONY : test_add.kcg
+
+# fast build rule for target.
+test_add.kcg/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.kcg.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.kcg.dir/build
+.PHONY : test_add.kcg/fast
+
+#=============================================================================
+# Target rules for targets named test_add
+
+# Build rule for target.
+test_add: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add
+.PHONY : test_add
+
+# fast build rule for target.
+test_add/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.dir/build
+.PHONY : test_add/fast
+
+#=============================================================================
+# Target rules for targets named test_add.fpga
+
+# Build rule for target.
+test_add.fpga: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.fpga
+.PHONY : test_add.fpga
+
+# fast build rule for target.
+test_add.fpga/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.fpga.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.fpga.dir/build
+.PHONY : test_add.fpga/fast
+
+#=============================================================================
+# Target rules for targets named test_add.sc.ps
+
+# Build rule for target.
+test_add.sc.ps: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.sc.ps
+.PHONY : test_add.sc.ps
+
+# fast build rule for target.
+test_add.sc.ps/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.sc.ps.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.sc.ps.dir/build
+.PHONY : test_add.sc.ps/fast
+
+#=============================================================================
+# Target rules for targets named test_add.vsim.boot.ps
+
+# Build rule for target.
+test_add.vsim.boot.ps: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.vsim.boot.ps
+.PHONY : test_add.vsim.boot.ps
+
+# fast build rule for target.
+test_add.vsim.boot.ps/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.vsim.boot.ps.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.vsim.boot.ps.dir/build
+.PHONY : test_add.vsim.boot.ps/fast
+
+#=============================================================================
+# Target rules for targets named test_add.power
+
+# Build rule for target.
+test_add.power: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.power
+.PHONY : test_add.power
+
+# fast build rule for target.
+test_add.power/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.power.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.power.dir/build
+.PHONY : test_add.power/fast
+
+#=============================================================================
+# Target rules for targets named test_add.powerc
+
+# Build rule for target.
+test_add.powerc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.powerc
+.PHONY : test_add.powerc
+
+# fast build rule for target.
+test_add.powerc/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.powerc.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.powerc.dir/build
+.PHONY : test_add.powerc/fast
+
+#=============================================================================
+# Target rules for targets named test_add.sc.pl
+
+# Build rule for target.
+test_add.sc.pl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.sc.pl
+.PHONY : test_add.sc.pl
+
+# fast build rule for target.
+test_add.sc.pl/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.sc.pl.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.sc.pl.dir/build
+.PHONY : test_add.sc.pl/fast
+
+#=============================================================================
+# Target rules for targets named test_add.vsim.boot.pl
+
+# Build rule for target.
+test_add.vsim.boot.pl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.vsim.boot.pl
+.PHONY : test_add.vsim.boot.pl
+
+# fast build rule for target.
+test_add.vsim.boot.pl/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.vsim.boot.pl.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.vsim.boot.pl.dir/build
+.PHONY : test_add.vsim.boot.pl/fast
+
+#=============================================================================
+# Target rules for targets named test_add.vsim.spi.pl
+
+# Build rule for target.
+test_add.vsim.spi.pl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.vsim.spi.pl
+.PHONY : test_add.vsim.spi.pl
+
+# fast build rule for target.
+test_add.vsim.spi.pl/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.vsim.spi.pl.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.vsim.spi.pl.dir/build
+.PHONY : test_add.vsim.spi.pl/fast
+
+#=============================================================================
+# Target rules for targets named test_add.read
+
+# Build rule for target.
+test_add.read: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.read
+.PHONY : test_add.read
+
+# fast build rule for target.
+test_add.read/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.read.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.read.dir/build
+.PHONY : test_add.read/fast
+
+#=============================================================================
+# Target rules for targets named test_add.links
+
+# Build rule for target.
+test_add.links: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.links
+.PHONY : test_add.links
+
+# fast build rule for target.
+test_add.links/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.links.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.links.dir/build
+.PHONY : test_add.links/fast
+
+#=============================================================================
+# Target rules for targets named test_add.vsimc
+
+# Build rule for target.
+test_add.vsimc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.vsimc
+.PHONY : test_add.vsimc
+
+# fast build rule for target.
+test_add.vsimc/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.vsimc.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.vsimc.dir/build
+.PHONY : test_add.vsimc/fast
+
+#=============================================================================
+# Target rules for targets named test_add.vsimc.spi.pl
+
+# Build rule for target.
+test_add.vsimc.spi.pl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.vsimc.spi.pl
+.PHONY : test_add.vsimc.spi.pl
+
+# fast build rule for target.
+test_add.vsimc.spi.pl/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.vsimc.spi.pl.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.vsimc.spi.pl.dir/build
+.PHONY : test_add.vsimc.spi.pl/fast
+
+#=============================================================================
+# Target rules for targets named test_add.s19.cmd
+
+# Build rule for target.
+test_add.s19.cmd: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.s19.cmd
+.PHONY : test_add.s19.cmd
+
+# fast build rule for target.
+test_add.s19.cmd/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.s19.cmd.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.s19.cmd.dir/build
+.PHONY : test_add.s19.cmd/fast
+
+#=============================================================================
+# Target rules for targets named test_add.bin.cmd
+
+# Build rule for target.
+test_add.bin.cmd: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.bin.cmd
+.PHONY : test_add.bin.cmd
+
+# fast build rule for target.
+test_add.bin.cmd/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.bin.cmd.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.bin.cmd.dir/build
+.PHONY : test_add.bin.cmd/fast
+
+#=============================================================================
+# Target rules for targets named test_add.vsim
+
+# Build rule for target.
+test_add.vsim: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.vsim
+.PHONY : test_add.vsim
+
+# fast build rule for target.
+test_add.vsim/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.vsim.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.vsim.dir/build
+.PHONY : test_add.vsim/fast
+
+#=============================================================================
+# Target rules for targets named test_add.stim.txt
+
+# Build rule for target.
+test_add.stim.txt: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.stim.txt
+.PHONY : test_add.stim.txt
+
+# fast build rule for target.
+test_add.stim.txt/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.stim.txt.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.stim.txt.dir/build
+.PHONY : test_add.stim.txt/fast
+
+#=============================================================================
+# Target rules for targets named test_add.elf
+
+# Build rule for target.
+test_add.elf: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.elf
+.PHONY : test_add.elf
+
+# fast build rule for target.
+test_add.elf/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.elf.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.elf.dir/build
+.PHONY : test_add.elf/fast
+
+#=============================================================================
+# Target rules for targets named test_add.annotate
+
+# Build rule for target.
+test_add.annotate: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.annotate
+.PHONY : test_add.annotate
+
+# fast build rule for target.
+test_add.annotate/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.annotate.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.annotate.dir/build
+.PHONY : test_add.annotate/fast
+
+#=============================================================================
+# Target rules for targets named test_add.vsim.spi.ps
+
+# Build rule for target.
+test_add.vsim.spi.ps: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.vsim.spi.ps
+.PHONY : test_add.vsim.spi.ps
+
+# fast build rule for target.
+test_add.vsim.spi.ps/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.vsim.spi.ps.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.vsim.spi.ps.dir/build
+.PHONY : test_add.vsim.spi.ps/fast
+
+#=============================================================================
+# Target rules for targets named test_add.vsim.spi
+
+# Build rule for target.
+test_add.vsim.spi: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.vsim.spi
+.PHONY : test_add.vsim.spi
+
+# fast build rule for target.
+test_add.vsim.spi/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.vsim.spi.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.vsim.spi.dir/build
+.PHONY : test_add.vsim.spi/fast
+
+#=============================================================================
+# Target rules for targets named test_add.slm.cmd
+
+# Build rule for target.
+test_add.slm.cmd: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.slm.cmd
+.PHONY : test_add.slm.cmd
+
+# fast build rule for target.
+test_add.slm.cmd/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.slm.cmd.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.slm.cmd.dir/build
+.PHONY : test_add.slm.cmd/fast
+
+#=============================================================================
+# Target rules for targets named test_add.vsim.boot
+
+# Build rule for target.
+test_add.vsim.boot: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_add.vsim.boot
+.PHONY : test_add.vsim.boot
+
+# fast build rule for target.
+test_add.vsim.boot/fast:
+	$(MAKE) -f apps/user_apps/test_add/CMakeFiles/test_add.vsim.boot.dir/build.make apps/user_apps/test_add/CMakeFiles/test_add.vsim.boot.dir/build
+.PHONY : test_add.vsim.boot/fast
+
+#=============================================================================
 # Target rules for targets named perfbench.extras
 
 # Build rule for target.
@@ -15716,6 +16028,30 @@ help:
 	@echo "... user_app0cpp.annotate"
 	@echo "... user_app0cpp.vsim"
 	@echo "... user_app0cpp.bin.cmd"
+	@echo "... test_add.kcg"
+	@echo "... test_add"
+	@echo "... test_add.fpga"
+	@echo "... test_add.sc.ps"
+	@echo "... test_add.vsim.boot.ps"
+	@echo "... test_add.power"
+	@echo "... test_add.powerc"
+	@echo "... test_add.sc.pl"
+	@echo "... test_add.vsim.boot.pl"
+	@echo "... test_add.vsim.spi.pl"
+	@echo "... test_add.read"
+	@echo "... test_add.links"
+	@echo "... test_add.vsimc"
+	@echo "... test_add.vsimc.spi.pl"
+	@echo "... test_add.s19.cmd"
+	@echo "... test_add.bin.cmd"
+	@echo "... test_add.vsim"
+	@echo "... test_add.stim.txt"
+	@echo "... test_add.elf"
+	@echo "... test_add.annotate"
+	@echo "... test_add.vsim.spi.ps"
+	@echo "... test_add.vsim.spi"
+	@echo "... test_add.slm.cmd"
+	@echo "... test_add.vsim.boot"
 	@echo "... perfbench.extras"
 	@echo "... perfbench.core"
 	@echo "... perfbench.conv2d.kcg"

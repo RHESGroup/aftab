@@ -1,1 +1,2 @@
 add_subdirectory(user_app0)
+add_subdirectory(test_add)

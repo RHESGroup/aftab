@@ -35,6 +35,7 @@ endif()
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/user/Desktop/Thesis/aftab/sw/build/apps/user_apps/user_app0/cmake_install.cmake")
+  include("/home/user/Desktop/Thesis/aftab/sw/build/apps/user_apps/test_add/cmake_install.cmake")
 
 endif()
 

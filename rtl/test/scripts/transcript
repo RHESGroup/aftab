@@ -1,0 +1,7 @@
+# vsim ../../../work.tb_aftab­ 
+# Start time: 19:47:56 on May 26,2021
+# ** Error (suppressible): (vsim-19) Failed to access library 'work' at "work".
+# No such file or directory. (errno = ENOENT)
+# Error loading design
+# End time: 19:47:56 on May 26,2021, Elapsed time: 0:00:00
+# Errors: 1, Warnings: 0
