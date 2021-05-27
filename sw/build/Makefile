@@ -1812,6 +1812,318 @@ test_add.vsim.boot/fast:
 .PHONY : test_add.vsim.boot/fast
 
 #=============================================================================
+# Target rules for targets named test_asm.fpga
+
+# Build rule for target.
+test_asm.fpga: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.fpga
+.PHONY : test_asm.fpga
+
+# fast build rule for target.
+test_asm.fpga/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.fpga.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.fpga.dir/build
+.PHONY : test_asm.fpga/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.vsim.boot.ps
+
+# Build rule for target.
+test_asm.vsim.boot.ps: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.vsim.boot.ps
+.PHONY : test_asm.vsim.boot.ps
+
+# fast build rule for target.
+test_asm.vsim.boot.ps/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.boot.ps.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.boot.ps.dir/build
+.PHONY : test_asm.vsim.boot.ps/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.powerc
+
+# Build rule for target.
+test_asm.powerc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.powerc
+.PHONY : test_asm.powerc
+
+# fast build rule for target.
+test_asm.powerc/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.powerc.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.powerc.dir/build
+.PHONY : test_asm.powerc/fast
+
+#=============================================================================
+# Target rules for targets named test_asm
+
+# Build rule for target.
+test_asm: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm
+.PHONY : test_asm
+
+# fast build rule for target.
+test_asm/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.dir/build
+.PHONY : test_asm/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.sc.pl
+
+# Build rule for target.
+test_asm.sc.pl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.sc.pl
+.PHONY : test_asm.sc.pl
+
+# fast build rule for target.
+test_asm.sc.pl/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.sc.pl.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.sc.pl.dir/build
+.PHONY : test_asm.sc.pl/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.vsimc.spi.pl
+
+# Build rule for target.
+test_asm.vsimc.spi.pl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.vsimc.spi.pl
+.PHONY : test_asm.vsimc.spi.pl
+
+# fast build rule for target.
+test_asm.vsimc.spi.pl/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.vsimc.spi.pl.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.vsimc.spi.pl.dir/build
+.PHONY : test_asm.vsimc.spi.pl/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.elf
+
+# Build rule for target.
+test_asm.elf: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.elf
+.PHONY : test_asm.elf
+
+# fast build rule for target.
+test_asm.elf/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.elf.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.elf.dir/build
+.PHONY : test_asm.elf/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.sc.ps
+
+# Build rule for target.
+test_asm.sc.ps: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.sc.ps
+.PHONY : test_asm.sc.ps
+
+# fast build rule for target.
+test_asm.sc.ps/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.sc.ps.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.sc.ps.dir/build
+.PHONY : test_asm.sc.ps/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.read
+
+# Build rule for target.
+test_asm.read: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.read
+.PHONY : test_asm.read
+
+# fast build rule for target.
+test_asm.read/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.read.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.read.dir/build
+.PHONY : test_asm.read/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.s19.cmd
+
+# Build rule for target.
+test_asm.s19.cmd: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.s19.cmd
+.PHONY : test_asm.s19.cmd
+
+# fast build rule for target.
+test_asm.s19.cmd/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.s19.cmd.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.s19.cmd.dir/build
+.PHONY : test_asm.s19.cmd/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.power
+
+# Build rule for target.
+test_asm.power: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.power
+.PHONY : test_asm.power
+
+# fast build rule for target.
+test_asm.power/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.power.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.power.dir/build
+.PHONY : test_asm.power/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.vsim.spi.pl
+
+# Build rule for target.
+test_asm.vsim.spi.pl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.vsim.spi.pl
+.PHONY : test_asm.vsim.spi.pl
+
+# fast build rule for target.
+test_asm.vsim.spi.pl/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.spi.pl.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.spi.pl.dir/build
+.PHONY : test_asm.vsim.spi.pl/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.stim.txt
+
+# Build rule for target.
+test_asm.stim.txt: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.stim.txt
+.PHONY : test_asm.stim.txt
+
+# fast build rule for target.
+test_asm.stim.txt/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.stim.txt.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.stim.txt.dir/build
+.PHONY : test_asm.stim.txt/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.bin.cmd
+
+# Build rule for target.
+test_asm.bin.cmd: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.bin.cmd
+.PHONY : test_asm.bin.cmd
+
+# fast build rule for target.
+test_asm.bin.cmd/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.bin.cmd.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.bin.cmd.dir/build
+.PHONY : test_asm.bin.cmd/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.links
+
+# Build rule for target.
+test_asm.links: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.links
+.PHONY : test_asm.links
+
+# fast build rule for target.
+test_asm.links/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.links.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.links.dir/build
+.PHONY : test_asm.links/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.vsim
+
+# Build rule for target.
+test_asm.vsim: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.vsim
+.PHONY : test_asm.vsim
+
+# fast build rule for target.
+test_asm.vsim/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.dir/build
+.PHONY : test_asm.vsim/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.slm.cmd
+
+# Build rule for target.
+test_asm.slm.cmd: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.slm.cmd
+.PHONY : test_asm.slm.cmd
+
+# fast build rule for target.
+test_asm.slm.cmd/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.slm.cmd.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.slm.cmd.dir/build
+.PHONY : test_asm.slm.cmd/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.vsim.boot.pl
+
+# Build rule for target.
+test_asm.vsim.boot.pl: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.vsim.boot.pl
+.PHONY : test_asm.vsim.boot.pl
+
+# fast build rule for target.
+test_asm.vsim.boot.pl/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.boot.pl.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.boot.pl.dir/build
+.PHONY : test_asm.vsim.boot.pl/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.vsimc
+
+# Build rule for target.
+test_asm.vsimc: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.vsimc
+.PHONY : test_asm.vsimc
+
+# fast build rule for target.
+test_asm.vsimc/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.vsimc.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.vsimc.dir/build
+.PHONY : test_asm.vsimc/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.vsim.spi
+
+# Build rule for target.
+test_asm.vsim.spi: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.vsim.spi
+.PHONY : test_asm.vsim.spi
+
+# fast build rule for target.
+test_asm.vsim.spi/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.spi.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.spi.dir/build
+.PHONY : test_asm.vsim.spi/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.kcg
+
+# Build rule for target.
+test_asm.kcg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.kcg
+.PHONY : test_asm.kcg
+
+# fast build rule for target.
+test_asm.kcg/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.kcg.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.kcg.dir/build
+.PHONY : test_asm.kcg/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.annotate
+
+# Build rule for target.
+test_asm.annotate: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.annotate
+.PHONY : test_asm.annotate
+
+# fast build rule for target.
+test_asm.annotate/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.annotate.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.annotate.dir/build
+.PHONY : test_asm.annotate/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.vsim.boot
+
+# Build rule for target.
+test_asm.vsim.boot: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.vsim.boot
+.PHONY : test_asm.vsim.boot
+
+# fast build rule for target.
+test_asm.vsim.boot/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.boot.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.boot.dir/build
+.PHONY : test_asm.vsim.boot/fast
+
+#=============================================================================
+# Target rules for targets named test_asm.vsim.spi.ps
+
+# Build rule for target.
+test_asm.vsim.spi.ps: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_asm.vsim.spi.ps
+.PHONY : test_asm.vsim.spi.ps
+
+# fast build rule for target.
+test_asm.vsim.spi.ps/fast:
+	$(MAKE) -f apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.spi.ps.dir/build.make apps/user_apps/test_asm/CMakeFiles/test_asm.vsim.spi.ps.dir/build
+.PHONY : test_asm.vsim.spi.ps/fast
+
+#=============================================================================
 # Target rules for targets named perfbench.extras
 
 # Build rule for target.
@@ -16052,6 +16364,30 @@ help:
 	@echo "... test_add.vsim.spi"
 	@echo "... test_add.slm.cmd"
 	@echo "... test_add.vsim.boot"
+	@echo "... test_asm.fpga"
+	@echo "... test_asm.vsim.boot.ps"
+	@echo "... test_asm.powerc"
+	@echo "... test_asm"
+	@echo "... test_asm.sc.pl"
+	@echo "... test_asm.vsimc.spi.pl"
+	@echo "... test_asm.elf"
+	@echo "... test_asm.sc.ps"
+	@echo "... test_asm.read"
+	@echo "... test_asm.s19.cmd"
+	@echo "... test_asm.power"
+	@echo "... test_asm.vsim.spi.pl"
+	@echo "... test_asm.stim.txt"
+	@echo "... test_asm.bin.cmd"
+	@echo "... test_asm.links"
+	@echo "... test_asm.vsim"
+	@echo "... test_asm.slm.cmd"
+	@echo "... test_asm.vsim.boot.pl"
+	@echo "... test_asm.vsimc"
+	@echo "... test_asm.vsim.spi"
+	@echo "... test_asm.kcg"
+	@echo "... test_asm.annotate"
+	@echo "... test_asm.vsim.boot"
+	@echo "... test_asm.vsim.spi.ps"
 	@echo "... perfbench.extras"
 	@echo "... perfbench.core"
 	@echo "... perfbench.conv2d.kcg"

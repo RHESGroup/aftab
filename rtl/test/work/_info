@@ -10,24 +10,24 @@ z2
 cModel Technology
 Z0 d/home/user/Desktop/Thesis/aftab/rtl/test
 Eaftab_iram
-Z1 w1620833041
+Z1 w1622126917
 Z2 DPx4 ieee 11 numeric_std 0 22 aU^R8eGcicLcUFIaBQSL>3
 Z3 DPx4 ieee 16 std_logic_textio 0 22 ^l:n6VFdg74Q?CKDhjD]D3
 Z4 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z5 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
-!i122 0
+!i122 13
 R0
 Z6 8aftab_iram.vhd
 Z7 Faftab_iram.vhd
 l0
 L12 1
-VSEJRXEC_n^;QbdDnz8NI72
-!s100 Z@;UAXgJIBclEo380<2bI0
+VGf0`K?404b:5nf4oeZ?X91
+!s100 EQLOJf[d>EPYTZ3cDS=Jn0
 Z8 OV;C;2020.3;71
 32
-Z9 !s110 1620834180
+Z9 !s110 1622126935
 !i10b 1
-Z10 !s108 1620834180.000000
+Z10 !s108 1622126935.000000
 Z11 !s90 aftab_iram.vhd|
 Z12 !s107 aftab_iram.vhd|
 !i113 1
@@ -37,12 +37,12 @@ R2
 R3
 R4
 R5
-DEx4 work 10 aftab_iram 0 22 SEJRXEC_n^;QbdDnz8NI72
-!i122 0
-l32
-L24 40
-VW10cWoA0?Cm@1ED?eM^BO3
-!s100 NNG7m_@d@ZCJU6n_U20lS0
+Z14 DEx4 work 10 aftab_iram 0 22 Gf0`K?404b:5nf4oeZ?X91
+!i122 13
+l35
+L24 51
+VYYB8:FndU]4Pa=TfoeXMl1
+!s100 ]dhCoXJXRYVB7L;5aM_D<1
 R8
 32
 R9
@@ -53,24 +53,24 @@ R12
 !i113 1
 R13
 Etb_aftab
-Z14 w1620834386
+Z15 w1620834386
 R4
 R5
 !i122 3
 R0
-Z15 8TB_aftab.vhd
-Z16 FTB_aftab.vhd
+Z16 8TB_aftab.vhd
+Z17 FTB_aftab.vhd
 l0
 L5 1
 V:;O0Va`1>A22Q5cOTO0620
 !s100 ?CezjjAmOWaDe9GQWfVAJ0
 R8
 32
-Z17 !s110 1620834396
+Z18 !s110 1620834396
 !i10b 1
-Z18 !s108 1620834395.000000
-Z19 !s90 TB_aftab.vhd|
-!s107 TB_aftab.vhd|
+Z19 !s108 1620834395.000000
+Z20 !s90 TB_aftab.vhd|
+Z21 !s107 TB_aftab.vhd|
 !i113 1
 R13
 Atest
@@ -84,11 +84,11 @@ V^abJ4FSdY@9z`gm^KH9NL3
 !s100 aHHJ_7;I6X[WfXE4Z<D871
 R8
 32
-R17
-!i10b 1
 R18
+!i10b 1
 R19
-Z20 !s107 TB_aftab.vhd|
+R20
+R21
 !i113 1
 R13
 Etb_dlx

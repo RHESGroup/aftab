@@ -38,7 +38,7 @@ architecture TEST of tb_aftab is
 
 	component aftab_iram  is
 		generic (
-		  RAM_DEPTH : integer := 48;
+		  RAM_DEPTH : integer := 512;
 		  I_SIZE : integer := 32;
 		  D_SIZE : integer := 8);
 		port (
@@ -49,8 +49,6 @@ architecture TEST of tb_aftab is
 	  
 	  end component;
 begin
-
-
 
         aftab_ut: aftab_core 
         Generic map (len=>32)

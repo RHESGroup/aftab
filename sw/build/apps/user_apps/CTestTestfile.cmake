@@ -6,3 +6,4 @@
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("user_app0")
 subdirs("test_add")
+subdirs("test_asm")

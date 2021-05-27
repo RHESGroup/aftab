@@ -1,0 +1,94 @@
+
+test_all/test_all.o:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <target1-0xb4>:
+   0:	00100093          	li	ra,1
+   4:	00200113          	li	sp,2
+   8:	002081b3          	add	gp,ra,sp
+   c:	40310233          	sub	tp,sp,gp
+  10:	01418193          	addi	gp,gp,20
+  14:	00000193          	li	gp,0
+  18:	00300213          	li	tp,3
+  1c:	0041a2b3          	slt	t0,gp,tp
+  20:	0041b2b3          	sltu	t0,gp,tp
+  24:	00a1a293          	slti	t0,gp,10
+  28:	02428333          	mul	t1,t0,tp
+  2c:	02429333          	mulh	t1,t0,tp
+  30:	0242b333          	mulhu	t1,t0,tp
+  34:	00a00093          	li	ra,10
+  38:	00500113          	li	sp,5
+  3c:	021141b3          	div	gp,sp,ra
+  40:	021151b3          	divu	gp,sp,ra
+  44:	0221e233          	rem	tp,gp,sp
+  48:	0221f233          	remu	tp,gp,sp
+  4c:	00000093          	li	ra,0
+  50:	0000a283          	lw	t0,0(ra)
+  54:	0050a223          	sw	t0,4(ra)
+  58:	00809283          	lh	t0,8(ra)
+  5c:	00509823          	sh	t0,16(ra)
+  60:	01408283          	lb	t0,20(ra)
+  64:	00508c23          	sb	t0,24(ra)
+  68:	01500093          	li	ra,21
+  6c:	00010137          	lui	sp,0x10
+  70:	fff10113          	addi	sp,sp,-1 # ffff <target7+0xff33>
+  74:	001171b3          	and	gp,sp,ra
+  78:	001161b3          	or	gp,sp,ra
+  7c:	001141b3          	xor	gp,sp,ra
+  80:	0ff17193          	zext.b	gp,sp
+  84:	0ff16193          	ori	gp,sp,255
+  88:	0ff14193          	xori	gp,sp,255
+  8c:	00200093          	li	ra,2
+  90:	00010137          	lui	sp,0x10
+  94:	fff10113          	addi	sp,sp,-1 # ffff <target7+0xff33>
+  98:	001111b3          	sll	gp,sp,ra
+  9c:	001151b3          	srl	gp,sp,ra
+  a0:	401151b3          	sra	gp,sp,ra
+  a4:	00811193          	slli	gp,sp,0x8
+  a8:	00815193          	srli	gp,sp,0x8
+  ac:	40815193          	srai	gp,sp,0x8
+  b0:	00310263          	beq	sp,gp,b4 <target1>
+
+000000b4 <target1>:
+  b4:	00311263          	bne	sp,gp,b8 <target2>
+
+000000b8 <target2>:
+  b8:	00314263          	blt	sp,gp,bc <target3>
+
+000000bc <target3>:
+  bc:	00315263          	bge	sp,gp,c0 <target4>
+
+000000c0 <target4>:
+  c0:	00316263          	bltu	sp,gp,c4 <target5>
+
+000000c4 <target5>:
+  c4:	00317263          	bgeu	sp,gp,c8 <target6>
+
+000000c8 <target6>:
+  c8:	004000ef          	jal	ra,cc <target7>
+
+000000cc <target7>:
+  cc:	000100e7          	jalr	sp
+
+Disassembly of section .riscv.attributes:
+
+00000000 <.riscv.attributes>:
+   0:	2d41                	jal	690 <target7+0x5c4>
+   2:	0000                	unimp
+   4:	7200                	flw	fs0,32(a2)
+   6:	7369                	lui	t1,0xffffa
+   8:	01007663          	bgeu	zero,a6,14 <.riscv.attributes+0x14>
+   c:	00000023          	sb	zero,0(zero) # 0 <.riscv.attributes>
+  10:	7205                	lui	tp,0xfffe1
+  12:	3376                	fld	ft6,376(sp)
+  14:	6932                	flw	fs2,12(sp)
+  16:	7032                	flw	ft0,44(sp)
+  18:	5f30                	lw	a2,120(a4)
+  1a:	326d                	jal	fffff9c4 <target7+0xfffff8f8>
+  1c:	3070                	fld	fa2,224(s0)
+  1e:	615f 7032 5f30      	0x5f307032615f
+  24:	3266                	fld	ft4,120(sp)
+  26:	3070                	fld	fa2,224(s0)
+  28:	645f 7032 0030      	0x307032645f
