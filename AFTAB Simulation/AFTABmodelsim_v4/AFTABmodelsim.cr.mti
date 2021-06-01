@@ -1,0 +1,433 @@
+{D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_shift_register.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_shift_register.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_shift_register
+-- Compiling architecture behavioral of aftab_shift_register
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_llu.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_llu.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_llu
+-- Compiling architecture behavioral of aftab_llu
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_dawu/aftab_dawu.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_dawu/aftab_dawu.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_dawu
+-- Compiling architecture Behavioral of aftab_dawu
+-- Loading entity aftab_dawu_datapath
+-- Loading entity aftab_dawu_controller
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_daru_error_detector.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_daru_error_detector.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity ErrorDecoderDARU
+-- Compiling architecture behavioral of ErrorDecoderDARU
+-- Loading entity aftab_register
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_controller.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Compiling entity aftab_booth_multiplier_controller
+-- Compiling architecture behavioral of aftab_booth_multiplier_controller
+-- Loading entity aftab_counter
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_imm_sel_sign_ext.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_imm_sel_sign_ext.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_imm_sel_sign_ext
+-- Compiling architecture Behavioral of aftab_imm_sel_sign_ext
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/aftab_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/aftab_controller.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_controller
+-- Compiling architecture behavioral of aftab_controller
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_oneBitReg.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_oneBitReg.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_oneBitReg
+-- Compiling architecture behavioral of aftab_oneBitReg
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_datapath.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_datapath.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_datapath
+-- Compiling architecture behavioral of aftab_datapath
+-- Loading package NUMERIC_STD
+-- Loading entity aftab_register_file
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading entity aftab_register
+-- Loading entity aftab_imm_sel_sign_ext
+-- Loading entity aftab_adder
+-- Loading entity aftab_multiplexer
+-- Loading entity aftab_llu
+-- Loading entity aftab_barrel_shifter
+-- Loading entity aftab_comparator
+-- Loading entity aftab_adder_subtractor
+-- Loading entity aftab_aau
+-- Loading entity aftab_dawu
+-- Loading entity aftab_daru
+-- Loading entity aftab_sulu
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_counter.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_counter.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_counter
+-- Compiling architecture Behavioral of aftab_counter
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_adder_subtractor.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_adder_subtractor.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Compiling entity aftab_adder_subtractor
+-- Compiling architecture behavioral of aftab_adder_subtractor
+-- Loading entity aftab_adder
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_datapath.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_datapath.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_booth_multiplier_datapath
+-- Compiling architecture behavioral of aftab_booth_multiplier_datapath
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading entity aftab_register
+-- Loading entity aftab_shift_register
+-- Loading package NUMERIC_STD
+-- Loading entity aftab_adder_subtractor
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/AFTABmodelsim_v4/aftab_testbench.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/AFTABmodelsim_v4/aftab_testbench.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_testbench
+-- Compiling architecture behavior of aftab_testbench
+-- Loading entity aftab_core
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package std_logic_textio
+-- Loading entity aftab_memory
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_full_adder.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_full_adder.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_full_adder
+-- Compiling architecture gate_level of aftab_full_adder
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_aau.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_aau.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_aau
+-- Compiling architecture behavioral of aftab_aau
+-- Loading entity aftab_booth_multiplier
+-- Loading entity aftab_su_divider
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_dawu_error_detector.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_dawu_error_detector.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity ErrorDecoderDAWU
+-- Compiling architecture behavioral of ErrorDecoderDAWU
+-- Loading entity aftab_oneBitReg
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_su_divider/aftab_su_divider.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_su_divider/aftab_su_divider.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_su_divider
+-- Compiling architecture behavioral of aftab_su_divider
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading entity aftab_tcl
+-- Loading entity aftab_divider
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_multiplexer.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_multiplexer.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_multiplexer
+-- Compiling architecture procedural of aftab_multiplexer
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_register_file.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_register_file.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity aftab_register_file
+-- Compiling architecture behavioral of aftab_register_file
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_register.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_register.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_register
+-- Compiling architecture behavioral of aftab_register
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/AFTABmodelsim_v4/aftab_MemorryModel.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:\University\AFTAB\AFTAB\AFTAB GitHub\AFTABmodelsim_v4\aftab_MemorryModel.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package std_logic_textio
+-- Compiling entity aftab_memory
+-- Compiling architecture behavioral of aftab_memory
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_decoder.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_decoder.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_decoder
+-- Compiling architecture behavioral of aftab_decoder
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_daru_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_daru_controller.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_daru_controller
+-- Compiling architecture behavioral of aftab_daru_controller
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_su_divider/aftab_divider_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_su_divider/aftab_divider_controller.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Compiling entity aftab_divider_controller
+-- Compiling architecture behavioral of aftab_divider_controller
+-- Loading entity aftab_counter
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_su_divider/aftab_tcl.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_su_divider/aftab_tcl.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_tcl
+-- Compiling architecture behavioral of aftab_tcl
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_comparator.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_comparator.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_comparator
+-- Compiling architecture behavioral of aftab_comparator
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_adder.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_adder.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_adder
+-- Compiling architecture behavioral of aftab_adder
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_dawu/aftab_dawu_controller.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_dawu/aftab_dawu_controller.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_dawu_controller
+-- Compiling architecture behavioral of aftab_dawu_controller
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_sulu.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_sulu.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_sulu
+-- Compiling architecture Behavioral of aftab_sulu
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_opt_adder.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_opt_adder.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_opt_adder
+-- Compiling architecture Behavioral of aftab_opt_adder
+-- Loading entity aftab_full_adder
+-- Loading package NUMERIC_STD
+-- Loading entity aftab_half_adder
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_half_adder.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_half_adder.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity aftab_half_adder
+-- Compiling architecture rtl of aftab_half_adder
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_daru_datapath.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_daru_datapath.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_daru_datapath
+-- Compiling architecture behavioral of aftab_daru_datapath
+-- Loading entity aftab_register
+-- Loading entity aftab_decoder
+-- Loading entity aftab_counter
+-- Loading entity aftab_opt_adder
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_su_divider/aftab_divider_datapath.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_su_divider/aftab_divider_datapath.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_divider_datapath
+-- Compiling architecture behavioral of aftab_divider_datapath
+-- Loading entity aftab_shift_register
+-- Loading entity aftab_register
+-- Loading entity aftab_multiplexer
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_booth_multiplier
+-- Compiling architecture behavioral of aftab_booth_multiplier
+-- Loading entity aftab_booth_multiplier_datapath
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Loading entity aftab_booth_multiplier_controller
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/aftab_core.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/aftab_core.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_core
+-- Compiling architecture procedural of aftab_core
+-- Loading entity aftab_datapath
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading entity aftab_controller
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_dawu/aftab_dawu_datapath.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_dawu/aftab_dawu_datapath.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Compiling entity aftab_dawu_datapath
+-- Compiling architecture Behavioral of aftab_dawu_datapath
+-- Loading entity aftab_register
+-- Loading entity aftab_counter
+-- Loading entity aftab_opt_adder
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_daru.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_daru/aftab_daru.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_daru
+-- Compiling architecture behavioral of aftab_daru
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading entity aftab_daru_datapath
+-- Loading entity aftab_daru_controller
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_su_divider/aftab_divider.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_aau/aftab_su_divider/aftab_divider.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity aftab_divider
+-- Compiling architecture behavioral of aftab_divider
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading entity aftab_divider_datapath
+-- Loading package NUMERIC_STD
+-- Loading entity aftab_divider_controller
+
+} {} {}} {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_barrel_shifter.vhd} {1 {vcom -work work -2002 -explicit -stats=none {D:/University/AFTAB/AFTAB/AFTAB GitHub/VHDL codes -beautifier - torino/datapath/aftab_barrel_shifter.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 2020.1 Compiler 2020.02 Feb 28 2020
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package std_logic_arith
+-- Loading package STD_LOGIC_UNSIGNED
+-- Loading package NUMERIC_STD
+-- Compiling entity aftab_barrel_shifter
+-- Compiling architecture behavioral of aftab_barrel_shifter
+
+} {} {}}

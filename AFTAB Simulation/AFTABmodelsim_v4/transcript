@@ -1,0 +1,945 @@
+vsim work.aftab_testbench
+# vsim work.aftab_testbench 
+# Start time: 18:26:20 on Mar 24,2021
+# Loading std.standard
+# ** Error: (vsim-13) Recompile work.aftab_testbench(behavior) because work.aftab_memory has changed.
+# Error loading design
+# End time: 18:26:21 on Mar 24,2021, Elapsed time: 0:00:01
+# Errors: 1, Warnings: 2
+# Compile of aftab_controller.vhd was successful.
+# Compile of aftab_core.vhd was successful.
+# Compile of aftab_memory.vhd was successful.
+# Compile of aftab_adder.vhd was successful.
+# Compile of aftab_adder_subtractor.vhd was successful.
+# Compile of aftab_barrel_shifter.vhd was successful.
+# Compile of aftab_comparator.vhd was successful.
+# Compile of aftab_counter.vhd was successful.
+# Compile of aftab_datapath.vhd was successful.
+# Compile of aftab_imm_sel_sign_ext.vhd was successful.
+# Compile of aftab_llu.vhd was successful.
+# Compile of aftab_multiplexer.vhd was successful.
+# Compile of aftab_register.vhd was successful.
+# Compile of aftab_register_file.vhd was successful.
+# Compile of aftab_sulu.vhd was successful.
+# Compile of aftab_aau.vhd was successful.
+# Compile of aftab_shift_register.vhd was successful.
+# Compile of aftab_booth_multiplier.vhd was successful.
+# Compile of aftab_booth_multiplier_controller.vhd was successful.
+# Compile of aftab_booth_multiplier_datapath.vhd was successful.
+# Compile of aftab_divider.vhd was successful.
+# Compile of aftab_divider_controller.vhd was successful.
+# Compile of aftab_divider_datapath.vhd was successful.
+# Compile of aftab_su_divider.vhd was successful.
+# Compile of aftab_tcl.vhd was successful.
+# Compile of aftab_daru.vhd was successful.
+# Compile of aftab_daru_controller.vhd was successful.
+# Compile of aftab_daru_datapath.vhd was successful.
+# Compile of aftab_daru_error_detector.vhd was successful.
+# Compile of aftab_dawu_error_detector.vhd was successful.
+# Compile of aftab_decoder.vhd was successful.
+# Compile of aftab_full_adder.vhd was successful.
+# Compile of aftab_half_adder.vhd was successful.
+# Compile of aftab_opt_adder.vhd was successful.
+# Compile of aftab_dawu.vhd was successful.
+# Compile of aftab_dawu_controller.vhd was successful.
+# Compile of aftab_dawu_datapath.vhd was successful.
+# Compile of aftab_oneBitReg.vhd was successful.
+# Compile of MemorryModel.vhd was successful.
+# Compile of aftab_testbench.vhd was successful.
+# 40 compiles, 0 failed with no errors.
+vsim work.aftab_testbench
+# vsim work.aftab_testbench 
+# Start time: 18:27:22 on Mar 24,2021
+# Loading std.standard
+# Loading std.textio(body)
+# Loading ieee.std_logic_1164(body)
+# Loading ieee.std_logic_arith(body)
+# Loading ieee.std_logic_unsigned(body)
+# Loading ieee.std_logic_textio(body)
+# Loading work.aftab_testbench(behavior)
+# Loading work.aftab_core(procedural)
+# Loading ieee.numeric_std(body)
+# Loading work.aftab_datapath(behavioral)
+# Loading work.aftab_register_file(behavioral)
+# Loading work.aftab_register(behavioral)
+# Loading work.aftab_imm_sel_sign_ext(behavioral)
+# Loading work.aftab_adder(behavioral)
+# Loading work.aftab_multiplexer(procedural)
+# Loading work.aftab_llu(behavioral)
+# Loading work.aftab_barrel_shifter(behavioral)
+# Loading work.aftab_comparator(behavioral)
+# Loading work.aftab_adder_subtractor(behavioral)
+# Loading work.aftab_aau(behavioral)
+# Loading work.aftab_booth_multiplier(behavioral)
+# Loading work.aftab_booth_multiplier_datapath(behavioral)
+# Loading work.aftab_shift_register(behavioral)
+# Loading work.aftab_booth_multiplier_controller(behavioral)
+# Loading work.aftab_counter(behavioral)
+# Loading work.aftab_su_divider(behavioral)
+# Loading work.aftab_tcl(behavioral)
+# Loading work.aftab_divider(behavioral)
+# Loading work.aftab_divider_datapath(behavioral)
+# Loading work.aftab_divider_controller(behavioral)
+# Loading work.aftab_dawu(behavioral)
+# Loading work.aftab_dawu_datapath(behavioral)
+# Loading work.aftab_opt_adder(behavioral)
+# Loading work.aftab_full_adder(gate_level)
+# Loading work.aftab_half_adder(rtl)
+# Loading work.aftab_dawu_controller(behavioral)
+# Loading work.aftab_daru(behavioral)
+# Loading work.aftab_daru_datapath(behavioral)
+# Loading work.aftab_decoder(behavioral)
+# Loading work.aftab_daru_controller(behavioral)
+# Loading work.aftab_sulu(behavioral)
+# Loading work.aftab_controller(behavioral)
+# Loading work.aftab_memory(behavioral)
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/dawu/dataError has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/daru/dataError has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/daru/instrError has no driver.
+# This port will contribute value (U) to the signal network.
+do wave.do
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/daru/DataPath/Counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath/Counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/ControllerDiv/counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/DataPathDiv
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/DataPathDiv
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Controller/counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/i4PC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/i4PC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/registerFile
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/registerFile
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 3  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 3  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 4  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 4  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 16 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 16 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+run
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 1756 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 1786 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 1816 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 1846 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+run
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2386 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2416 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2446 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2476 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2776 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2806 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2836 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2866 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+run
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 3196 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 3226 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 3256 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 3286 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+run
+run
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 5866 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 5896 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 5926 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 5956 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+run
+run
+run
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 8536 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 8566 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 8596 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 8626 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 8926 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 8956 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 8986 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+run
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 9016 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 9346 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 9376 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 9406 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 9436 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+run
+run
+run
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 12256 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 12286 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 12316 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 12346 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+run
+run
+# Compile of MemorryModel.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.aftab_memory(behavioral)
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/dawu/dataError has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/daru/dataError has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/daru/instrError has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/daru/DataPath/Counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath/Counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/ControllerDiv/counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/DataPathDiv
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/DataPathDiv
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Controller/counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/i4PC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/i4PC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/registerFile
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/registerFile
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 3  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 3  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 4  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 4  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 16 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 16 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 315 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/registerFile
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 315 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/registerFile
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 315 ns  Iteration: 3  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 315 ns  Iteration: 3  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 315 ns  Iteration: 4  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 315 ns  Iteration: 4  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 315 ns  Iteration: 4  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 315 ns  Iteration: 4  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 315 ns  Iteration: 4  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 315 ns  Iteration: 4  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 315 ns  Iteration: 4  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 315 ns  Iteration: 4  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 315 ns  Iteration: 4  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 525 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 735 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 2  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 945 ns  Iteration: 3  Instance: /aftab_testbench/uut/controllerAFTAB
+# Compile of MemorryModel.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.aftab_memory(behavioral)
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/dawu/dataError has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/daru/dataError has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/daru/instrError has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/daru/DataPath/Counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath/Counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/ControllerDiv/counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/DataPathDiv
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/DataPathDiv
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Controller/counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/i4PC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/i4PC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/registerFile
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/registerFile
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 3  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 3  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 4  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 4  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 16 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 16 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+run
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 1756 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 1786 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 1816 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 1846 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+run
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2386 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2416 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2446 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2476 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2776 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2806 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2836 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 2866 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# Compile of MemorryModel.vhd was successful.
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# Loading work.aftab_memory(behavioral)
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/dawu/dataError has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/daru/dataError has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/daru/instrError has no driver.
+# This port will contribute value (U) to the signal network.
+add wave -position insertpoint sim:/aftab_testbench/Inst_aftab_memory/RW/*
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/daru/DataPath/Counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath/Counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/ControllerDiv/counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/DataPathDiv
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/DataPathDiv
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Controller/counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/i4PC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/i4PC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/registerFile
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/registerFile
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 3  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 3  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 4  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 4  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 16 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 16 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+restart
+# ** Note: (vsim-12125) Error and warning message counts have been reset to '0' because of 'restart'.
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/dawu/dataError has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/daru/dataError has no driver.
+# This port will contribute value (U) to the signal network.
+# ** Warning: (vsim-8683) Uninitialized out port /aftab_testbench/uut/datapathAFTAB/daru/instrError has no driver.
+# This port will contribute value (U) to the signal network.
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/daru/DataPath/Counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath/Counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/ControllerDiv/counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/DataPathDiv
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Division/unsignedDiv/DataPathDiv
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Controller/counter
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/comparator
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/BSU
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/i4PC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/i4PC
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/registerFile
+# ** Warning: NUMERIC_STD.TO_INTEGER: metavalue detected, returning 0
+#    Time: 0 ps  Iteration: 0  Instance: /aftab_testbench/uut/datapathAFTAB/registerFile
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 1  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 3  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 3  Instance: /aftab_testbench/uut/datapathAFTAB/aau/Multiplication/Datapath/addSub/add
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 4  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 15 ns  Iteration: 4  Instance: /aftab_testbench/uut/datapathAFTAB/adder
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 16 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 16 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 102 ns  Iteration: 2  Instance: /aftab_testbench/uut/datapathAFTAB/dawu/Datapath
+run
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 1756 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 1786 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 1816 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+# ** Warning: CONV_INTEGER(UNSIGNED) input array has 32 bits and MSB is not zero.
+#    Time: 1846 ns  Iteration: 0  Instance: /aftab_testbench/Inst_aftab_memory
+quit -sim
+# End time: 19:20:10 on Mar 24,2021, Elapsed time: 0:52:48
+# Errors: 0, Warnings: 62
+# Load canceled
