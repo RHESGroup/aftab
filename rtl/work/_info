@@ -15,7 +15,7 @@ Z2 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
 Z3 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
 Z4 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
 Z5 DPx4 ieee 14 std_logic_1164 0 22 cVAk:aDinOX8^VGI1ekP<3
-!i122 1944
+!i122 2104
 R0
 Z6 8./datapath/aftab_aau/aftab_aau.vhd
 Z7 F./datapath/aftab_aau/aftab_aau.vhd
@@ -25,9 +25,9 @@ VlFzI[2@?kZ8QDEVdiBQSN0
 !s100 WOOMLm6inh0ScPBHB<d>G0
 Z9 OV;C;2020.3;71
 33
-Z10 !s110 1622725437
+Z10 !s110 1622748924
 !i10b 1
-Z11 !s108 1622725437.000000
+Z11 !s108 1622748923.000000
 Z12 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_aau.vhd|
 Z13 !s107 ./datapath/aftab_aau/aftab_aau.vhd|
 !i113 1
@@ -41,7 +41,7 @@ R3
 R4
 R5
 Z18 DEx4 work 9 aftab_aau 0 22 lFzI[2@?kZ8QDEVdiBQSN0
-!i122 1944
+!i122 2104
 l70
 L59 52
 V^>LOCRBBgfc2o@b>PYY=N2
@@ -62,7 +62,7 @@ R2
 R3
 R4
 R5
-!i122 1930
+!i122 2090
 R0
 Z20 8./datapath/aftab_adder.vhd
 Z21 F./datapath/aftab_adder.vhd
@@ -72,9 +72,9 @@ VVm;on^OWmYkQz``B192hL1
 !s100 =3DgDOnO3nPCDJng6J8c`1
 R9
 33
-Z23 !s110 1622725435
+Z23 !s110 1622748922
 !i10b 1
-Z24 !s108 1622725435.000000
+Z24 !s108 1622748922.000000
 Z25 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_adder.vhd|
 Z26 !s107 ./datapath/aftab_adder.vhd|
 !i113 1
@@ -86,7 +86,7 @@ R3
 R4
 R5
 Z27 DEx4 work 11 aftab_adder 0 22 Vm;on^OWmYkQz``B192hL1
-!i122 1930
+!i122 2090
 l53
 L51 7
 V9L?EzMRJ_Z2?CF6R58NLj1
@@ -108,7 +108,7 @@ R2
 R3
 R4
 R5
-!i122 1931
+!i122 2091
 R0
 Z29 8./datapath/aftab_adder_subtractor.vhd
 Z30 F./datapath/aftab_adder_subtractor.vhd
@@ -134,7 +134,7 @@ R3
 R4
 R5
 Z33 DEx4 work 22 aftab_adder_subtractor 0 22 842O`:X1I28KP18>oC:M;1
-!i122 1931
+!i122 2091
 l56
 L53 15
 V__3`2lDaEMWUZYekoH>ZL0
@@ -156,7 +156,7 @@ R2
 R3
 R4
 R5
-!i122 1932
+!i122 2092
 R0
 Z35 8./datapath/aftab_barrel_shifter.vhd
 Z36 F./datapath/aftab_barrel_shifter.vhd
@@ -181,7 +181,7 @@ R3
 R4
 R5
 Z40 DEx4 work 20 aftab_barrel_shifter 0 22 HVA@bH?U@fE^T4CPmAbL;2
-!i122 1932
+!i122 2092
 l53
 L52 14
 V6M59U]ldk1nh[zDgozPdj2
@@ -200,7 +200,7 @@ Eaftab_booth_multiplier
 R19
 R4
 R5
-!i122 1938
+!i122 2098
 R0
 Z41 8./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier.vhd
 Z42 F./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier.vhd
@@ -210,11 +210,11 @@ VLQnS>`>@i255OMNm9k92P3
 !s100 Z7lW]^^eFZ0UQ1?ek4IaJ1
 R9
 33
-Z43 !s110 1622725436
+Z43 !s110 1622748923
 !i10b 1
-Z44 !s108 1622725436.000000
-Z45 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier.vhd|
-Z46 !s107 ./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier.vhd|
+R11
+Z44 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier.vhd|
+Z45 !s107 ./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier.vhd|
 !i113 1
 R14
 R15
@@ -222,12 +222,12 @@ Abehavioral
 R28
 R2
 R3
-Z47 DEx4 work 33 aftab_booth_multiplier_controller 0 22 Q[>A3T0G<ogRFNnBz_UB`2
-Z48 DEx4 work 31 aftab_booth_multiplier_datapath 0 22 0>=0A1O9R<ED0f:O>E<4E2
+Z46 DEx4 work 33 aftab_booth_multiplier_controller 0 22 Q[>A3T0G<ogRFNnBz_UB`2
+Z47 DEx4 work 31 aftab_booth_multiplier_datapath 0 22 0>=0A1O9R<ED0f:O>E<4E2
 R4
 R5
 R17
-!i122 1938
+!i122 2098
 l63
 L54 43
 V5U7hbhF2_dVOKHHcDELie0
@@ -236,9 +236,9 @@ R9
 33
 R43
 !i10b 1
+R11
 R44
 R45
-R46
 !i113 1
 R14
 R15
@@ -249,44 +249,44 @@ R2
 R3
 R4
 R5
-!i122 1936
+!i122 2096
 R0
-Z49 8./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_controller.vhd
-Z50 F./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_controller.vhd
+Z48 8./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_controller.vhd
+Z49 F./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_controller.vhd
 l0
 R37
 VQ[>A3T0G<ogRFNnBz_UB`2
 !s100 :c6TBLoME<Q?QgW`^7eH>2
 R9
 33
-R43
+R23
 !i10b 1
-R44
-Z51 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_controller.vhd|
-Z52 !s107 ./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_controller.vhd|
+R24
+Z50 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_controller.vhd|
+Z51 !s107 ./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_controller.vhd|
 !i113 1
 R14
 R15
 Abehavioral
-Z53 DEx4 work 13 aftab_counter 0 22 [YF;lFRQzz^IzU0FAGkaB1
+Z52 DEx4 work 13 aftab_counter 0 22 [YF;lFRQzz^IzU0FAGkaB1
 R28
 R2
 R3
 R4
 R5
-R47
-!i122 1936
+R46
+!i122 2096
 l71
 L61 97
 VF0_iG7BY<AD^ad@lH2eE;2
 !s100 ckmKOF[MC^JSRRoe]2L1>0
 R9
 33
-R43
+R23
 !i10b 1
-R44
+R24
+R50
 R51
-R52
 !i113 1
 R14
 R15
@@ -294,10 +294,10 @@ Eaftab_booth_multiplier_datapath
 R19
 R4
 R5
-!i122 1937
+!i122 2097
 R0
-Z54 8./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_datapath.vhd
-Z55 F./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_datapath.vhd
+Z53 8./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_datapath.vhd
+Z54 F./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_datapath.vhd
 l0
 R22
 V0>=0A1O9R<ED0f:O>E<4E2
@@ -306,23 +306,23 @@ R9
 33
 R43
 !i10b 1
-R44
-Z56 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_datapath.vhd|
-Z57 !s107 ./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_datapath.vhd|
+R24
+Z55 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_datapath.vhd|
+Z56 !s107 ./datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_datapath.vhd|
 !i113 1
 R14
 R15
 Abehavioral
 R28
 R33
-Z58 DEx4 work 20 aftab_shift_register 0 22 VHbTgK?G<S;>zZYl9:2ZX2
+Z57 DEx4 work 20 aftab_shift_register 0 22 VHbTgK?G<S;>zZYl9:2ZX2
 R2
 R3
-Z59 DEx4 work 14 aftab_register 0 22 ;A252Z=AXAd=gMWf99kXl3
+Z58 DEx4 work 14 aftab_register 0 22 ;A252Z=AXAd=gMWf99kXl3
 R4
 R5
-R48
-!i122 1937
+R47
+!i122 2097
 l69
 L60 61
 VQ>^R4iUm6h;[De:jN7RbP2
@@ -331,9 +331,9 @@ R9
 33
 R43
 !i10b 1
-R44
+R24
+R55
 R56
-R57
 !i113 1
 R14
 R15
@@ -343,19 +343,19 @@ R2
 R3
 R4
 R5
-!i122 1927
+!i122 2087
 R0
-Z60 8./datapath/aftab_comparator.vhd
-Z61 F./datapath/aftab_comparator.vhd
+Z59 8./datapath/aftab_comparator.vhd
+Z60 F./datapath/aftab_comparator.vhd
 l0
 R22
 VWWj0041`DdGV?2U^;Fek10
 !s100 BE<WnfT@LzgT=V5[Sa=IV2
 R9
 33
-R23
+Z61 !s110 1622748921
 !i10b 1
-Z62 !s108 1622725434.000000
+Z62 !s108 1622748921.000000
 Z63 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_comparator.vhd|
 Z64 !s107 ./datapath/aftab_comparator.vhd|
 !i113 1
@@ -367,14 +367,14 @@ R3
 R4
 R5
 Z65 DEx4 work 16 aftab_comparator 0 22 WWj0041`DdGV?2U^;Fek10
-!i122 1927
+!i122 2087
 l55
 L52 12
 VHK`O5PzjFgh[k^zNPN5>h0
 !s100 mEdM?]`lkRiQM[YzKeHNm1
 R9
 33
-R23
+R61
 !i10b 1
 R62
 R63
@@ -388,7 +388,7 @@ R2
 R3
 R4
 R5
-!i122 1957
+!i122 2117
 R0
 Z67 8./aftab_controller.vhd
 Z68 F./aftab_controller.vhd
@@ -398,9 +398,9 @@ Vk6Q=CAMfVV`63A6Q_^l6h2
 !s100 e<WDK6;0KU5TK?ZXd[b4Z2
 R9
 33
-Z69 !s110 1622725438
+Z69 !s110 1622748925
 !i10b 1
-Z70 !s108 1622725438.000000
+Z70 !s108 1622748925.000000
 Z71 !s90 -2008|-reportprogress|300|-work|work|./aftab_controller.vhd|
 Z72 !s107 ./aftab_controller.vhd|
 !i113 1
@@ -412,7 +412,7 @@ R3
 R4
 R5
 Z73 DEx4 work 16 aftab_controller 0 22 k6Q=CAMfVV`63A6Q_^l6h2
-!i122 1957
+!i122 2117
 l120
 L98 366
 V^2`JVVkcc=26iH72:4_kY3
@@ -431,7 +431,7 @@ Eaftab_core
 Z74 w1620927241
 R4
 R5
-!i122 1958
+!i122 2118
 R0
 Z75 8./aftab_core.vhd
 Z76 F./aftab_core.vhd
@@ -441,11 +441,11 @@ VPnhF^RQ;5NhfLQg_i8jj[1
 !s100 XzZTzUTRgK?R[`[kD;29W1
 R9
 33
-Z77 !s110 1622725439
+R69
 !i10b 1
 R70
-Z78 !s90 -2008|-reportprogress|300|-work|work|./aftab_core.vhd|
-Z79 !s107 ./aftab_core.vhd|
+Z77 !s90 -2008|-reportprogress|300|-work|work|./aftab_core.vhd|
+Z78 !s107 ./aftab_core.vhd|
 !i113 1
 R14
 R15
@@ -453,22 +453,22 @@ Aprocedural
 R2
 R3
 R73
-Z80 DEx4 work 14 aftab_datapath 0 22 dihjcKFc81k@NJ]9Q<leB2
+Z79 DEx4 work 14 aftab_datapath 0 22 dihjcKFc81k@NJ]9Q<leB2
 R4
 R5
 DEx4 work 10 aftab_core 0 22 PnhF^RQ;5NhfLQg_i8jj[1
-!i122 1958
+!i122 2118
 l109
 L53 177
 V[2U`cUG@Zn:eH1LLj>o8m1
 !s100 HXIf>IK`4nd=D9D0ohQ7e1
 R9
 33
-R77
+R69
 !i10b 1
 R70
+R77
 R78
-R79
 !i113 1
 R14
 R15
@@ -478,21 +478,21 @@ R3
 R2
 R4
 R5
-!i122 1928
+!i122 2088
 R0
-Z81 8./datapath/aftab_counter.vhd
-Z82 F./datapath/aftab_counter.vhd
+Z80 8./datapath/aftab_counter.vhd
+Z81 F./datapath/aftab_counter.vhd
 l0
 R8
 V[YF;lFRQzz^IzU0FAGkaB1
 !s100 =YKMIm=81gefVBh3Z@<160
 R9
 33
-R23
+R61
 !i10b 1
-R24
-Z83 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_counter.vhd|
-Z84 !s107 ./datapath/aftab_counter.vhd|
+R62
+Z82 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_counter.vhd|
+Z83 !s107 ./datapath/aftab_counter.vhd|
 !i113 1
 R14
 R15
@@ -501,19 +501,19 @@ R3
 R2
 R4
 R5
-R53
-!i122 1928
+R52
+!i122 2088
 l56
 L53 22
 VTfZ5VDSkdUAHH3i8=Ej]b1
 !s100 URToQ`hL_Pe8<1jJ?j5QQ1
 R9
 33
-R23
+R61
 !i10b 1
-R24
+R62
+R82
 R83
-R84
 !i113 1
 R14
 R15
@@ -521,12 +521,12 @@ Eaftab_daru
 R19
 R4
 R5
-!i122 1952
+!i122 2112
 R0
-Z85 8./datapath/aftab_daru/aftab_daru.vhd
-Z86 F./datapath/aftab_daru/aftab_daru.vhd
+Z84 8./datapath/aftab_daru/aftab_daru.vhd
+Z85 F./datapath/aftab_daru/aftab_daru.vhd
 l0
-Z87 L40 1
+Z86 L40 1
 V1BW:bH84<i]7@>k>IiLQD1
 !s100 FdPM?_V5hQ[CnSZkjTKYE0
 R9
@@ -534,20 +534,20 @@ R9
 R69
 !i10b 1
 R70
-Z88 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_daru/aftab_daru.vhd|
-Z89 !s107 ./datapath/aftab_daru/aftab_daru.vhd|
+Z87 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_daru/aftab_daru.vhd|
+Z88 !s107 ./datapath/aftab_daru/aftab_daru.vhd|
 !i113 1
 R14
 R15
 Abehavioral
-Z90 DEx4 work 21 aftab_daru_controller 0 22 8kkH9J0HfEje8]zlzaPB>0
+Z89 DEx4 work 21 aftab_daru_controller 0 22 8kkH9J0HfEje8]zlzaPB>0
 R2
 R3
-Z91 DEx4 work 19 aftab_daru_datapath 0 22 dLc2gU8:HW8ba`hX6B02j0
+Z90 DEx4 work 19 aftab_daru_datapath 0 22 dLc2gU8:HW8ba`hX6B02j0
 R4
 R5
-Z92 DEx4 work 10 aftab_daru 0 22 1BW:bH84<i]7@>k>IiLQD1
-!i122 1952
+Z91 DEx4 work 10 aftab_daru 0 22 1BW:bH84<i]7@>k>IiLQD1
+!i122 2112
 l72
 L57 59
 VeD:CNH?khSQL^H9X2^3<M0
@@ -557,8 +557,8 @@ R9
 R69
 !i10b 1
 R70
+R87
 R88
-R89
 !i113 1
 R14
 R15
@@ -566,19 +566,19 @@ Eaftab_daru_controller
 R19
 R4
 R5
-!i122 1950
+!i122 2110
 R0
-Z93 8./datapath/aftab_daru/aftab_daru_controller.vhd
-Z94 F./datapath/aftab_daru/aftab_daru_controller.vhd
+Z92 8./datapath/aftab_daru/aftab_daru_controller.vhd
+Z93 F./datapath/aftab_daru/aftab_daru_controller.vhd
 l0
-R87
+R86
 V8kkH9J0HfEje8]zlzaPB>0
 !s100 SPTZhh3Z9[_[WDZ:jHRaz0
 R9
 33
 R10
 !i10b 1
-R11
+Z94 !s108 1622748924.000000
 Z95 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_daru/aftab_daru_controller.vhd|
 Z96 !s107 ./datapath/aftab_daru/aftab_daru_controller.vhd|
 !i113 1
@@ -587,8 +587,8 @@ R15
 Abehavioral
 R4
 R5
-R90
-!i122 1950
+R89
+!i122 2110
 l66
 L62 79
 Vj1H6aBMhb]7gd`FQY?g0e0
@@ -597,7 +597,7 @@ R9
 33
 R10
 !i10b 1
-R11
+R94
 R95
 R96
 !i113 1
@@ -609,7 +609,7 @@ R2
 R3
 R4
 R5
-!i122 1951
+!i122 2111
 R0
 Z97 8./datapath/aftab_daru/aftab_daru_datapath.vhd
 Z98 F./datapath/aftab_daru/aftab_daru_datapath.vhd
@@ -621,7 +621,7 @@ R9
 33
 R69
 !i10b 1
-R11
+R94
 Z99 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_daru/aftab_daru_datapath.vhd|
 Z100 !s107 ./datapath/aftab_daru/aftab_daru_datapath.vhd|
 !i113 1
@@ -629,15 +629,15 @@ R14
 R15
 Abehavioral
 Z101 DEx4 work 15 aftab_opt_adder 0 22 7B`4O=ZCg3P]6C??6HKlZ0
-R53
+R52
 Z102 DEx4 work 13 aftab_decoder 0 22 XKOFJe]8e@b45b5lI[4oQ2
-R59
+R58
 R2
 R3
 R4
 R5
-R91
-!i122 1951
+R90
+!i122 2111
 l71
 L65 95
 VRjbSk`?mCjW]=SoV^eb>=0
@@ -646,7 +646,7 @@ R9
 33
 R69
 !i10b 1
-R11
+R94
 R99
 R100
 !i113 1
@@ -656,12 +656,12 @@ Eaftab_datapath
 R66
 R4
 R5
-!i122 1956
+!i122 2116
 R0
 Z103 8./datapath/aftab_datapath.vhd
 Z104 F./datapath/aftab_datapath.vhd
 l0
-R87
+R86
 VdihjcKFc81k@NJ]9Q<leB2
 !s100 ReAI_1TWWmAMgX3j@Bmmh0
 R9
@@ -676,7 +676,7 @@ R14
 R15
 Abehavioral
 Z107 DEx4 work 10 aftab_sulu 0 22 563[4IiaBZFamlSG[9U]_2
-R92
+R91
 Z108 DEx4 work 10 aftab_dawu 0 22 hb:KNNl93OcFfXmOA@kE93
 R18
 R33
@@ -685,7 +685,7 @@ R40
 Z109 DEx4 work 9 aftab_llu 0 22 mbg>74@oY6@70`iT]z@c:1
 R27
 Z110 DEx4 work 22 aftab_imm_sel_sign_ext 0 22 BLXGea;<o;3HY<LEb_cBY0
-R59
+R58
 Z111 DEx4 work 17 aftab_multiplexer 0 22 ]Jcm2ATn52SZ9n>b3kO_]3
 Z112 DPx4 ieee 9 math_real 0 22 gNk<PdFJ<XNPcfef`f?Z81
 R28
@@ -694,8 +694,8 @@ R3
 Z113 DEx4 work 19 aftab_register_file 0 22 nJH0_I@@dzVXoZ=FCieI?3
 R4
 R5
-R80
-!i122 1956
+R79
+!i122 2116
 l141
 L111 279
 VSPWoU9mWngze9]@VDKmY92
@@ -716,7 +716,7 @@ R3
 R2
 R4
 R5
-!i122 1955
+!i122 2115
 R0
 Z114 8./datapath/aftab_dawu/aftab_dawu.vhd
 Z115 F./datapath/aftab_dawu/aftab_dawu.vhd
@@ -742,7 +742,7 @@ R2
 R4
 R5
 R108
-!i122 1955
+!i122 2115
 l72
 L58 59
 VEe3Rz;I`]>UOUPQkZb>ZS3
@@ -761,12 +761,12 @@ Eaftab_dawu_controller
 R19
 R4
 R5
-!i122 1953
+!i122 2113
 R0
 Z120 8./datapath/aftab_dawu/aftab_dawu_controller.vhd
 Z121 F./datapath/aftab_dawu/aftab_dawu_controller.vhd
 l0
-R87
+R86
 Vf`4cEbd^OdnBEKNjl76QF2
 !s100 6DmAAo859<[z46YAA`PG`0
 R9
@@ -783,7 +783,7 @@ Abehavioral
 R4
 R5
 R118
-!i122 1953
+!i122 2113
 l66
 L63 94
 V6hMJmaAcAX91flgPPNkgz2
@@ -804,7 +804,7 @@ R2
 R3
 R4
 R5
-!i122 1954
+!i122 2114
 R0
 Z124 8./datapath/aftab_dawu/aftab_dawu_datapath.vhd
 Z125 F./datapath/aftab_dawu/aftab_dawu_datapath.vhd
@@ -824,14 +824,14 @@ R14
 R15
 Abehavioral
 R101
-R53
-R59
+R52
+R58
 R2
 R3
 R4
 R5
 R119
-!i122 1954
+!i122 2114
 l77
 L66 95
 VYfl7m:EkUD[@SIg=BIjTK1
@@ -850,7 +850,7 @@ Eaftab_decoder
 R19
 R4
 R5
-!i122 1948
+!i122 2108
 R0
 Z128 8./datapath/aftab_daru/aftab_decoder.vhd
 Z129 F./datapath/aftab_daru/aftab_decoder.vhd
@@ -862,7 +862,7 @@ R9
 33
 R10
 !i10b 1
-R11
+R94
 Z130 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_daru/aftab_decoder.vhd|
 Z131 !s107 ./datapath/aftab_daru/aftab_decoder.vhd|
 !i113 1
@@ -872,7 +872,7 @@ Abehavioral
 R4
 R5
 R102
-!i122 1948
+!i122 2108
 l50
 L49 17
 V?RfiA;QZUTc2UEifB:4S60
@@ -881,7 +881,7 @@ R9
 33
 R10
 !i10b 1
-R11
+R94
 R130
 R131
 !i113 1
@@ -891,7 +891,7 @@ Eaftab_divider
 R19
 R4
 R5
-!i122 1941
+!i122 2101
 R0
 Z132 8./datapath/aftab_aau/aftab_su_divider/aftab_divider.vhd
 Z133 F./datapath/aftab_aau/aftab_su_divider/aftab_divider.vhd
@@ -903,7 +903,7 @@ R9
 33
 R43
 !i10b 1
-R44
+R11
 Z134 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_su_divider/aftab_divider.vhd|
 Z135 !s107 ./datapath/aftab_aau/aftab_su_divider/aftab_divider.vhd|
 !i113 1
@@ -918,7 +918,7 @@ Z137 DEx4 work 22 aftab_divider_datapath 0 22 aHCmKbg>L77bWC2Jl42>n2
 R4
 R5
 Z138 DEx4 work 13 aftab_divider 0 22 B]Zm8:YFIMGE80kWkgF:01
-!i122 1941
+!i122 2101
 l69
 L54 62
 VoPneEk@1i`fo8Kg<I^izf0
@@ -927,7 +927,7 @@ R9
 33
 R43
 !i10b 1
-R44
+R11
 R134
 R135
 !i113 1
@@ -940,7 +940,7 @@ R2
 R3
 R4
 R5
-!i122 1939
+!i122 2099
 R0
 Z139 8./datapath/aftab_aau/aftab_su_divider/aftab_divider_controller.vhd
 Z140 F./datapath/aftab_aau/aftab_su_divider/aftab_divider_controller.vhd
@@ -952,21 +952,21 @@ R9
 33
 R43
 !i10b 1
-R44
+R11
 Z141 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_su_divider/aftab_divider_controller.vhd|
 Z142 !s107 ./datapath/aftab_aau/aftab_su_divider/aftab_divider_controller.vhd|
 !i113 1
 R14
 R15
 Abehavioral
-R53
+R52
 R28
 R2
 R3
 R4
 R5
 R136
-!i122 1939
+!i122 2099
 l76
 L67 110
 VagjbA3eE[R1@VdSL@Hh9Y0
@@ -975,7 +975,7 @@ R9
 33
 R43
 !i10b 1
-R44
+R11
 R141
 R142
 !i113 1
@@ -987,7 +987,7 @@ R2
 R3
 R4
 R5
-!i122 1940
+!i122 2100
 R0
 Z143 8./datapath/aftab_aau/aftab_su_divider/aftab_divider_datapath.vhd
 Z144 F./datapath/aftab_aau/aftab_su_divider/aftab_divider_datapath.vhd
@@ -999,7 +999,7 @@ R9
 33
 R43
 !i10b 1
-R44
+R11
 Z145 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_su_divider/aftab_divider_datapath.vhd|
 Z146 !s107 ./datapath/aftab_aau/aftab_su_divider/aftab_divider_datapath.vhd|
 !i113 1
@@ -1007,14 +1007,14 @@ R14
 R15
 Abehavioral
 R111
-R59
 R58
+R57
 R2
 R3
 R4
 R5
 R137
-!i122 1940
+!i122 2100
 l82
 L69 84
 Vmz70bOTkVFD509@_QT>GD1
@@ -1023,7 +1023,7 @@ R9
 33
 R43
 !i10b 1
-R44
+R11
 R145
 R146
 !i113 1
@@ -1082,7 +1082,7 @@ Eaftab_full_adder
 R19
 R4
 R5
-!i122 1947
+!i122 2107
 R0
 Z154 8./datapath/aftab_daru/aftab_full_adder.vhd
 Z155 F./datapath/aftab_daru/aftab_full_adder.vhd
@@ -1094,7 +1094,7 @@ R9
 33
 R10
 !i10b 1
-R11
+R94
 Z156 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_daru/aftab_full_adder.vhd|
 Z157 !s107 ./datapath/aftab_daru/aftab_full_adder.vhd|
 !i113 1
@@ -1104,7 +1104,7 @@ Agate_level
 R4
 R5
 Z158 DEx4 work 16 aftab_full_adder 0 22 ^_[Ek@ok3<@=26C<_9IoH0
-!i122 1947
+!i122 2107
 l51
 L50 5
 VhB6dRF?LVJ;PSSkc]c7GL3
@@ -1113,7 +1113,7 @@ R9
 33
 R10
 !i10b 1
-R11
+R94
 R156
 R157
 !i113 1
@@ -1124,7 +1124,7 @@ R19
 R28
 R4
 R5
-!i122 1946
+!i122 2106
 R0
 Z159 8./datapath/aftab_daru/aftab_half_adder.vhd
 Z160 F./datapath/aftab_daru/aftab_half_adder.vhd
@@ -1136,7 +1136,7 @@ R9
 33
 R10
 !i10b 1
-R11
+R94
 Z161 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_daru/aftab_half_adder.vhd|
 Z162 !s107 ./datapath/aftab_daru/aftab_half_adder.vhd|
 !i113 1
@@ -1147,7 +1147,7 @@ R28
 R4
 R5
 Z163 DEx4 work 16 aftab_half_adder 0 22 WJza<M`<bU]4oTISiK?@H0
-!i122 1946
+!i122 2106
 l52
 L51 5
 V>NZF45IV6XFMnP9j@Uj7K1
@@ -1156,7 +1156,7 @@ R9
 33
 R10
 !i10b 1
-R11
+R94
 R161
 R162
 !i113 1
@@ -1166,19 +1166,19 @@ Eaftab_imm_sel_sign_ext
 R19
 R4
 R5
-!i122 1929
+!i122 2089
 R0
 Z164 8./datapath/aftab_imm_sel_sign_ext.vhd
 Z165 F./datapath/aftab_imm_sel_sign_ext.vhd
 l0
-R87
+R86
 VBLXGea;<o;3HY<LEb_cBY0
 !s100 6[8<K0hS`Ulk[J957VhAc3
 R9
 33
-R23
+R61
 !i10b 1
-R24
+R62
 Z166 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_imm_sel_sign_ext.vhd|
 Z167 !s107 ./datapath/aftab_imm_sel_sign_ext.vhd|
 !i113 1
@@ -1188,16 +1188,16 @@ Abehavioral
 R4
 R5
 R110
-!i122 1929
+!i122 2089
 l65
 L64 26
 V8SCVOofdU?`_MjT0CGiCb1
 !s100 Ba07a[8Q_JHM[Yi4jdibi2
 R9
 33
-R23
+R61
 !i10b 1
-R24
+R62
 R166
 R167
 !i113 1
@@ -1254,7 +1254,7 @@ R2
 R3
 R4
 R5
-!i122 1933
+!i122 2093
 R0
 Z175 8./datapath/aftab_llu.vhd
 Z176 F./datapath/aftab_llu.vhd
@@ -1278,7 +1278,7 @@ R3
 R4
 R5
 R109
-!i122 1933
+!i122 2093
 l52
 L50 13
 VmAZ1@gzXUfFG793D@MU2N1
@@ -1294,27 +1294,53 @@ R178
 R14
 R15
 Eaftab_mem
-Z179 w1622566340
+Z179 w1622734945
+R169
+R112
 R28
+R2
+R3
 R4
 R5
-!i122 1883
+!i122 2083
 R0
-Z180 8./test/aftab_mem.vhd
-Z181 F./test/aftab_mem.vhd
+Z180 8test/aftab_mem.vhd
+Z181 Ftest/aftab_mem.vhd
 l0
-L6 1
-VdG;ln2G<J;nbfZTTzdT`g3
-!s100 hBT[N7zZeWF:RZ^OeQ02@0
+L13 1
+V<I4f?96`O]^OmhJ;AdG?S0
+!s100 S4T@e?:4`dZk>nL31Ef0M3
 R9
-33
-R150
+32
+Z182 !s110 1622734985
 !i10b 1
-R172
-Z182 !s90 -2008|-reportprogress|300|-work|work|./test/aftab_mem.vhd|
-Z183 !s107 ./test/aftab_mem.vhd|
+Z183 !s108 1622734985.000000
+Z184 !s90 test/aftab_mem.vhd|
+Z185 !s107 test/aftab_mem.vhd|
 !i113 1
-R14
+R15
+Astr
+R169
+R112
+R28
+R2
+R3
+R4
+R5
+DEx4 work 9 aftab_mem 0 22 <I4f?96`O]^OmhJ;AdG?S0
+!i122 2083
+l33
+L27 57
+VSHcz5RfbV1;]RNlL2<mCn1
+!s100 >gg>N;z5o;NLYaKUO^nL=0
+R9
+32
+R182
+!i10b 1
+R183
+R184
+R185
+!i113 1
 R15
 Abehv
 R28
@@ -1331,33 +1357,36 @@ R9
 R150
 !i10b 1
 R172
-R182
-R183
+!s90 -2008|-reportprogress|300|-work|work|./test/aftab_mem.vhd|
+!s107 ./test/aftab_mem.vhd|
 !i113 1
 R14
 R15
+F./test/aftab_mem.vhd
+w1622566340
+8./test/aftab_mem.vhd
 Eaftab_memory
-Z184 w1622722044
+Z186 w1622729849
 R169
 R3
 R2
 R4
 R5
-!i122 1959
+!i122 2119
 R0
-Z185 8./test/aftab_memory.vhd
-Z186 F./test/aftab_memory.vhd
+Z187 8./test/aftab_memory.vhd
+Z188 F./test/aftab_memory.vhd
 l0
 L11 1
 V:TmZA2Q@428L]=ZoUXa=Q2
 !s100 Y?jSR:Kg7O][37RmMP8Kh1
 R9
 33
-R77
+Z189 !s110 1622748926
 !i10b 1
-Z187 !s108 1622725439.000000
-Z188 !s90 -2008|-reportprogress|300|-work|work|./test/aftab_memory.vhd|
-Z189 !s107 ./test/aftab_memory.vhd|
+R70
+Z190 !s90 -2008|-reportprogress|300|-work|work|./test/aftab_memory.vhd|
+Z191 !s107 ./test/aftab_memory.vhd|
 !i113 1
 R14
 R15
@@ -1368,18 +1397,18 @@ R2
 R4
 R5
 DEx4 work 12 aftab_memory 0 22 :TmZA2Q@428L]=ZoUXa=Q2
-!i122 1959
-l66
-L28 114
-VAHYccV7RCEbYYGbOH306@0
-!s100 185lXRL`CB?3bm_?@CMl73
+!i122 2119
+l70
+L28 118
+VUTGzc[G6KfNe0Ml??a_An3
+!s100 eO9=bokl9TfNWWDGo]kSN1
 R9
 33
-R77
-!i10b 1
-R187
-R188
 R189
+!i10b 1
+R70
+R190
+R191
 !i113 1
 R14
 R15
@@ -1387,21 +1416,21 @@ Eaftab_multiplexer
 R19
 R4
 R5
-!i122 1926
+!i122 2086
 R0
-Z190 8./datapath/aftab_multiplexer.vhd
-Z191 F./datapath/aftab_multiplexer.vhd
+Z192 8./datapath/aftab_multiplexer.vhd
+Z193 F./datapath/aftab_multiplexer.vhd
 l0
 R8
 V]Jcm2ATn52SZ9n>b3kO_]3
 !s100 H;;NihN7;bCFjmc?eO?A=3
 R9
 33
-Z192 !s110 1622725434
+R61
 !i10b 1
 R62
-Z193 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_multiplexer.vhd|
-Z194 !s107 ./datapath/aftab_multiplexer.vhd|
+Z194 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_multiplexer.vhd|
+Z195 !s107 ./datapath/aftab_multiplexer.vhd|
 !i113 1
 R14
 R15
@@ -1409,18 +1438,18 @@ Aprocedural
 R4
 R5
 R111
-!i122 1926
+!i122 2086
 l53
 L53 11
 VC2SPT9CXlX0Ll0lmMe[Qn2
 !s100 VXn?QKU4UDYNanT9jZWEW0
 R9
 33
-R192
+R61
 !i10b 1
 R62
-R193
 R194
+R195
 !i113 1
 R14
 R15
@@ -1428,10 +1457,10 @@ Eaftab_opt_adder
 R19
 R4
 R5
-!i122 1949
+!i122 2109
 R0
-Z195 8./datapath/aftab_daru/aftab_opt_adder.vhd
-Z196 F./datapath/aftab_daru/aftab_opt_adder.vhd
+Z196 8./datapath/aftab_daru/aftab_opt_adder.vhd
+Z197 F./datapath/aftab_daru/aftab_opt_adder.vhd
 l0
 R22
 V7B`4O=ZCg3P]6C??6HKlZ0
@@ -1440,9 +1469,9 @@ R9
 33
 R10
 !i10b 1
-R11
-Z197 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_daru/aftab_opt_adder.vhd|
-Z198 !s107 ./datapath/aftab_daru/aftab_opt_adder.vhd|
+R94
+Z198 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_daru/aftab_opt_adder.vhd|
+Z199 !s107 ./datapath/aftab_daru/aftab_opt_adder.vhd|
 !i113 1
 R14
 R15
@@ -1453,7 +1482,7 @@ R158
 R4
 R5
 R101
-!i122 1949
+!i122 2109
 l52
 L49 28
 V0@E3fo;`47bHo:jeGz<Df0
@@ -1462,9 +1491,9 @@ R9
 33
 R10
 !i10b 1
-R11
-R197
+R94
 R198
+R199
 !i113 1
 R14
 R15
@@ -1474,44 +1503,44 @@ R2
 R3
 R4
 R5
-!i122 1925
+!i122 2085
 R0
-Z199 8./datapath/aftab_register.vhd
-Z200 F./datapath/aftab_register.vhd
+Z200 8./datapath/aftab_register.vhd
+Z201 F./datapath/aftab_register.vhd
 l0
 R22
 V;A252Z=AXAd=gMWf99kXl3
 !s100 UQM<n6gC0F^@2ARS`AbLd3
 R9
 33
-R192
+R61
 !i10b 1
 R62
-Z201 !s90 -2008|-2008|-reportprogress|300|-work|work|./datapath/aftab_register.vhd|
-Z202 !s107 ./datapath/aftab_register.vhd|
+Z202 !s90 -2008|-2008|-reportprogress|300|-work|work|./datapath/aftab_register.vhd|
+Z203 !s107 ./datapath/aftab_register.vhd|
 !i113 1
-Z203 o-2008 -2008 -work work
+Z204 o-2008 -2008 -work work
 R15
 Abehavioral
 R2
 R3
 R4
 R5
-R59
-!i122 1925
+R58
+!i122 2085
 l53
 L52 15
 VL_6H=Sn@JQIeJ2_nhzhgM1
 !s100 QETo8FkNYlR8JVbUk<bTX2
 R9
 33
-R192
+R61
 !i10b 1
 R62
-R201
 R202
-!i113 1
 R203
+!i113 1
+R204
 R15
 Eaftab_register_file
 R66
@@ -1521,21 +1550,21 @@ R2
 R3
 R4
 R5
-!i122 1935
+!i122 2095
 R0
-Z204 8./datapath/aftab_register_file.vhd
-Z205 F./datapath/aftab_register_file.vhd
+Z205 8./datapath/aftab_register_file.vhd
+Z206 F./datapath/aftab_register_file.vhd
 l0
 L45 1
 VnJH0_I@@dzVXoZ=FCieI?3
 !s100 abUCk@4R?WRiiVNoTe>8`2
 R9
 33
-R43
+R23
 !i10b 1
 R24
-Z206 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_register_file.vhd|
-Z207 !s107 ./datapath/aftab_register_file.vhd|
+Z207 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_register_file.vhd|
+Z208 !s107 ./datapath/aftab_register_file.vhd|
 !i113 1
 R14
 R15
@@ -1547,18 +1576,18 @@ R3
 R4
 R5
 R113
-!i122 1935
+!i122 2095
 l67
 L60 31
 V4_?LC:LBR]i6214TQn@?X1
 !s100 TiJV5IFJeYzNXi]8GFaWG0
 R9
 33
-R43
+R23
 !i10b 1
 R24
-R206
 R207
+R208
 !i113 1
 R14
 R15
@@ -1570,7 +1599,7 @@ R5
 DEx4 work 19 aftab_register_file 0 22 ;Xeof4e[LVF>dUXXNaOYD1
 !i122 286
 l56
-Z208 L55 26
+Z209 L55 26
 Vm^^=ISi[liJj6CD^HMMEd1
 !s100 Rhdj_IafTQS<eUzdDLe@i0
 R9
@@ -1579,7 +1608,7 @@ R9
 !i10b 1
 !s108 1620196782.000000
 !s90 -reportprogress|300|-work|work|./datapath/aftab_register_file.vhd|
-R207
+R208
 !i113 1
 o-work work
 R15
@@ -1590,10 +1619,10 @@ R2
 R3
 R4
 R5
-!i122 1945
+!i122 2105
 R0
-Z209 8./datapath/aftab_aau/aftab_shift_register.vhd
-Z210 F./datapath/aftab_aau/aftab_shift_register.vhd
+Z210 8./datapath/aftab_aau/aftab_shift_register.vhd
+Z211 F./datapath/aftab_aau/aftab_shift_register.vhd
 l0
 R22
 VVHbTgK?G<S;>zZYl9:2ZX2
@@ -1602,9 +1631,9 @@ R9
 33
 R10
 !i10b 1
-R11
-Z211 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_shift_register.vhd|
-Z212 !s107 ./datapath/aftab_aau/aftab_shift_register.vhd|
+R94
+Z212 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_shift_register.vhd|
+Z213 !s107 ./datapath/aftab_aau/aftab_shift_register.vhd|
 !i113 1
 R14
 R15
@@ -1613,19 +1642,19 @@ R2
 R3
 R4
 R5
-R58
-!i122 1945
+R57
+!i122 2105
 l56
-R208
+R209
 VTmUXjZbI_0O^:l]GlKbXZ0
 !s100 nJhoOVWGefIdd`dD7k:J@3
 R9
 33
 R10
 !i10b 1
-R11
-R211
+R94
 R212
+R213
 !i113 1
 R14
 R15
@@ -1633,21 +1662,21 @@ Eaftab_su_divider
 R19
 R4
 R5
-!i122 1943
+!i122 2103
 R0
-Z213 8./datapath/aftab_aau/aftab_su_divider/aftab_su_divider.vhd
-Z214 F./datapath/aftab_aau/aftab_su_divider/aftab_su_divider.vhd
+Z214 8./datapath/aftab_aau/aftab_su_divider/aftab_su_divider.vhd
+Z215 F./datapath/aftab_aau/aftab_su_divider/aftab_su_divider.vhd
 l0
 R8
 V_iC:nNa;0RWMWR>z[GS@<1
 !s100 =Aff2:R3mdk3<_2P4YWC10
 R9
 33
-R10
+R43
 !i10b 1
-R44
-Z215 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_su_divider/aftab_su_divider.vhd|
-Z216 !s107 ./datapath/aftab_aau/aftab_su_divider/aftab_su_divider.vhd|
+R11
+Z216 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_su_divider/aftab_su_divider.vhd|
+Z217 !s107 ./datapath/aftab_aau/aftab_su_divider/aftab_su_divider.vhd|
 !i113 1
 R14
 R15
@@ -1655,35 +1684,35 @@ Abehavioral
 R138
 R2
 R3
-Z217 DEx4 work 9 aftab_tcl 0 22 ^_oU[@PO8[n_8[l;9C1aT1
+Z218 DEx4 work 9 aftab_tcl 0 22 ^_oU[@PO8[n_8[l;9C1aT1
 R4
 R5
 R16
-!i122 1943
+!i122 2103
 l66
 L57 57
 V8?1JJDOLMW`8n5JJ^2;LI2
 !s100 VQN6izYYCJ<<i`<AAg7S20
 R9
 33
-R10
+R43
 !i10b 1
-R44
-R215
+R11
 R216
+R217
 !i113 1
 R14
 R15
 Eaftab_sulu
-Z218 w1622037595
+Z219 w1622037595
 R4
 R5
-!i122 1934
+!i122 2094
 R0
-Z219 8./datapath/aftab_sulu.vhd
-Z220 F./datapath/aftab_sulu.vhd
+Z220 8./datapath/aftab_sulu.vhd
+Z221 F./datapath/aftab_sulu.vhd
 l0
-R87
+R86
 V563[4IiaBZFamlSG[9U]_2
 !s100 maHMbUYmAd]<jU76MV5IS2
 R9
@@ -1691,8 +1720,8 @@ R9
 R23
 !i10b 1
 R24
-Z221 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_sulu.vhd|
-Z222 !s107 ./datapath/aftab_sulu.vhd|
+Z222 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_sulu.vhd|
+Z223 !s107 ./datapath/aftab_sulu.vhd|
 !i113 1
 R14
 R15
@@ -1700,7 +1729,7 @@ Abehavioral
 R4
 R5
 R107
-!i122 1934
+!i122 2094
 l51
 L50 6
 VZF1856z?j5:b<kHjk5RHi3
@@ -1710,8 +1739,8 @@ R9
 R23
 !i10b 1
 R24
-R221
 R222
+R223
 !i113 1
 R14
 R15
@@ -1721,10 +1750,10 @@ R2
 R3
 R4
 R5
-!i122 1942
+!i122 2102
 R0
-Z223 8./datapath/aftab_aau/aftab_su_divider/aftab_tcl.vhd
-Z224 F./datapath/aftab_aau/aftab_su_divider/aftab_tcl.vhd
+Z224 8./datapath/aftab_aau/aftab_su_divider/aftab_tcl.vhd
+Z225 F./datapath/aftab_aau/aftab_su_divider/aftab_tcl.vhd
 l0
 R37
 V^_oU[@PO8[n_8[l;9C1aT1
@@ -1733,9 +1762,9 @@ R9
 33
 R43
 !i10b 1
-R44
-Z225 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_su_divider/aftab_tcl.vhd|
-Z226 !s107 ./datapath/aftab_aau/aftab_su_divider/aftab_tcl.vhd|
+R11
+Z226 !s90 -2008|-reportprogress|300|-work|work|./datapath/aftab_aau/aftab_su_divider/aftab_tcl.vhd|
+Z227 !s107 ./datapath/aftab_aau/aftab_su_divider/aftab_tcl.vhd|
 !i113 1
 R14
 R15
@@ -1744,8 +1773,8 @@ R2
 R3
 R4
 R5
-R217
-!i122 1942
+R218
+!i122 2102
 l54
 L52 7
 V=f4S6QjkW0TJBXF4PfD^C1
@@ -1754,30 +1783,30 @@ R9
 33
 R43
 !i10b 1
-R44
-R225
+R11
 R226
+R227
 !i113 1
 R14
 R15
 Etb_aftab
-Z227 w1622725425
+Z228 w1622748877
 R4
 R5
-!i122 1960
+!i122 2120
 R0
-Z228 8./test/TB_aftab.vhd
-Z229 F./test/TB_aftab.vhd
+Z229 8./test/TB_aftab.vhd
+Z230 F./test/TB_aftab.vhd
 l0
 L5 1
 VL;i9QZPG;`L]Hi3jmS8QZ1
 !s100 ?CezjjAmOWaDe9GQWfVAJ0
 R9
 33
-R77
+R189
 !i10b 1
-R187
-Z230 !s90 -2008|-reportprogress|300|-work|work|./test/TB_aftab.vhd|
+Z231 !s108 1622748926.000000
+Z232 !s90 -2008|-reportprogress|300|-work|work|./test/TB_aftab.vhd|
 !s107 ./test/TB_aftab.vhd|
 !i113 1
 R14
@@ -1786,18 +1815,18 @@ Atest
 R4
 R5
 DEx4 work 8 tb_aftab 0 22 L;i9QZPG;`L]Hi3jmS8QZ1
-!i122 1960
+!i122 2120
 l75
-Z231 L8 100
-V[R;Mi7lk:4k8z6fn<XH_K0
-Z232 !s100 LloLgaMCkiA3SEJN_>PCN1
+Z233 L8 111
+V>o_k^N;G8FL]5<[=XnInm2
+!s100 0IOG?ciUVVCf<kMCh78dK2
 R9
 33
-R77
+R189
 !i10b 1
-R187
-R230
-Z233 !s107 ./test/TB_aftab.vhd|
+R231
+R232
+Z234 !s107 ./test/TB_aftab.vhd|
 !i113 1
 R14
 R15

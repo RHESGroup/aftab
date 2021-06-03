@@ -1,85 +1,83 @@
-LIBRARY IEEE;
-USE IEEE.std_logic_1164.ALL;
+
+library IEEE;
+use IEEE.std_logic_1164.all;
+use IEEE.std_logic_unsigned.all;
+use IEEE.numeric_std.all;
+use IEEE.math_real.all;
+use std.textio.all;
+use ieee.std_logic_textio.all;
 use ieee.numeric_std.all;
 
+use WORK.all;
 
-entity aftab_mem is 
-	GENERIC (len : INTEGER := 32;
-			 N_bits : integer := 8);
-	PORT (
-		clk        : IN  STD_LOGIC;
-		rst        : IN  STD_LOGIC;
-		memReady   : OUT  STD_LOGIC;
-		memRead    : IN STD_LOGIC;
-		memWrite   : IN STD_LOGIC;
-		memDataIN : IN STD_LOGIC_VECTOR (7 DOWNTO 0);
-		memAddr    : IN STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		memDataOUT  : OUT  STD_LOGIC_VECTOR (7 DOWNTO 0)
-	);
+entity aftab_mem  is
+generic(Address_bits:integer  := 32; 
+		N_bits: integer := 8;
+        N_lines: integer := 128);
+ port ( 
+		rst: IN std_logic;
+		clk: IN std_logic;
+	 	input_data: IN std_logic_vector(N_bits-1 downto 0);
+		input_address: 	IN std_logic_vector(31 downto 0);
+		read_enable: In std_logic;
+		write_enable: in std_logic;
+		output_data: out std_logic_vector(N_bits-1 downto 0));
 end aftab_mem;
 
+architecture str of aftab_mem is
 
+	constant file_path : string := "./test/asm/test_all/test0.hex";
 
-architecture behv of aftab_mem is
+	type size_mem is array (0 to N_lines-1) of std_logic_vector ( N_bits-1 downto 0);
+	signal mem_s : size_mem;
+begin 
 
-		constant BASE_IRAM :  integer := 0;
-		constant SIZE_IRAM :  integer := 64;
-		constant BASE_DRAM :  integer := 1024;
-		constant SIZE_DRAM :  integer := 64;
+mem_proc: process (clk,read_enable,input_address) is
+	file mem_fp: text;
+     variable file_line : line;
+     variable addr: integer;
+     variable index : integer := 0;
+     variable tmp_data_u : std_logic_vector(4*N_bits-1 downto 0);
+     variable good: boolean ;
+	 constant BASE_IRAM :  integer := 0;
+	 constant SIZE_IRAM :  integer := 64;
+	 constant BASE_DRAM :  integer := 64;
+	 constant SIZE_DRAM :  integer := 64;
+begin
+if rst = '1' then
+		file_open(mem_fp,file_path,READ_MODE);
+       while (not endfile(mem_fp)) loop
+         readline(mem_fp,file_line);
+         hread(file_line,tmp_data_u);
+         --hread(file_line,tmp_data_u); -- This reads an hexadecimal value into a std_logic_vector
+         mem_s(index) <= tmp_data_u(N_bits - 1 downto 0);       
+         mem_s(index+1) <= tmp_data_u(2*N_bits - 1 downto N_bits);     
+         mem_s(index+2) <= tmp_data_u(3*N_bits - 1 downto 2*N_bits);   
+         mem_s(index+3) <= tmp_data_u(4*N_bits - 1 downto 3*N_bits);   
+         index := index + 4;
+       end loop;
+      
+       file_close(mem_fp);
+      
+      while (index < N_lines) loop 
+	  	mem_s(index) <= x"00";
+      	index := index + 1;
+       end loop;
+       index := 0;
+      
+else
+  if  clk'event and clk = '1' then
+		if write_enable = '1' and to_integer(unsigned(input_address)) >= BASE_DRAM and  to_integer(unsigned(input_address)) < BASE_DRAM + SIZE_DRAM  then
+			mem_s(to_integer(unsigned(input_address))) <= input_data;
+		end if;
+  end if;
+   
+  if read_enable = '1'   then
+	output_data <= mem_s(to_integer(unsigned(input_address)));
+  end if; 
+  
+end if;
 
-
-
-		component aftab_dram  is
-			generic(Address_bits :integer := 32; 
-					N_bits: integer := 8;
-					N_lines: integer := 64);
-			port ( 
-					rst: IN std_logic;
-					clk: IN std_logic;
-					input_data: IN std_logic_vector(N_bits-1 downto 0);
-					input_address: 	IN std_logic_vector(31 downto 0);
-					read_enable: In std_logic;
-					write_enable: in std_logic;
-					enable: In  std_logic;
-					output_data: out std_logic_vector(N_bits-1 downto 0));
-		end component;
-
-
-		component aftab_iram  is
-			generic (
-			  RAM_DEPTH : integer := 512;
-			  I_SIZE : integer := 32;
-			  D_SIZE : integer := 8);
-			port (
-			  Rst  : in  std_logic;
-			  Addr : in  std_logic_vector(I_SIZE - 1 downto 0);
-			  Dout : out std_logic_vector(31 downto 0)
-			  );
-		  end component;
-
-
-		  signal doutIRAM_s, doutDRAM_s: std_logic_vector(N_bits-1 downto 0);
-		  signal addrDRAM_s: std_logic_vector(31 downto 0);
-
-		  begin
-
-
-
-			iram_c : aftab_iram port map (Rst=>rst,Addr=>memAddr,Dout=>doutIRAM_s);
-
-			dram_c : aftab_dram port map (rst=>rst,clk=>clk,input_data=>memDataIN,input_address=>addrDRAM_s,read_enable=>memRead,write_enable=>memWrite,enable=>'1',output_data=>doutDRAM_s);
-
-
-			mux_proc: process(doutIRAM_s,doutDRAM_s,memAddr)
-
-			begin 
-
-				if ( to_integer(unsigned(memAddr)) >= BASE_IRAM and  to_integer(unsigned(memAddr)) < BASE_IRAM + SIZE_IRAM  ) then
-					memDataOUT <= doutIRAM_s;
-				elsif ( to_integer(unsigned(memAddr)) >= BASE_DRAM and  to_integer(unsigned(memAddr)) < BASE_DRAM + SIZE_DRAM  ) then
-					memDataOUT <= doutDRAM_s;
-					addrDRAM_s <=  std_logic_vector(unsigned(memAddr) - 1024); 
-				end if;
-			end process;
-
-end architecture;
+end process;
+	
+end str;

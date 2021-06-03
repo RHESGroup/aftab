@@ -19,25 +19,25 @@ architecture TEST of tb_aftab is
 	signal memReady_s: std_logic:= '1';
 	signal memRead_s: std_logic;
 	signal memWrite_s: std_logic;
-	signal memDataBUS_s: std_logic_vector(dataWidth-1 downto 0);
+	signal memDataIN_s: std_logic_vector(dataWidth-1 downto 0);
+	signal memDataOUT_s: std_logic_vector(dataWidth-1 downto 0);
 	signal memAddr_s: std_logic_vector(addressWidth-1 downto 0);
 
 	
-	component aftab_memory IS
-		GENERIC (
-			dataWidth    : INTEGER := 8;
-			addressWidth : INTEGER := 32;
-			blocksize    : INTEGER := 2**11;
-			segmentsno   : INTEGER := 2**19;
-			cycle        : TIME    := 25 ns;
-			timer        : TIME    := 4 ns);
-		PORT (
-			clk, readmem, writemem : IN  STD_LOGIC;
-			addressBus             : IN  STD_LOGIC_VECTOR (addressWidth - 1 DOWNTO 0);
-			dataBus                : INOUT  STD_LOGIC_VECTOR (dataWidth - 1 DOWNTO 0);
-			memdataready           : OUT STD_LOGIC
-		);
-	END component;
+	component aftab_mem  is
+		generic(Address_bits:integer  := 32; 
+				N_bits: integer := 8;
+				N_lines: integer := 128);
+		 port ( 
+				rst: IN std_logic;
+				clk: IN std_logic;
+				input_data: IN std_logic_vector(N_bits-1 downto 0);
+				input_address: 	IN std_logic_vector(31 downto 0);
+				read_enable: In std_logic;
+				write_enable: in std_logic;
+				output_data: out std_logic_vector(N_bits-1 downto 0));
+	end component;
+		
 
     Component aftab_core IS
 	GENERIC (len : INTEGER := 32);
@@ -78,22 +78,33 @@ begin
         Generic map (len=>32)
         Port map (clk		=>	clk_s,
 				  rst		=>	rst_s,
-				  memReady	=>	memReady_s,
+				  memReady	=>	'1',
 				  memRead	=>	memRead_s,
 				  memWrite	=>	memWrite_s,
-				  memDataIN	=>	memDataBUS_s,
-				  memDataOUT=>	memDataBUS_s,
+				  memDataIN	=>	memDataIN_s,
+				  memDataOUT=>	memDataOUT_s,
 				  memAddr	=>	memAddr_s
 		);
 
-		aftab_mem_ut: aftab_memory port map (
-			clk				=> clk_s,
-			readmem 		=> rst_s,
- 			writemem 		=> memWrite_s,
-			addressBus 		=> memAddr_s, 
-			dataBus     	=> memDataBUS_s,
-			memdataready  	=> memReady_s       
-		);
+		-- aftab_mem_ut: aftab_memory port map (
+		-- 	clk				=> clk_s,
+		-- 	readmem 		=> rst_s,
+ 		-- 	writemem 		=> memWrite_s,
+		-- 	addressBus 		=> memAddr_s, 
+		-- 	dataBus     	=> memDataBUS_s,
+		-- 	memdataready  	=> memReady_s       
+		-- );
+
+		
+		aftab_mem_ut: aftab_mem port map ( 
+					rst => rst_s,
+					clk=> clk_s,
+					input_data => memDataOUT_s,
+					input_address => memAddr_s,
+					read_enable=> memRead_s,
+					write_enable=> memWrite_s,
+					output_data => memDataIN_s);
+
 
 
         PCLOCK : process(clk_s)

@@ -1,3 +1,4 @@
+
 library IEEE;
 use IEEE.std_logic_1164.all;
 use IEEE.std_logic_unsigned.all;
@@ -26,20 +27,20 @@ architecture str of aftab_dram is
 begin 
 
 mem_proc: process (clk,read_enable,input_address) is
-begin
 
+begin
 if rst = '0' then
-	mem_s <= (others =>(others =>'0'));
+	mem_s <=  (others => (others => "0"));  
 else
   if  clk'event and clk = '1' then
 	if enable = '1' then
-		if write_enable = '1' then
+		if write_enable = '1' and to_integer(unsigned(input_address)) >= BASE_DRAM and  to_integer(unsigned(input_address)) < BASE_DRAM + SIZE_DRAM  then
 			mem_s(to_integer(unsigned(input_address))) <= input_data;
 		end if;
 	end if;
   end if;
    
-  if read_enable = '1'  then
+  if read_enable = '1'   then
 	output_data <= mem_s(to_integer(unsigned(input_address)));
   end if; 
   

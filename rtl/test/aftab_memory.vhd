@@ -27,18 +27,19 @@ END aftab_memory;
 
 ARCHITECTURE behavioral OF aftab_memory IS
 	TYPE mem_type IS ARRAY (0 TO blocksize - 1) OF STD_LOGIC_VECTOR (dataWidth-1 DOWNTO 0);
-    
+
 	--Data TYPE for a seqment OF memory
 	--Load a segment from a file
-	PROCEDURE MemLoad (buffermem : OUT mem_type;	fileno : IN  INTEGER) IS
+	PROCEDURE MemLoad (buffermem : OUT mem_type; fileno : IN  INTEGER) IS
 	VARIABLE memline             : LINE;
 	VARIABLE offset              : INTEGER := 0;
 	VARIABLE err_check           : file_open_status;
 	VARIABLE hexcode_v           : STD_LOGIC_VECTOR (dataWidth-1 DOWNTO 0);
+    
 	FILE f                       : TEXT;
 	BEGIN
 		buffermem := (OTHERS => (OTHERS => '0'));
-		FILE_OPEN (err_check, f,("mem" & INTEGER'IMAGE (fileno) & ".hex"),READ_MODE);
+		FILE_OPEN (err_check, f,("./test/asm/test_all/test0.hex"),READ_MODE);
 		IF err_check = open_ok THEN
 			WHILE NOT ENDFILE (f) LOOP
 				readline (f, memline);
@@ -55,7 +56,7 @@ ARCHITECTURE behavioral OF aftab_memory IS
 	PROCEDURE updateFILE (buffermem : IN mem_type; fileno : IN INTEGER) IS
 	VARIABLE memline                : line;
 	FILE f                          : TEXT OPEN WRITE_MODE IS
-	("mem" & INTEGER'IMAGE (fileno) & ".hex");
+	("./test/asm/test_all/mem0.hex");
 	BEGIN
 	FOR i IN 0 TO blocksize - 1 LOOP
 		HWRITE (memline, buffermem (i));

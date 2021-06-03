@@ -35,7 +35,7 @@ architecture IRam_Bhe of aftab_iram is
 begin  -- IRam_Bhe
 
 
-      Dout <= IRAM_mem(to_integer(unsigned(Addr)));
+   Dout <= IRAM_mem(to_integer(unsigned(Addr)));
 
 
    FILL_MEM_P: process (Rst)
