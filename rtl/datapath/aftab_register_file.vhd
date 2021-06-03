@@ -75,13 +75,14 @@ begin
 				   p1 <= Registers(to_integer(unsigned(rs1)));
 				   p2 <= Registers(to_integer(unsigned(rs2)));
 				if writeRegFile = '1' then 
-					if setZero = '1' then 
-						Registers(to_integer(unsigned(rd))) <= ((others => '0') ); 
-					elsif setOne= '1' then 
-						Registers(to_integer(unsigned(rd))) <= ((others => '1') ); 
-					else 
 					    Registers(to_integer(unsigned(rd))) <= writedata; 
-					end if;
+
+				end if;
+
+				if setZero = '1' then 
+					Registers(to_integer(unsigned(rd))) <= ((others => '0') ); 
+				elsif setOne= '1' then 
+					Registers(to_integer(unsigned(rd))) <= std_logic_vector(to_unsigned(1,len)); 
 				end if;
 		end if; 
 	end if;

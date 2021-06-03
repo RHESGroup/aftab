@@ -36,26 +36,39 @@ architecture TEST of tb_aftab is
 	);
     END component;
 
-	component aftab_iram  is
-		generic (
-		  RAM_DEPTH : integer := 512;
-		  I_SIZE : integer := 32;
-		  D_SIZE : integer := 8);
-		port (
-		  Rst  : in  std_logic;
-		  Addr : in  std_logic_vector(I_SIZE - 1 downto 0);
-		  Dout : out std_logic_vector(D_SIZE - 1 downto 0)
-		  );
-	  
-	  end component;
+
+	component aftab_mem is 
+		GENERIC (len : INTEGER := 32;
+			 N_bits : integer := 8);
+		PORT (
+			clk        : IN  STD_LOGIC;
+			rst        : IN  STD_LOGIC;
+			memReady   : OUT  STD_LOGIC;
+			memRead    : IN STD_LOGIC;
+			memWrite   : IN STD_LOGIC;
+			memDataIN : IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+			memAddr    : IN STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+			memDataOUT  : OUT  STD_LOGIC_VECTOR (7 DOWNTO 0)
+		);
+	end component;
+
+
 begin
 
         aftab_ut: aftab_core 
         Generic map (len=>32)
         Port map (clk=>clk_s,rst=>rst_s,memReady=>memReady_s,memRead=>memRead_s,memWrite=>memWrite_s,memDataIN=>memDataIN_s,memDataOUT=>memDataOUT_s,memAddr=>memAddr_s);
 
-		iram_cmp:  aftab_iram 
-		Port map (Rst=>rst_s,Addr=>memAddr_s,Dout=>memDataIN_s);
+		mem_cmp:  aftab_mem PORT map (
+			clk       => clk_s,
+			rst        => rst_s,
+			memReady  => memReady_s,
+			memRead   => memRead_s,
+			memWrite   => memWrite_s,
+			memDataIN => memDataOUT_s,
+			memAddr    => memAddr_s,
+			memDataOUT =>memDataIN_s
+		);
 	
 
         PCLOCK : process(clk_s)
