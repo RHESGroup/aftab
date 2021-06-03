@@ -5,5 +5,5 @@ add wave -position end  sim:/tb_aftab/aftab_ut/controllerAFTAB/p_state
 add wave -position end  sim:/tb_aftab/aftab_ut/datapathAFTAB/regPC/outReg
 add wave -position end  sim:/tb_aftab/aftab_ut/datapathAFTAB/IR
 add wave -position end  sim:/tb_aftab/aftab_ut/datapathAFTAB/registerFile/REGISTERS
-add wave -position end  sim:/tb_aftab/mem_cmp/dram_c/mem_s
+
 run 1000 ns

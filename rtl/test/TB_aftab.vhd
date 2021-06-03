@@ -8,19 +8,36 @@ end tb_aftab;
 architecture TEST of tb_aftab is
 
 
-    constant SIZE_IR      : integer := 32;       -- Instruction Register Size
-    constant SIZE_PC      : integer := 32;       -- Program Counter Size
-    constant SIZE_ALU_OPC : integer := 6;        -- ALU Op Code Word Size in case explicit coding is used
-	constant DATA_SIZE : integer:= 8;
+	constant dataWidth    : INTEGER := 8;
+	constant addressWidth : INTEGER := 32;
+
+
     signal clk_s: std_logic := '0';
     signal rst_s: std_logic := '1';
+
+
 	signal memReady_s: std_logic:= '1';
 	signal memRead_s: std_logic;
 	signal memWrite_s: std_logic;
-	signal memDataIN_s: std_logic_vector(DATA_SIZE-1 downto 0);
-	signal memDataOUT_s: std_logic_vector(DATA_SIZE-1 downto 0);
-	signal memAddr_s: std_logic_vector(SIZE_IR-1 downto 0);
+	signal memDataBUS_s: std_logic_vector(dataWidth-1 downto 0);
+	signal memAddr_s: std_logic_vector(addressWidth-1 downto 0);
+
 	
+	component aftab_memory IS
+		GENERIC (
+			dataWidth    : INTEGER := 8;
+			addressWidth : INTEGER := 32;
+			blocksize    : INTEGER := 2**11;
+			segmentsno   : INTEGER := 2**19;
+			cycle        : TIME    := 25 ns;
+			timer        : TIME    := 4 ns);
+		PORT (
+			clk, readmem, writemem : IN  STD_LOGIC;
+			addressBus             : IN  STD_LOGIC_VECTOR (addressWidth - 1 DOWNTO 0);
+			dataBus                : INOUT  STD_LOGIC_VECTOR (dataWidth - 1 DOWNTO 0);
+			memdataready           : OUT STD_LOGIC
+		);
+	END component;
 
     Component aftab_core IS
 	GENERIC (len : INTEGER := 32);
@@ -37,39 +54,47 @@ architecture TEST of tb_aftab is
     END component;
 
 
-	component aftab_mem is 
-		GENERIC (len : INTEGER := 32;
-			 N_bits : integer := 8);
-		PORT (
-			clk        : IN  STD_LOGIC;
-			rst        : IN  STD_LOGIC;
-			memReady   : OUT  STD_LOGIC;
-			memRead    : IN STD_LOGIC;
-			memWrite   : IN STD_LOGIC;
-			memDataIN : IN STD_LOGIC_VECTOR (7 DOWNTO 0);
-			memAddr    : IN STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-			memDataOUT  : OUT  STD_LOGIC_VECTOR (7 DOWNTO 0)
-		);
-	end component;
+
+
+	-- component aftab_mem is 
+	-- 	GENERIC (len : INTEGER := 32;
+	-- 		 N_bits : integer := 8);
+	-- 	PORT (
+	-- 		clk        : IN  STD_LOGIC;
+	-- 		rst        : IN  STD_LOGIC;
+	-- 		memReady   : OUT  STD_LOGIC;
+	-- 		memRead    : IN STD_LOGIC;
+	-- 		memWrite   : IN STD_LOGIC;
+	-- 		memDataIN : IN STD_LOGIC_VECTOR (7 DOWNTO 0);
+	-- 		memAddr    : IN STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	-- 		memDataOUT  : OUT  STD_LOGIC_VECTOR (7 DOWNTO 0)
+	-- 	);
+	-- end component;
 
 
 begin
 
         aftab_ut: aftab_core 
         Generic map (len=>32)
-        Port map (clk=>clk_s,rst=>rst_s,memReady=>memReady_s,memRead=>memRead_s,memWrite=>memWrite_s,memDataIN=>memDataIN_s,memDataOUT=>memDataOUT_s,memAddr=>memAddr_s);
-
-		mem_cmp:  aftab_mem PORT map (
-			clk       => clk_s,
-			rst        => rst_s,
-			memReady  => memReady_s,
-			memRead   => memRead_s,
-			memWrite   => memWrite_s,
-			memDataIN => memDataOUT_s,
-			memAddr    => memAddr_s,
-			memDataOUT =>memDataIN_s
+        Port map (clk		=>	clk_s,
+				  rst		=>	rst_s,
+				  memReady	=>	memReady_s,
+				  memRead	=>	memRead_s,
+				  memWrite	=>	memWrite_s,
+				  memDataIN	=>	memDataBUS_s,
+				  memDataOUT=>	memDataBUS_s,
+				  memAddr	=>	memAddr_s
 		);
-	
+
+		aftab_mem_ut: aftab_memory port map (
+			clk				=> clk_s,
+			readmem 		=> rst_s,
+ 			writemem 		=> memWrite_s,
+			addressBus 		=> memAddr_s, 
+			dataBus     	=> memDataBUS_s,
+			memdataready  	=> memReady_s       
+		);
+
 
         PCLOCK : process(clk_s)
 	begin

@@ -34,13 +34,14 @@ asm_path = Path(sys.argv[1])
 pre, ext = os.path.splitext(asm_path)
 
 object_path = pre + ".o"
-slm_path = pre + ".slm"
-mem_path = pre + ".s.mem"
+hex_path = pre + ".slm"
+mem_path = pre + ".hex"
 
 
 os.system("riscv32-unknown-elf-as  " + str(asm_path) + " -o " + str(object_path))
-os.system("riscv32-unknown-elf-objdump -D  " + str(object_path) + " > " + str(slm_path))
-slm_to_mem(str(slm_path),str(mem_path)) 
+os.system("riscv32-unknown-elf-objdump -D  " + str(object_path) + " > " + str(hex_path))
+slm_to_mem(str(hex_path),str(mem_path)) 
 os.remove(object_path)
+
 
 

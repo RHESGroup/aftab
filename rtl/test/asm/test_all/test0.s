@@ -1,3 +1,14 @@
+##
+#
+# 3 June 2021 
+# 
+# This File contains a sample instruction of all the instructions contained in the RV32IM ISA 
+# 
+# All the instructions have been checked "manually" using modelsim but no authomated test check has been implemented for the moment.
+# This only reports that all the instructions behaves correctly.
+
+
+
 ##          Test of the RV32M Standard Extension Instructions
 
             # li  x5,1
@@ -31,8 +42,6 @@
             #ebreak #TO CHECK 
             #nop     #OK
 
-
-
             #li  x3,6 #OK
             #li  x2,3 #OK
             #add x3,x1,x2 #OK
@@ -48,15 +57,19 @@
             #slti  x5,x3,10  #OK
             #sltiu  x5,x3,10 #OK
 
-            li x1,0
-            lw x5,1024(x1)   #TO CHECK
-            # sw x5,1028(x1) #TO CHECK
-            # lh x5,1032(x1) #TO CHECK
-            # sh x5,1034(x1)  #TO CHECK
-            # lhu x5,1036(x1) #TO CHECK
-            # lb x5,1040(x1) #TO CHECK
-            # lbu x5,1044(x1) #TO CHECK            
-            # sb x5,1048(x1) #TO CHECK
+            # li x1,0
+            # lw x5,64(x1)   # OK
+            # li x5,1
+            # sw x5,64(x1) # OK
+            # li x5,1
+            # lh x6,64(x1) # OK
+            # li x5,0xFFFF
+            # sh x5,64(x1)  # OK
+            # lhu x7,64(x1) # OK
+            # lb x8,64(x1) # OK
+            # lbu x9,64(x1) # OK           
+            # sb x9,68(x1) # OK
+            # lw x10,68(x1)  # OK
 
 
             # li x1,21

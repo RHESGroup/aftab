@@ -1,12 +1,24 @@
 
-test_all/test_all.o:     file format elf32-littleriscv
+test_all/test0.o:     file format elf32-littleriscv
 
 
 Disassembly of section .text:
 
 00000000 <.text>:
    0:	00000093          	li	ra,0
-   4:	0000a283          	lw	t0,0(ra)
+   4:	0400a283          	lw	t0,64(ra)
+   8:	00100293          	li	t0,1
+   c:	0450a023          	sw	t0,64(ra)
+  10:	00100293          	li	t0,1
+  14:	04009303          	lh	t1,64(ra)
+  18:	000102b7          	lui	t0,0x10
+  1c:	fff28293          	addi	t0,t0,-1 # 0xffff
+  20:	04509023          	sh	t0,64(ra)
+  24:	0400d383          	lhu	t2,64(ra)
+  28:	04008403          	lb	s0,64(ra)
+  2c:	0400c483          	lbu	s1,64(ra)
+  30:	04908223          	sb	s1,68(ra)
+  34:	0440a503          	lw	a0,68(ra)
 
 Disassembly of section .riscv.attributes:
 

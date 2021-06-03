@@ -78,12 +78,12 @@ Abehv
 R2
 R4
 R5
-Z21 DEx4 work 9 aftab_mem 0 22 IZNaX@[m9K2FGZj4=15@L3
+DEx4 work 9 aftab_mem 0 22 IZNaX@[m9K2FGZj4=15@L3
 !i122 16
 l63
-Z22 L23 59
-Z23 VaA`LCAJ]N9TaPmKh>D@4i0
-Z24 !s100 `^9R[P9UzNVKi6Q3ZYA9f2
+L23 59
+VaA`LCAJ]N9TaPmKh>D@4i0
+!s100 `^9R[P9UzNVKi6Q3ZYA9f2
 R8
 32
 R17
@@ -93,25 +93,70 @@ R19
 R20
 !i113 1
 R13
+Eaftab_memory
+Z21 w1622721440
+R3
+Z22 DPx4 ieee 18 std_logic_unsigned 0 22 ;eZjO2D4ZDz<]0>8AL<ne1
+Z23 DPx4 ieee 15 std_logic_arith 0 22 [G314=:2zXJ`VORJe1J@Z1
+R4
+R5
+!i122 17
+R0
+Z24 8aftab_memory.vhd
+Z25 Faftab_memory.vhd
+l0
+L9 1
+VTkMO_C0FP8oTOk>P92@mP3
+!s100 ?ALXUlShQ7HeP=9[IG3GU2
+R8
+32
+Z26 !s110 1622721464
+!i10b 1
+Z27 !s108 1622721463.000000
+Z28 !s90 aftab_memory.vhd|
+!s107 aftab_memory.vhd|
+!i113 1
+R13
+Abehavioral
+R3
+R22
+R23
+R4
+R5
+DEx4 work 12 aftab_memory 0 22 TkMO_C0FP8oTOk>P92@mP3
+!i122 17
+l62
+L24 114
+VZo1m?POo7^B@Vh61g6bhn3
+!s100 AP0jlR5KFOjaSHfJg53m80
+R8
+32
+R26
+!i10b 1
+R27
+R28
+Z29 !s107 aftab_memory.vhd|
+!i113 1
+R13
 Etb_aftab
-Z25 w1620834386
+Z30 w1620834386
 R4
 R5
 !i122 3
 R0
-Z26 8TB_aftab.vhd
-Z27 FTB_aftab.vhd
+Z31 8TB_aftab.vhd
+Z32 FTB_aftab.vhd
 l0
 L5 1
 V:;O0Va`1>A22Q5cOTO0620
 !s100 ?CezjjAmOWaDe9GQWfVAJ0
 R8
 32
-Z28 !s110 1620834396
+Z33 !s110 1620834396
 !i10b 1
-Z29 !s108 1620834395.000000
-Z30 !s90 TB_aftab.vhd|
-Z31 !s107 TB_aftab.vhd|
+Z34 !s108 1620834395.000000
+Z35 !s90 TB_aftab.vhd|
+Z36 !s107 TB_aftab.vhd|
 !i113 1
 R13
 Atest
@@ -125,11 +170,11 @@ V^abJ4FSdY@9z`gm^KH9NL3
 !s100 aHHJ_7;I6X[WfXE4Z<D871
 R8
 32
-R28
+R33
 !i10b 1
-R29
-R30
-R31
+R34
+R35
+R36
 !i113 1
 R13
 Etb_dlx

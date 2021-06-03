@@ -38,9 +38,10 @@ vcom -2008 -reportprogress 300 -work work ./datapath/aftab_dawu/aftab_dawu.vhd
 vcom -2008 -reportprogress 300 -work work ./datapath/aftab_datapath.vhd
 vcom -2008 -reportprogress 300 -work work ./aftab_controller.vhd
 vcom -2008 -reportprogress 300 -work work ./aftab_core.vhd
-vcom -2008 -reportprogress 300 -work work ./test/aftab_dram.vhd
-vcom -2008 -reportprogress 300 -work work ./test/aftab_iram.vhd
-vcom -2008 -reportprogress 300 -work work ./test/aftab_mem.vhd
+#vcom -2008 -reportprogress 300 -work work ./test/aftab_dram.vhd
+#vcom -2008 -reportprogress 300 -work work ./test/aftab_iram.vhd
+#vcom -2008 -reportprogress 300 -work work ./test/aftab_mem.vhd
+vcom -2008 -reportprogress 300 -work work ./test/aftab_memory.vhd
 vcom -2008 -reportprogress 300 -work work ./test/TB_aftab.vhd
 
 
