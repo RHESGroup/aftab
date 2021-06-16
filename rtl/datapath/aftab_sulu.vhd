@@ -32,7 +32,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	signed/unsigned load unit for the AFTAB core
+--	Signed/unsigned load unit for the AFTAB core
 --
 -- **************************************************************************************
 LIBRARY IEEE;

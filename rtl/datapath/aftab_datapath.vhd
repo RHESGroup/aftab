@@ -290,9 +290,6 @@ BEGIN
 				inReg => p2, 
 				outReg => dataDAWU);
 				
-				
-
-				
 	LLU : ENTITY WORK.aftab_llu
 			GENERIC MAP(len => 32)
 			PORT MAP(
@@ -347,6 +344,7 @@ BEGIN
 				
 	aauResult <= resAAH WHEN selAAH = '1' ELSE
 				 resAAL WHEN selAAL = '1' ELSE (OTHERS => '0');
+				 
 	dawu : ENTITY WORK.aftab_dawu
 			PORT MAP(
 				clk => clk,
@@ -386,4 +384,5 @@ BEGIN
 					load => load,
 					dataIn => dataDARU, 
 					dataOut => adjDARU);
+					
 END ARCHITECTURE behavioral;
