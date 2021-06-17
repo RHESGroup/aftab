@@ -37,9 +37,9 @@
 
             #lui  x5,1         # rd = (imm[31:12] << 12 ) & (others 0) OK
             #auipc x4,0x000F   # rd = pc + sign_ext(imm[31:12] << 12 ) TO CHECK. Immediate in 2's complement instead of sign extension.
-            #fence  #TO CHECK 
-            #ecall  #TO CHECK 
-            #ebreak #TO CHECK 
+            #fence  #NOT TO BE CHECKED - OF NONE INTEREST FOR THE MOMENT
+            #ecall  #TO CHECK  
+            #ebreak #NOT TO BE CHECKED - OF NONE INTEREST FOR THE MOMENT
             #nop     #OK
 
             #li  x3,6 #OK
