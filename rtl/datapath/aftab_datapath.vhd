@@ -42,9 +42,12 @@ ENTITY aftab_datapath IS
 	PORT (
 		clk    						: IN STD_LOGIC;
 		rst            			    : IN STD_LOGIC;
+		-- Register File signals
 		writeRegFile			    : IN STD_LOGIC;
 		setOne						: IN STD_LOGIC;
 		setZero 					: IN STD_LOGIC;
+		IR                			: OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		
 		ComparedSignedUnsignedBar 	: IN STD_LOGIC;
 		selPC 						: IN STD_LOGIC;
 		selPCJ					    : IN STD_LOGIC;
@@ -93,7 +96,7 @@ ENTITY aftab_datapath IS
 		memDataIn       			: IN  STD_LOGIC_VECTOR (7 DOWNTO 0);
 		memAddrDAWU 			    : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 		memAddrDARU  				: OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		IR                			: OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		
 		memDataOut         			: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 		lt  						: OUT STD_LOGIC;
 		eq  						: OUT STD_LOGIC;
@@ -151,6 +154,32 @@ BEGIN
 			writeRegFile => writeRegFile, 
 			p1 => p1,
 			p2 => p2);
+			
+	mux6 : ENTITY WORK.aftab_multiplexer
+			GENERIC MAP(len => 32)
+		    PORT MAP(
+				a => p1, 
+				b => outPC, 
+				s0 => selP1, 
+				s1 => selAuipc,
+				w => outMux6);
+				
+	mux5 : ENTITY WORK.aftab_multiplexer
+			GENERIC MAP(len => 32)
+			PORT MAP(
+				a => p2, 
+				b => immediate,
+				s0 => selP2, 
+				s1 => selImm,
+				w => outMux5);
+			
+						
+	writeData <= inc4PC    WHEN selInc4PC = '1' ELSE
+				 bsuResult WHEN selBSU = '1'    ELSE
+				 lluResult WHEN selLLU = '1'    ELSE
+				 asuResult WHEN selASU = '1'    ELSE
+				 aauResult WHEN selAAU = '1'    ELSE
+				 adjDARU   WHEN selDARU = '1'   ELSE (OTHERS => '0');
 			
 	regIR : ENTITY WORK.aftab_register
 		GENERIC MAP(len => 32)
@@ -249,13 +278,7 @@ BEGIN
 				B => (31 DOWNTO 3 => '0') & "100",
 				addResult => inc4PC,
 				carryOut => OPEN);
-				
-	writeData <= inc4PC    WHEN selInc4PC = '1' ELSE
-				 bsuResult WHEN selBSU = '1'    ELSE
-				 lluResult WHEN selLLU = '1'    ELSE
-				 asuResult WHEN selASU = '1'    ELSE
-				 aauResult WHEN selAAU = '1'    ELSE
-				 adjDARU   WHEN selDARU = '1'   ELSE (OTHERS => '0');
+	
 				 
 	regDR : ENTITY WORK.aftab_register
 			 GENERIC MAP(len => 32)
@@ -266,24 +289,6 @@ BEGIN
 				load => ldDR,
 				inReg => p2, 
 				outReg => dataDAWU);
-				
-	mux5 : ENTITY WORK.aftab_multiplexer
-			GENERIC MAP(len => 32)
-			PORT MAP(
-				a => p2, 
-				b => immediate,
-				s0 => selP2, 
-				s1 => selImm,
-				w => outMux5);
-				
-	mux6 : ENTITY WORK.aftab_multiplexer
-			GENERIC MAP(len => 32)
-			PORT MAP(
-				a => p1, 
-				b => outPC, 
-				s0 => selP1, 
-				s1 => selAuipc,
-				w => outMux6);
 				
 	LLU : ENTITY WORK.aftab_llu
 			GENERIC MAP(len => 32)
@@ -339,6 +344,7 @@ BEGIN
 				
 	aauResult <= resAAH WHEN selAAH = '1' ELSE
 				 resAAL WHEN selAAL = '1' ELSE (OTHERS => '0');
+				 
 	dawu : ENTITY WORK.aftab_dawu
 			PORT MAP(
 				clk => clk,
@@ -378,4 +384,5 @@ BEGIN
 					load => load,
 					dataIn => dataDARU, 
 					dataOut => adjDARU);
+					
 END ARCHITECTURE behavioral;

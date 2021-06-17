@@ -1,0 +1,42 @@
+
+test_all/test0.o:     file format elf32-littleriscv
+
+
+Disassembly of section .text:
+
+00000000 <.text>:
+   0:	00000093          	li	ra,0
+   4:	0400a283          	lw	t0,64(ra)
+   8:	00100293          	li	t0,1
+   c:	0450a023          	sw	t0,64(ra)
+  10:	00100293          	li	t0,1
+  14:	04009303          	lh	t1,64(ra)
+  18:	000102b7          	lui	t0,0x10
+  1c:	fff28293          	addi	t0,t0,-1 # 0xffff
+  20:	04509023          	sh	t0,64(ra)
+  24:	0400d383          	lhu	t2,64(ra)
+  28:	04008403          	lb	s0,64(ra)
+  2c:	0400c483          	lbu	s1,64(ra)
+  30:	04908223          	sb	s1,68(ra)
+  34:	0440a503          	lw	a0,68(ra)
+
+Disassembly of section .riscv.attributes:
+
+00000000 <.riscv.attributes>:
+   0:	2d41                	jal	0x690
+   2:	0000                	unimp
+   4:	7200                	flw	fs0,32(a2)
+   6:	7369                	lui	t1,0xffffa
+   8:	01007663          	bgeu	zero,a6,0x14
+   c:	00000023          	sb	zero,0(zero) # 0x0
+  10:	7205                	lui	tp,0xfffe1
+  12:	3376                	fld	ft6,376(sp)
+  14:	6932                	flw	fs2,12(sp)
+  16:	7032                	flw	ft0,44(sp)
+  18:	5f30                	lw	a2,120(a4)
+  1a:	326d                	jal	0xfffff9c4
+  1c:	3070                	fld	fa2,224(s0)
+  1e:	615f 7032 5f30      	0x5f307032615f
+  24:	3266                	fld	ft4,120(sp)
+  26:	3070                	fld	fa2,224(s0)
+  28:	645f 7032 0030      	0x307032645f

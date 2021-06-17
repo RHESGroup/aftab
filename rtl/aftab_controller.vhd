@@ -228,12 +228,19 @@ BEGIN
 		END CASE;
 	END PROCESS;
 	PROCESS (p_state, completeDARU, completeDAWU, completeAAU, opcode, func3, func7, lt, eq, gt) BEGIN
-		selPCJ <= '0'; selPC <= '0'; selADR <= '0'; selI4 <= '0'; selP2 <= '0'; selJL <= '0'; selImm <= '0'; selAdd <= '0'; selInc4PC <= '0'; selBSU <= '0'; selLLU <= '0'; selASU <= '0'; selAAU <= '0'; selDARU <= '0';
+
+		-- Fetch signals 
+		selI4 <= '0';
+		selPC <= '0';
+
+		selPCJ <= '0'; selPC <= '0'; selADR <= '0';  selP2 <= '0'; selJL <= '0'; selImm <= '0'; 
+		selAdd <= '0'; selInc4PC <= '0'; selBSU <= '0'; selLLU <= '0'; selASU <= '0'; selAAU <= '0'; selDARU <= '0';
 		dataInstrBar <= '0'; writeRegFile <= '0'; addSubBar <= '0'; comparedsignedunsignedbar <= '0';
 		ldIR <= '0'; ldADR <= '0'; ldPC <= '0'; ldDr <= '0';
 		ldByteSigned <= '0'; ldHalfSigned <= '0'; load <= '0';
 		setOne <= '0'; setZero <= '0';
-		startDARU <= '0'; startDAWU <= '0'; startMultiplyAAU <= '0'; startDivideAAU <= '0'; signedSigned <= '0'; signedUnsigned <= '0'; unsignedUnsigned <= '0'; selAAL <= '0'; selAAH <= '0';
+		startDARU <= '0'; startDAWU <= '0'; startMultiplyAAU <= '0'; startDivideAAU <= '0'; signedSigned <= '0';
+		 signedUnsigned <= '0'; unsignedUnsigned <= '0'; selAAL <= '0'; selAAH <= '0';
 		muxCode <= (OTHERS => '0'); nBytes <= "00"; selLogic <= "00"; selShift <= "00"; pass <= '0'; selAuipc <= '0'; selP1 <= '0';
 		CASE p_state IS
 				--fetch
@@ -243,6 +250,7 @@ BEGIN
 				dataInstrBar <= '0';
 				startDARU <= '1';
 				selPC <= '1';
+				--selI4 <= '1';
 			WHEN getInstr =>
 				IF (completeDARU = '1') THEN
 					ldIR <= '1';

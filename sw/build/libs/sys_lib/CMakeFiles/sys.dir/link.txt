@@ -1,0 +1,2 @@
+/opt/riscv/bin/riscv32-unknown-elf-ar qc libsys.a  CMakeFiles/sys.dir/src/exceptions.c.o CMakeFiles/sys.dir/src/gpio.c.o CMakeFiles/sys.dir/src/int.c.o CMakeFiles/sys.dir/src/spi.c.o CMakeFiles/sys.dir/src/timer.c.o CMakeFiles/sys.dir/src/uart.c.o CMakeFiles/sys.dir/src/utils.c.o CMakeFiles/sys.dir/src/i2c.c.o
+/opt/riscv/bin/riscv32-unknown-elf-ranlib libsys.a

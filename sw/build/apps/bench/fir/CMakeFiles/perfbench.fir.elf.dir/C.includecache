@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../apps/bench/common.h
+stdint.h
+-
+stddef.h
+-
+string.h
+../apps/bench/string.h
+
+/home/user/Desktop/Thesis/mc2101/sw/apps/bench/common.h
+stdint.h
+-
+stddef.h
+-
+string.h
+/home/user/Desktop/Thesis/mc2101/sw/apps/bench/string.h
+
+/home/user/Desktop/Thesis/mc2101/sw/apps/bench/fir/fir.c
+../common.h
+/home/user/Desktop/Thesis/mc2101/sw/apps/bench/common.h
+
+/home/user/Desktop/Thesis/mc2101/sw/apps/bench/fir/fir_test.c
+common.h
+/home/user/Desktop/Thesis/mc2101/sw/apps/bench/fir/common.h
+
