@@ -1,1 +1,0 @@
-add_application(gauss-2d gauss.c)

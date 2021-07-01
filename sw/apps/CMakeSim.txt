@@ -1,11 +1,12 @@
-MESSAGE(STATUS "USE_ZERO_RISCY= ${USE_ZERO_RISCY}")
-MESSAGE(STATUS "RISCY_RV32F= ${RISCY_RV32F}")
-MESSAGE(STATUS "ZERO_RV32M= ${ZERO_RV32M}")
-MESSAGE(STATUS "ZERO_RV32E= ${ZERO_RV32E}")
-MESSAGE(STATUS "PL_NETLIST= ${PL_NETLIST}")
+# MESSAGE(STATUS "USE_ZERO_RISCY= ${USE_ZERO_RISCY}")
+# MESSAGE(STATUS "RISCY_RV32F= ${RISCY_RV32F}")
+# MESSAGE(STATUS "ZERO_RV32M= ${ZERO_RV32M}")
+# MESSAGE(STATUS "ZERO_RV32E= ${ZERO_RV32E}")
+# MESSAGE(STATUS "PL_NETLIST= ${PL_NETLIST}")
 
 macro(add_sim_targets NAME)
-  set(SETENV "env VSIM_DIR=${PULP_MODELSIM_DIRECTORY} USE_ZERO_RISCY=${USE_ZERO_RISCY} RISCY_RV32F=${RISCY_RV32F} ZERO_RV32M=${ZERO_RV32M} ZERO_RV32E=${ZERO_RV32E} PL_NETLIST=${PL_NETLIST} TB_TEST=\"$<TARGET_PROPERTY:${NAME}.elf,TB_TEST>\"")
+  # set(SETENV "env VSIM_DIR=${PULP_MODELSIM_DIRECTORY} USE_ZERO_RISCY=${USE_ZERO_RISCY} RISCY_RV32F=${RISCY_RV32F} ZERO_RV32M=${ZERO_RV32M} ZERO_RV32E=${ZERO_RV32E} PL_NETLIST=${PL_NETLIST} TB_TEST=\"$<TARGET_PROPERTY:${NAME}.elf,TB_TEST>\"")
+  set(SETENV "env VSIM_DIR=${AFTAB_MODELSIM_DIRECTORY} TB_TEST=\"$<TARGET_PROPERTY:${NAME}.elf,TB_TEST>\"")
 
   # generate s19 file
   add_custom_command(OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/${NAME}.s19
@@ -27,16 +28,20 @@ macro(add_sim_targets NAME)
   ##############################################################################
 
   add_custom_command(OUTPUT                                                            ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/modelsim.ini
-    COMMAND ${CMAKE_COMMAND} -E create_symlink ${PULP_MODELSIM_DIRECTORY}/modelsim.ini ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/modelsim.ini)
+    # COMMAND ${CMAKE_COMMAND} -E create_symlink ${PULP_MODELSIM_DIRECTORY}/modelsim.ini ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/modelsim.ini)
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${AFTAB_MODELSIM_DIRECTORY}/modelsim.ini ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/modelsim.ini)
 
   add_custom_command(OUTPUT                                                            ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/work
-    COMMAND ${CMAKE_COMMAND} -E create_symlink ${PULP_MODELSIM_DIRECTORY}/work         ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/work)
+    # COMMAND ${CMAKE_COMMAND} -E create_symlink ${PULP_MODELSIM_DIRECTORY}/work         ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/work)
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${AFTAB_MODELSIM_DIRECTORY}/work         ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/work)
 
   add_custom_command(OUTPUT                                                            ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/tcl_files
-    COMMAND ${CMAKE_COMMAND} -E create_symlink ${PULP_MODELSIM_DIRECTORY}/tcl_files    ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/tcl_files)
+    # COMMAND ${CMAKE_COMMAND} -E create_symlink ${PULP_MODELSIM_DIRECTORY}/tcl_files    ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/tcl_files)
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${AFTAB_MODELSIM_DIRECTORY}/tcl_files    ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/tcl_files)
 
   add_custom_command(OUTPUT                                                            ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/waves
-    COMMAND ${CMAKE_COMMAND} -E create_symlink ${PULP_MODELSIM_DIRECTORY}/waves        ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/waves)
+    # COMMAND ${CMAKE_COMMAND} -E create_symlink ${PULP_MODELSIM_DIRECTORY}/waves        ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/waves)
+    COMMAND ${CMAKE_COMMAND} -E create_symlink ${AFTAB_MODELSIM_DIRECTORY}/waves        ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/waves)
 
   add_custom_target(${NAME}.links ALL DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/modelsim.ini
                                               ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/work
@@ -93,152 +98,152 @@ macro(add_sim_targets NAME)
     DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
     COMMENT "Running ${NAME} in ModelSim")
 
-  # run in modelsim with GUI
-  add_custom_target(${NAME}.vsim.spi
-    COMMAND ${CMAKE_COMMAND} -E remove stdout/*
-    COMMAND ${CMAKE_COMMAND} -E remove FS/*
-    COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_spi.tcl\\;'"
-    WORKING_DIRECTORY ./${SUBDIR}
-    DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
-    COMMENT "Running ${NAME} in ModelSim"
-    ${USES_TERMINAL})
+#   # run in modelsim with GUI
+#   add_custom_target(${NAME}.vsim.spi
+#     COMMAND ${CMAKE_COMMAND} -E remove stdout/*
+#     COMMAND ${CMAKE_COMMAND} -E remove FS/*
+#     COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_spi.tcl\\;'"
+#     WORKING_DIRECTORY ./${SUBDIR}
+#     DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
+#     COMMENT "Running ${NAME} in ModelSim"
+#     ${USES_TERMINAL})
 
-  # run in modelsim with GUI
-  add_custom_target(${NAME}.vsim.boot
-    COMMAND ${CMAKE_COMMAND} -E remove stdout/*
-    COMMAND ${CMAKE_COMMAND} -E remove FS/*
-    COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_boot.tcl\\;'"
-    WORKING_DIRECTORY ./${SUBDIR}
-    DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
-    COMMENT "Running ${NAME} in ModelSim"
-    ${USES_TERMINAL})
+#   # run in modelsim with GUI
+#   add_custom_target(${NAME}.vsim.boot
+#     COMMAND ${CMAKE_COMMAND} -E remove stdout/*
+#     COMMAND ${CMAKE_COMMAND} -E remove FS/*
+#     COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_boot.tcl\\;'"
+#     WORKING_DIRECTORY ./${SUBDIR} 
+#     DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
+#     COMMENT "Running ${NAME} in ModelSim"
+#     ${USES_TERMINAL})
 
-  #############################################################################
-  # post synthesis
-  #############################################################################
-  # run in modelsim with GUI post synthesis
-  add_custom_target(${NAME}.vsim.spi.ps
-    COMMAND ${CMAKE_COMMAND} -E remove stdout/*
-    COMMAND ${CMAKE_COMMAND} -E remove FS/*
-    COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_spi_ps.tcl\\;'"
-    WORKING_DIRECTORY ./${SUBDIR}
-    DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
-    COMMENT "Running ${NAME} in ModelSim (post synthesis)"
-    ${USES_TERMINAL})
+#   #############################################################################
+#   # post synthesis
+#   #############################################################################
+#   # run in modelsim with GUI post synthesis
+#   add_custom_target(${NAME}.vsim.spi.ps
+#     COMMAND ${CMAKE_COMMAND} -E remove stdout/*
+#     COMMAND ${CMAKE_COMMAND} -E remove FS/*
+#     COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_spi_ps.tcl\\;'"
+#     WORKING_DIRECTORY ./${SUBDIR}
+#     DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
+#     COMMENT "Running ${NAME} in ModelSim (post synthesis)"
+#     ${USES_TERMINAL})
 
-  #############################################################################
-  # post layout
-  #############################################################################
-  # run in modelsim with GUI post layout
-  add_custom_target(${NAME}.vsim.spi.pl
-    COMMAND ${CMAKE_COMMAND} -E remove stdout/*
-    COMMAND ${CMAKE_COMMAND} -E remove FS/*
-    COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_spi_pl.tcl\\;'"
-    WORKING_DIRECTORY ./${SUBDIR}
-    DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
-    COMMENT "Running ${NAME} in ModelSim (post layout)"
-    ${USES_TERMINAL})
+#   #############################################################################
+#   # post layout
+#   #############################################################################
+#   # run in modelsim with GUI post layout
+#   add_custom_target(${NAME}.vsim.spi.pl
+#     COMMAND ${CMAKE_COMMAND} -E remove stdout/*
+#     COMMAND ${CMAKE_COMMAND} -E remove FS/*
+#     COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_spi_pl.tcl\\;'"
+#     WORKING_DIRECTORY ./${SUBDIR}
+#     DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
+#     COMMENT "Running ${NAME} in ModelSim (post layout)"
+#     ${USES_TERMINAL})
 
-  # run in modelsim in console post layout
-  add_custom_target(${NAME}.vsimc.spi.pl
-    COMMAND ${CMAKE_COMMAND} -E remove stdout/*
-    COMMAND ${CMAKE_COMMAND} -E remove FS/*
-    COMMAND tcsh -c "${SETENV} ${VSIM} -c -64 -do 'source tcl_files/run_spi_pl.tcl\\; run -a\\; exit'"
-    WORKING_DIRECTORY ./${SUBDIR}
-    DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
-    COMMENT "Running ${NAME} in ModelSim (post layout)"
-    ${USES_TERMINAL})
+#   # run in modelsim in console post layout
+#   add_custom_target(${NAME}.vsimc.spi.pl
+#     COMMAND ${CMAKE_COMMAND} -E remove stdout/*
+#     COMMAND ${CMAKE_COMMAND} -E remove FS/*
+#     COMMAND tcsh -c "${SETENV} ${VSIM} -c -64 -do 'source tcl_files/run_spi_pl.tcl\\; run -a\\; exit'"
+#     WORKING_DIRECTORY ./${SUBDIR}
+#     DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
+#     COMMENT "Running ${NAME} in ModelSim (post layout)"
+#     ${USES_TERMINAL})
 
-  # run in modelsim with GUI post layout
-  add_custom_target(${NAME}.vsim.boot.pl
-    COMMAND ${CMAKE_COMMAND} -E remove stdout/*
-    COMMAND ${CMAKE_COMMAND} -E remove FS/*
-    COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_boot_pl.tcl\\;'"
-    WORKING_DIRECTORY ./${SUBDIR}
-    DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
-    COMMENT "Running ${NAME} in ModelSim (post layout)"
-    ${USES_TERMINAL})
+#   # run in modelsim with GUI post layout
+#   add_custom_target(${NAME}.vsim.boot.pl
+#     COMMAND ${CMAKE_COMMAND} -E remove stdout/*
+#     COMMAND ${CMAKE_COMMAND} -E remove FS/*
+#     COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_boot_pl.tcl\\;'"
+#     WORKING_DIRECTORY ./${SUBDIR}
+#     DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
+#     COMMENT "Running ${NAME} in ModelSim (post layout)"
+#     ${USES_TERMINAL})
 
-  # run in modelsim with GUI scan chain testing
-  add_custom_target(${NAME}.sc.pl
-    COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_sc_pl.tcl\\;'"
-    WORKING_DIRECTORY ./${SUBDIR}
-    COMMENT "Running scan chain testing (post layout)"
-    ${USES_TERMINAL})
+#   # run in modelsim with GUI scan chain testing
+#   add_custom_target(${NAME}.sc.pl
+#     COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_sc_pl.tcl\\;'"
+#     WORKING_DIRECTORY ./${SUBDIR}
+#     COMMENT "Running scan chain testing (post layout)"
+#     ${USES_TERMINAL})
 
-  # run in modelsim in console post layout and dump vcd automatically
-  add_custom_target(${NAME}.powerc
-    COMMAND ${CMAKE_COMMAND} -E remove stdout/*
-    COMMAND ${CMAKE_COMMAND} -E remove FS/*
-    COMMAND tcsh -c "${SETENV} ${VSIM}  -c -64 -do 'source tcl_files/run_power.tcl\\; run -a\\; exit'"
-    WORKING_DIRECTORY ./${SUBDIR}
-    DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
-    COMMENT "Running ${NAME} in ModelSim (post layout)"
-    ${USES_TERMINAL})
+#   # run in modelsim in console post layout and dump vcd automatically
+#   add_custom_target(${NAME}.powerc
+#     COMMAND ${CMAKE_COMMAND} -E remove stdout/*
+#     COMMAND ${CMAKE_COMMAND} -E remove FS/*
+#     COMMAND tcsh -c "${SETENV} ${VSIM}  -c -64 -do 'source tcl_files/run_power.tcl\\; run -a\\; exit'"
+#     WORKING_DIRECTORY ./${SUBDIR}
+#     DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
+#     COMMENT "Running ${NAME} in ModelSim (post layout)"
+#     ${USES_TERMINAL})
 
-  # run in modelsim with GUI post layout and dump vcd
-  add_custom_target(${NAME}.power
-    COMMAND ${CMAKE_COMMAND} -E remove stdout/*
-    COMMAND ${CMAKE_COMMAND} -E remove FS/*
-    COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_power.tcl\\;'"
-    WORKING_DIRECTORY ./${SUBDIR}
-    DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
-    COMMENT "Running ${NAME} in ModelSim (post layout)"
-    ${USES_TERMINAL})
+#   # run in modelsim with GUI post layout and dump vcd
+#   add_custom_target(${NAME}.power
+#     COMMAND ${CMAKE_COMMAND} -E remove stdout/*
+#     COMMAND ${CMAKE_COMMAND} -E remove FS/*
+#     COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_power.tcl\\;'"
+#     WORKING_DIRECTORY ./${SUBDIR}
+#     DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
+#     COMMENT "Running ${NAME} in ModelSim (post layout)"
+#     ${USES_TERMINAL})
 
-  #############################################################################
-  # post synthesis
-  #############################################################################
+#   #############################################################################
+#   # post synthesis
+#   #############################################################################
 
-  # run in modelsim with GUI post layout
-  add_custom_target(${NAME}.vsim.boot.ps
-    COMMAND ${CMAKE_COMMAND} -E remove stdout/*
-    COMMAND ${CMAKE_COMMAND} -E remove FS/*
-    COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_boot_ps.tcl\\;'"
-    WORKING_DIRECTORY ./${SUBDIR}
-    DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
-    COMMENT "Running ${NAME} in ModelSim (post synthesis)"
-    ${USES_TERMINAL})
+#   # run in modelsim with GUI post layout
+#   add_custom_target(${NAME}.vsim.boot.ps
+#     COMMAND ${CMAKE_COMMAND} -E remove stdout/*
+#     COMMAND ${CMAKE_COMMAND} -E remove FS/*
+#     COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_boot_ps.tcl\\;'"
+#     WORKING_DIRECTORY ./${SUBDIR}
+#     DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
+#     COMMENT "Running ${NAME} in ModelSim (post synthesis)"
+#     ${USES_TERMINAL})
 
-  # run in modelsim with GUI scan chain testing
-  add_custom_target(${NAME}.sc.ps
-    COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_sc_ps.tcl\\;'"
-    WORKING_DIRECTORY ./${SUBDIR}
-    COMMENT "Running scan chain testing (post synthesis)"
-    ${USES_TERMINAL})
+#   # run in modelsim with GUI scan chain testing
+#   add_custom_target(${NAME}.sc.ps
+#     COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_sc_ps.tcl\\;'"
+#     WORKING_DIRECTORY ./${SUBDIR}
+#     COMMENT "Running scan chain testing (post synthesis)"
+#     ${USES_TERMINAL})
 
-  # run in modelsim with GUI
-  # add_custom_target(${NAME}.vsim.boot
-  #   COMMAND ${CMAKE_COMMAND} -E remove stdout/*
-  #   COMMAND ${CMAKE_COMMAND} -E remove FS/*
-  #   COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_boot.tcl\\;'"
-  #   WORKING_DIRECTORY ./${SUBDIR}
-  #   DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
-  #   COMMENT "Running ${NAME} in ModelSim"
-  #   ${USES_TERMINAL})
+#   # run in modelsim with GUI
+#   # add_custom_target(${NAME}.vsim.boot
+#   #   COMMAND ${CMAKE_COMMAND} -E remove stdout/*
+#   #   COMMAND ${CMAKE_COMMAND} -E remove FS/*
+#   #   COMMAND tcsh -c "${SETENV} ${VSIM}  -64 -do 'source tcl_files/run_boot.tcl\\;'"
+#   #   WORKING_DIRECTORY ./${SUBDIR}
+#   #   DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
+#   #   COMMENT "Running ${NAME} in ModelSim"
+#   #   ${USES_TERMINAL})
 
 
 
-  #############################################################################
-  # run on FPGA
-  #############################################################################
-  add_custom_target(${NAME}.fpga
-    COMMAND ${UTILS_DIR}/run-on-fpga.sh ${NAME}
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}
-    DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
-    COMMENT "Running ${NAME} on FPGA"
-    ${USES_TERMINAL})
+#   #############################################################################
+#   # run on FPGA
+#   #############################################################################
+#   add_custom_target(${NAME}.fpga
+#     COMMAND ${UTILS_DIR}/run-on-fpga.sh ${NAME}
+#     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}
+#     DEPENDS ${NAME}.slm.cmd ${NAME}.stim.txt ${NAME}.links
+#     COMMENT "Running ${NAME} on FPGA"
+#     ${USES_TERMINAL})
 
-  #############################################################################
-  # testing targets
-  #############################################################################
-  add_test(NAME ${NAME}.test
-    COMMAND tcsh -c "${SETENV} ${VSIM}  -c -64 -do 'source tcl_files/$<TARGET_PROPERTY:${NAME}.elf,TB>; run_and_exit;'"
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR})
+#   #############################################################################
+#   # testing targets
+#   #############################################################################
+#   add_test(NAME ${NAME}.test
+#     COMMAND tcsh -c "${SETENV} ${VSIM}  -c -64 -do 'source tcl_files/$<TARGET_PROPERTY:${NAME}.elf,TB>; run_and_exit;'"
+#     WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR})
 
-  ##############################################################################
-  # Convenience
-  ##############################################################################
+#   ##############################################################################
+#   # Convenience
+#   ##############################################################################
 
   add_custom_target(${NAME}
     DEPENDS ${NAME}.stim.txt
@@ -247,12 +252,12 @@ macro(add_sim_targets NAME)
     )
 
 
-  ##############################################################################
-  # Analyze simulation
-  ##############################################################################
+#   ##############################################################################
+#   # Analyze simulation
+#   ##############################################################################
 
-  add_custom_target(${NAME}.kcg
-    COMMAND ${PULP_PC_ANALYZE} --rtl --input=trace_core_00.log --binary=${NAME}.elf
-    COMMAND kcachegrind kcg.txt
-    WORKING_DIRECTORY ./${SUBDIR})
+#   add_custom_target(${NAME}.kcg
+#     COMMAND ${PULP_PC_ANALYZE} --rtl --input=trace_core_00.log --binary=${NAME}.elf
+#     COMMAND kcachegrind kcg.txt
+#     WORKING_DIRECTORY ./${SUBDIR})
 endmacro()

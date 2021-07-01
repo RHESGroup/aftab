@@ -1,1 +1,0 @@
-add_application(jacobi-2d-imper jacobi-2d-imper.c)

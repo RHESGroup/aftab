@@ -1,4 +1,4 @@
-# Install script for directory: /home/user/Desktop/Thesis/aftab/sw/apps
+# Install script for directory: /media/sf_Shared/aftab/sw/apps
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,15 +34,8 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/user/Desktop/Thesis/aftab/sw/build/apps/helloworld/cmake_install.cmake")
-  include("/home/user/Desktop/Thesis/aftab/sw/build/apps/user_apps/cmake_install.cmake")
-  include("/home/user/Desktop/Thesis/aftab/sw/build/apps/bench/cmake_install.cmake")
-  include("/home/user/Desktop/Thesis/aftab/sw/build/apps/fpga/cmake_install.cmake")
-  include("/home/user/Desktop/Thesis/aftab/sw/build/apps/riscv_tests/cmake_install.cmake")
-  include("/home/user/Desktop/Thesis/aftab/sw/build/apps/freertos/cmake_install.cmake")
-  include("/home/user/Desktop/Thesis/aftab/sw/build/apps/boot_code/cmake_install.cmake")
-  include("/home/user/Desktop/Thesis/aftab/sw/build/apps/sequential_tests/cmake_install.cmake")
-  include("/home/user/Desktop/Thesis/aftab/sw/build/apps/imperio_tests/cmake_install.cmake")
+  include("/media/sf_Shared/aftab/sw/build/apps/test_add/cmake_install.cmake")
+  include("/media/sf_Shared/aftab/sw/build/apps/test_asm/cmake_install.cmake")
 
 endif()
 

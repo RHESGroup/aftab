@@ -1,6 +1,0 @@
-[04/05/2021]
-Compiling it seems that the port of the register file in aftab_datapath.vhd is 
-different from aftab_register_file.vhd.
-[05/05/2021]
-The design compiles correctly. Aftab documentation can be improved therefore I will need to manually have a look to the design manually.
-IRam and Dram interfaces has to be dentified in order to setup a testbench.

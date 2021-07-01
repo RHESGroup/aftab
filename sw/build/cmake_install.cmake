@@ -1,4 +1,4 @@
-# Install script for directory: /home/user/Desktop/Thesis/aftab/sw
+# Install script for directory: /media/sf_Shared/aftab/sw
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -34,10 +34,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/home/user/Desktop/Thesis/aftab/sw/build/libs/string_lib/cmake_install.cmake")
-  include("/home/user/Desktop/Thesis/aftab/sw/build/libs/sys_lib/cmake_install.cmake")
-  include("/home/user/Desktop/Thesis/aftab/sw/build/libs/bench_lib/cmake_install.cmake")
-  include("/home/user/Desktop/Thesis/aftab/sw/build/apps/cmake_install.cmake")
+  include("/media/sf_Shared/aftab/sw/build/apps/cmake_install.cmake")
 
 endif()
 
@@ -49,5 +46,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/user/Desktop/Thesis/aftab/sw/build/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/media/sf_Shared/aftab/sw/build/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

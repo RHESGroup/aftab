@@ -20,8 +20,7 @@ folder for the software, e.g. `build`
     mkdir build
 
 Then switch to the build folder and copy the cmake template configuration
-script there which resides in the `sw` folder. The name of template follows the
-following naming scheme: cmake-configure.{or1k/riscv}.{gcc/llvm}.sh
+script, called cmake-configure.aftab.gcc.sh
 Choose, copy, modify and then execute this script. It will setup the build
 environment for you.
 

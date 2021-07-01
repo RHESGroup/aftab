@@ -18,27 +18,29 @@ macro(add_application NAME SOURCE_FILES)
   cmake_parse_arguments(ARG "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
   set(SUBDIR ${ARG_SUBDIR})
 
-  include_directories(
-    ${CMAKE_SOURCE_DIR}/libs/malloc_lib/inc
-    ${CMAKE_SOURCE_DIR}/libs/string_lib/inc
-    ${CMAKE_SOURCE_DIR}/libs/sys_lib/inc
-    ${CMAKE_SOURCE_DIR}/libs/bench_lib/inc
-  )
+  # include_directories(
+  #   ${CMAKE_SOURCE_DIR}/libs/malloc_lib/inc
+  #   ${CMAKE_SOURCE_DIR}/libs/string_lib/inc
+  #   ${CMAKE_SOURCE_DIR}/libs/sys_lib/inc
+  #   ${CMAKE_SOURCE_DIR}/libs/bench_lib/inc
+  # )
 
-  if(${ARDUINO_LIB})
-    include_directories(
-      ${CMAKE_SOURCE_DIR}/libs/Arduino_lib/core_libs/inc
-      ${CMAKE_SOURCE_DIR}/libs/Arduino_lib/separate_libs/inc
-    )
-  endif()
+  # if(${ARDUINO_LIB})
+  #   include_directories(
+  #     ${CMAKE_SOURCE_DIR}/libs/Arduino_lib/core_libs/inc
+  #     ${CMAKE_SOURCE_DIR}/libs/Arduino_lib/separate_libs/inc
+  #   )
+  # endif()
 
-  if(${BEEBS_LIB})
-    include_directories(
-        ${CMAKE_SOURCE_DIR}/libs/beebs_lib/inc
-      )
-  endif()
+  # if(${BEEBS_LIB})
+  #   include_directories(
+  #       ${CMAKE_SOURCE_DIR}/libs/beebs_lib/inc
+  #     )
+  # endif()
 
-  add_executable(${NAME}.elf $<TARGET_OBJECTS:crt0> ${SOURCE_FILES})
+  # changed inserted boot code - modified Gianluca Roascio 28/06/2021
+  #add_executable(${NAME}.elf $<TARGET_OBJECTS:crt0> ${SOURCE_FILES})
+  add_executable(${NAME}.elf $<TARGET_OBJECTS:crt0_boot> ${SOURCE_FILES})
 
   # set subdirectory for add_executable
   if(NOT "${SUBDIR}" STREQUAL "")
@@ -52,28 +54,28 @@ macro(add_application NAME SOURCE_FILES)
 
   set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lm")
 
-  if(${RISCY_RV32F})
-    set(MATH_FNS_LIB "math_fns")
-  else()
-    set(MATH_FNS_LIB "")
-  endif()
+  # if(${RISCY_RV32F})
+  #   set(MATH_FNS_LIB "math_fns")
+  # else()
+  #   set(MATH_FNS_LIB "")
+  # endif()
 
-  if(${BEEBS_LIB})
-    set(BEEBS_LIB_NAME "beebs")
-  else()
-    set(BEEBS_LIB_NAME "")
-  endif()
+  # if(${BEEBS_LIB})
+  #   set(BEEBS_LIB_NAME "beebs")
+  # else()
+  #   set(BEEBS_LIB_NAME "")
+  # endif()
 
-  if(${ARDUINO_LIB})
-    set(ARDUINO_CORE "Arduino_core")
-    set(ARDUINO_SEP "Arduino_separate")
-  else()
-    set(ARDUINO_CORE "")
-    set(ARDUINO_SEP "")
-  endif()
+  # if(${ARDUINO_LIB})
+  #   set(ARDUINO_CORE "Arduino_core")
+  #   set(ARDUINO_SEP "Arduino_separate")
+  # else()
+  #   set(ARDUINO_CORE "")
+  #   set(ARDUINO_SEP "")
+  # endif()
 
-  # link libraries
-  target_link_libraries(${NAME}.elf ${ARG_LIBS} ${ARDUINO_SEP} ${ARDUINO_CORE} ${BEEBS_LIB_NAME} bench ${MATH_FNS_LIB} string sys m)
+  # # link libraries
+  # target_link_libraries(${NAME}.elf ${ARG_LIBS} ${ARDUINO_SEP} ${ARDUINO_CORE} ${BEEBS_LIB_NAME} bench ${MATH_FNS_LIB} string sys m)
 
   # this specifies the testbench to use for simulation
   if(ARG_TB)
@@ -93,6 +95,14 @@ macro(add_application NAME SOURCE_FILES)
   add_custom_command(TARGET ${NAME}.read
     POST_BUILD
     COMMAND ${CMAKE_OBJDUMP} ${CMAKE_OBJDUMP_FLAGS} $<TARGET_FILE:${NAME}.elf> > ${NAME}.read
+    WORKING_DIRECTORY ./${SUBDIR}
+    DEPENDS ${NAME}.elf)
+
+  # custom target to disassembly also data - added Gianluca Roascio 29/06/2021
+  add_custom_target(${NAME}.list)
+  add_custom_command(TARGET ${NAME}.list
+    POST_BUILD
+    COMMAND ${CMAKE_OBJDUMP} -D $<TARGET_FILE:${NAME}.elf> > ${NAME}.lst
     WORKING_DIRECTORY ./${SUBDIR}
     DEPENDS ${NAME}.elf)
 
@@ -130,9 +140,9 @@ macro(add_boot_code NAME SOURCE_FILES)
   # OVERWRITE linker file for boot code!
   set(CMAKE_EXE_LINKER_FLAGS "${BOOT_LINKER_FLAGS}")
 
-  include_directories(
-    ${CMAKE_SOURCE_DIR}/libs/sys_lib/inc
-  )
+  # include_directories(
+  #   ${CMAKE_SOURCE_DIR}/libs/sys_lib/inc
+  # )
 
   add_executable(${NAME}.elf $<TARGET_OBJECTS:crt0_boot> ${SOURCE_FILES})
 
@@ -146,8 +156,8 @@ macro(add_boot_code NAME SOURCE_FILES)
     set_target_properties(${NAME}.elf PROPERTIES COMPILE_FLAGS ${ARG_FLAGS})
   endif()
 
-  # link libraries
-  target_link_libraries(${NAME}.elf sys)
+  # # link libraries
+  # target_link_libraries(${NAME}.elf sys)
 
 
   # this specifies the testbench to use for simulation
@@ -173,11 +183,11 @@ macro(add_boot_code NAME SOURCE_FILES)
     WORKING_DIRECTORY ./${SUBDIR}/boot/
     DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/${NAME}.s19)
 
-  add_custom_target(${NAME}.install
-    COMMAND cp boot/boot_code.sv ${CMAKE_SOURCE_DIR}/../rtl/
-    DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/boot/boot_code.sv
-    COMMENT STATUS "Copying boot code..."
-    )
+  # add_custom_target(${NAME}.install
+  #   COMMAND cp boot/boot_code.sv ${CMAKE_SOURCE_DIR}/../rtl/
+  #   DEPENDS ${CMAKE_CURRENT_BINARY_DIR}/${SUBDIR}/boot/boot_code.sv
+  #   COMMENT STATUS "Copying boot code..."
+  #   )
 
 
   # add everything needed for simulation
@@ -192,35 +202,36 @@ endmacro()
 
 ################################################################################
 
-add_subdirectory(helloworld)
+# add_subdirectory(helloworld)
 
-add_subdirectory(user_apps) # inserted Gianluca Roascio 20/11/2020
+add_subdirectory(test_add) 
+add_subdirectory(test_asm)
 
-if(${ARDUINO_LIB})
-  add_subdirectory(Arduino_tests)
-endif()
+# if(${ARDUINO_LIB})
+#   add_subdirectory(Arduino_tests)
+# endif()
 
-add_subdirectory(bench)
+# add_subdirectory(bench)
 
-if(${BEEBS_LIB})
-  add_subdirectory(beebs)
-endif()
+# if(${BEEBS_LIB})
+#   add_subdirectory(beebs)
+# endif()
 
-if(${RISCY_RV32F})
-  add_subdirectory(ml_tests)
-endif()
+# if(${RISCY_RV32F})
+#   add_subdirectory(ml_tests)
+# endif()
 
-# RISCV only tests
-if(${RISCV})
-  #add_subdirectory(compressed)
-  add_subdirectory(fpga)
-  add_subdirectory(riscv_tests)
-  add_subdirectory(freertos)
-  add_subdirectory(boot_code)
-endif()
-add_subdirectory(sequential_tests)
-add_subdirectory(imperio_tests)
+# # RISCV only tests
+# if(${RISCV})
+#   #add_subdirectory(compressed)
+#   add_subdirectory(fpga)
+#   add_subdirectory(riscv_tests)
+#   add_subdirectory(freertos)
+#   add_subdirectory(boot_code)
+# endif()
+# add_subdirectory(sequential_tests)
+# add_subdirectory(imperio_tests)
 
-if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/scratch/")
-  add_subdirectory(scratch)
-endif()
+# if(IS_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/scratch/")
+#   add_subdirectory(scratch)
+# endif()

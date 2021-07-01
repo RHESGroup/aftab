@@ -1,8 +1,7 @@
 -- **************************************************************************************
 --	Filename:	aftab_controller.vhd
 --	Project:	CNL_RISC-V
---      Engineer:
---  	Version:	1.0
+--  Version:	1.0
 --	History:
 --	Date:		16 February 2021
 --
@@ -38,6 +37,7 @@
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
 USE IEEE.std_logic_unsigned.ALL;
+
 ENTITY aftab_controller IS
 	GENERIC (len : INTEGER := 32);
 	PORT (
@@ -95,6 +95,7 @@ ENTITY aftab_controller IS
 			selAAH                    : OUT STD_LOGIC
 	);
 END aftab_controller;
+
 ARCHITECTURE behavioral OF aftab_controller IS
 	TYPE state IS (fetch, getInstr, --fetch
 		decode, --decode

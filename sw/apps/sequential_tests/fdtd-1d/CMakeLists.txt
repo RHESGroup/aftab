@@ -1,1 +1,0 @@
-add_application(fdtd-1d fdtd-1d.c)

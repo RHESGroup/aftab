@@ -1,7 +1,7 @@
 -- **************************************************************************************
 --	Filename:	aftab_core.vhd
 --	Project:	CNL_RISC-V
---  	Version:	1.0
+--  Version:	1.0
 --	History:
 --	Date:		16 February 2021
 --
@@ -36,6 +36,7 @@
 -- **************************************************************************************
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
+
 ENTITY aftab_core IS
 	GENERIC (len : INTEGER := 32);
 	PORT (

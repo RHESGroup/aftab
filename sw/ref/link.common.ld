@@ -3,13 +3,18 @@ __DYNAMIC  =  0;
 
 MEMORY
 {
-    instrram    : ORIGIN = 0x00000000, LENGTH = 0x8000
-    dataram     : ORIGIN = 0x00100000, LENGTH = 0x6000
-    stack       : ORIGIN = 0x00106000, LENGTH = 0x2000
+    /*tuned segments dimension to allow simulations, modified Gianluca Roascio 1/07/2021*/
+    /*instrram    : ORIGIN = 0x00000000, LENGTH = 0x8000*/
+    /*dataram     : ORIGIN = 0x00100000, LENGTH = 0x6000*/
+    /*stack       : ORIGIN = 0x00106000, LENGTH = 0x2000*/
+    instrram    : ORIGIN = 0x00000000, LENGTH = 0x1000 /* 4 K */
+    dataram     : ORIGIN = 0x00100000, LENGTH = 0x600 /* 1.5 K */
+    stack       : ORIGIN = 0x00100600, LENGTH = 0xA00 /* 2.5 K */
 }
 
 /* Stack information variables */
-_min_stack      = 0x1000;   /* 4K - minimum stack space to reserve */
+/*_min_stack      = 0x1000;   /* 4K - minimum stack space to reserve */
+_min_stack     = 0x500;   
 _stack_len     = LENGTH(stack);
 _stack_start   = ORIGIN(stack) + LENGTH(stack);
 

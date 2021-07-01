@@ -1,23 +1,5 @@
-// Copyright 2017 ETH Zurich and University of Bologna.
-// Copyright and related rights are licensed under the Solderpad Hardware
-// License, Version 0.51 (the “License”); you may not use this file except in
-// compliance with the License.  You may obtain a copy of the License at
-// http://solderpad.org/licenses/SHL-0.51. Unless required by applicable law
-// or agreed to in writing, software, hardware and materials distributed under
-// this License is distributed on an “AS IS” BASIS, WITHOUT WARRANTIES OR
-// CONDITIONS OF ANY KIND, either express or implied. See the License for the
-// specific language governing permissions and limitations under the License.
-
-#include "pulpino.h"
-
-#define EXCEPTION_STACK_SIZE 72
-
-
 /* ========================================================= [ entry ] === */
   .section .text
-
-default_exc_handler:
-  jal x0, default_exc_handler
 
 reset_handler:
   /* set all registers to zero */
@@ -71,12 +53,18 @@ zero_loop:
   ble x26, x27, zero_loop
 zero_loop_end:
 
-
 main_entry:
   /* jump to main program entry point (argc = argv = 0) */
   addi x10, x0, 0
   addi x11, x0, 0
   jal x1, main
+
+_end:
+  /* when returning from main, infinite loop here */
+  jal x0, _end
+
+default_exc_handler:
+  jal x0, default_exc_handler
 
 /* =================================================== [ exceptions ] === */
 /* This section has to be down here, since we have to disable rvc for it  */
@@ -87,10 +75,9 @@ main_entry:
   // external interrupts are handled by the same callback
   // until compiler supports IRQ routines
   .org 0x00
-  .rept 31
+  .rept 32
   nop
   .endr
-  jal x0, default_exc_handler
 
   // reset vector
   .org 0x80
@@ -102,4 +89,8 @@ main_entry:
 
   // ecall handler
   .org 0x88
+  jal x0, default_exc_handler
+
+  // invalid memory access
+  .org 0x8c
   jal x0, default_exc_handler

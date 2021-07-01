@@ -6,9 +6,5 @@
 
 #IncludeRegexTransform: 
 
-../libs/sys_lib/inc/pulpino.h
-
-/home/user/Desktop/Thesis/mc2101/sw/ref/crt0.boot.S
-pulpino.h
-/home/user/Desktop/Thesis/mc2101/sw/ref/pulpino.h
+/media/sf_Shared/aftab/sw/ref/crt0.boot.S
 
