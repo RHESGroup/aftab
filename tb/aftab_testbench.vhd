@@ -53,7 +53,7 @@ ARCHITECTURE behavior OF aftab_testbench IS
 	SIGNAL memAddr      : STD_LOGIC_VECTOR(31 DOWNTO 0):= (OTHERS => 'Z');
 	SIGNAL cs           : STD_LOGIC := '0';
 	SIGNAL opr          : BOOLEAN   := FALSE;
-	CONSTANT clk_period : TIME      := 2 ns;
+	CONSTANT clk_period : TIME      := 30 ns;
 
 BEGIN
 
@@ -89,8 +89,8 @@ BEGIN
 	-- Stimulus process
 	stim_proc : PROCESS
 	BEGIN
-		-- hold reset state for 10 ns.
-		WAIT FOR 10 ns;
+		-- hold reset state for 100 ns.
+		WAIT FOR 100 ns;
 		opr <= TRUE;
 		WAIT FOR 2 ns;
 		cs  <= '1';

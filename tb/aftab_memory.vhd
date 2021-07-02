@@ -45,7 +45,9 @@ ENTITY aftab_memory IS
 	GENERIC (
 		dataWidth    : INTEGER := 8;
 		addressWidth : INTEGER := 32;
-		size    	 : INTEGER := 2**13); -- 2^12 for data and 2^12 for instr, 4 K each 
+		size    	 : INTEGER := 2**13; -- 2^12 for data and 2^12 for instr, 4 K each
+		cycle        : TIME    := 25 ns;
+		timer        : TIME    := 4 ns);  
 	PORT (
 		clk          : IN  STD_LOGIC;
 		rst          : IN  STD_LOGIC;
@@ -64,9 +66,7 @@ ARCHITECTURE behavioral OF aftab_memory IS
 
 BEGIN
 
-memdataready <= '1';
-
-RW : PROCESS(clk, rst) 
+RW : PROCESS
 
 		VARIABLE adr                 : STD_LOGIC_VECTOR(12 DOWNTO 0);
 		VARIABLE memline             : LINE;
@@ -78,8 +78,11 @@ RW : PROCESS(clk, rst)
 
 	BEGIN
 
+		WAIT ON rst, writemem, readmem, addressBus;
+		
 		IF rst = '1' THEN
 			dataBus <= (OTHERS => 'Z');
+			memdataready <= '1';
 			-- Load memory content from file
 			mem <= (OTHERS => (OTHERS => '0'));
 			FILE_OPEN(err_check, f, ("./slm_files/spi_stim.txt"), READ_MODE);
@@ -102,16 +105,28 @@ RW : PROCESS(clk, rst)
 				FILE_CLOSE (f);
 			END IF;
 
-		-- clocked R/W process
-		ELSIF clk'EVENT and clk = '1' THEN 
+		ELSIF readmem = '1' THEN
+			memdataready <= '0';
 			adr := addressBus(12 DOWNTO 0);
-			IF readmem = '1' THEN
-				dataBus <= mem(TO_INTEGER(UNSIGNED(adr)));
-			ELSIF writemem = '1' THEN
-				mem(TO_INTEGER(UNSIGNED(adr))) <= dataBus;
-			ELSE
-				dataBus <= (OTHERS => 'Z');
-			END IF;
+			dataBus <= mem(TO_INTEGER(UNSIGNED(adr)));
+		 	WAIT FOR timer;
+			memdataready <= '1';
+			WAIT FOR cycle;		
+			memdataready <= '0';
+
+		ELSIF writemem = '1' THEN
+			memdataready <= '0';
+			adr := addressBus(12 DOWNTO 0);
+			mem(TO_INTEGER(UNSIGNED(adr))) <= dataBus;
+		 	WAIT FOR timer;
+			memdataready <= '1';
+			WAIT FOR cycle;		
+			memdataready <= '0';
+
+		ELSE
+			memdataready <= '1';
+			dataBus <= (OTHERS => 'Z');
+
 		END IF;
 	
 	END PROCESS;
