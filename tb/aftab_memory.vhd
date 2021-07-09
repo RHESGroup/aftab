@@ -47,7 +47,7 @@ ENTITY aftab_memory IS
 		addressWidth : INTEGER := 32;
 		size    	 : INTEGER := 2**13; -- 2^12 for data and 2^12 for instr, 4 K each
 		cycle        : TIME    := 25 ns;
-		timer        : TIME    := 4 ns);  
+		timer        : TIME    := 5 ns);  
 	PORT (
 		clk          : IN  STD_LOGIC;
 		rst          : IN  STD_LOGIC;
