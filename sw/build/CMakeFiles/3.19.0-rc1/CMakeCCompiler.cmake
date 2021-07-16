@@ -12,7 +12,9 @@ set(CMAKE_C11_COMPILE_FEATURES "c_std_11;c_static_assert")
 
 set(CMAKE_C_PLATFORM_ID "")
 set(CMAKE_C_SIMULATE_ID "")
+set(CMAKE_C_COMPILER_FRONTEND_VARIANT "")
 set(CMAKE_C_SIMULATE_VERSION "")
+
 
 
 
@@ -21,6 +23,7 @@ set(CMAKE_C_COMPILER_AR "/opt/riscv/bin/riscv32-unknown-elf-gcc-ar")
 set(CMAKE_RANLIB "/opt/riscv/bin/riscv32-unknown-elf-ranlib")
 set(CMAKE_C_COMPILER_RANLIB "/opt/riscv/bin/riscv32-unknown-elf-gcc-ranlib")
 set(CMAKE_LINKER "/opt/riscv/bin/riscv32-unknown-elf-ld")
+set(CMAKE_MT "")
 set(CMAKE_COMPILER_IS_GNUCC 1)
 set(CMAKE_C_COMPILER_LOADED 1)
 set(CMAKE_C_COMPILER_WORKS TRUE)
@@ -68,6 +71,7 @@ endif()
 
 
 
+set(CMAKE_C_IMPLICIT_INCLUDE_DIRECTORIES "/opt/riscv/lib/gcc/riscv32-unknown-elf/10.2.0/include;/opt/riscv/lib/gcc/riscv32-unknown-elf/10.2.0/include-fixed;/opt/riscv/riscv32-unknown-elf/include")
 set(CMAKE_C_IMPLICIT_LINK_LIBRARIES "gcc;c;gloss;gcc")
 set(CMAKE_C_IMPLICIT_LINK_DIRECTORIES "/opt/riscv/lib/gcc/riscv32-unknown-elf/10.2.0;/opt/riscv/riscv32-unknown-elf/lib")
 set(CMAKE_C_IMPLICIT_LINK_FRAMEWORK_DIRECTORIES "")

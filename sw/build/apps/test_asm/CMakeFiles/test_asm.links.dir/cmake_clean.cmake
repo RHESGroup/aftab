@@ -1,9 +1,9 @@
 file(REMOVE_RECURSE
   "CMakeFiles/test_asm.links"
   "modelsim.ini"
-  "work"
   "tcl_files"
   "waves"
+  "work"
 )
 
 # Per-language clean rules from dependency scanning.

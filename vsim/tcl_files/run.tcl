@@ -14,7 +14,7 @@ add wave -noupdate -group CONTROLLER /aftab_testbench/core/controllerAFTAB/*
 
 add wave -noupdate -group DATAPATH /aftab_testbench/core/datapathAFTAB/*
 
-add wave -noupdate -group RF /aftab_testbench/core/datapathAFTAB/registerFile/*
+add wave -noupdate -group RF -radix hexadecimal /aftab_testbench/core/datapathAFTAB/registerFile/registers
 
 add wave -noupdate -group LLU /aftab_testbench/core/datapathAFTAB/LLU/*
 
@@ -34,4 +34,4 @@ add wave -noupdate -group SULU /aftab_testbench/core/datapathAFTAB/suau/*
 
 add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/mem
 
-run 1000 ns
+run 40 us

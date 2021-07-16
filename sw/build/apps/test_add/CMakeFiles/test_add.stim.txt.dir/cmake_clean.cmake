@@ -1,7 +1,7 @@
 file(REMOVE_RECURSE
   "CMakeFiles/test_add.stim.txt"
-  "vectors/stim.txt"
   "test_add.s19"
+  "vectors/stim.txt"
 )
 
 # Per-language clean rules from dependency scanning.
