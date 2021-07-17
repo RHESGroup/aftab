@@ -46,7 +46,7 @@ ENTITY aftab_memory IS
 		dataWidth    : INTEGER := 8;
 		addressWidth : INTEGER := 32;
 		size    	 : INTEGER := 2**13; -- 2^12 for data and 2^12 for instr, 4 K each
-		cycle        : TIME    := 25 ns;
+		cycle        : TIME    := 24 ns;
 		timer        : TIME    := 5 ns);  
 	PORT (
 		clk          : IN  STD_LOGIC;
@@ -107,6 +107,7 @@ RW : PROCESS
 
 		ELSIF readmem = '1' THEN
 			memdataready <= '0';
+		        WAIT FOR 1 ns;			
 			IF UNSIGNED(addressBus) > x"FFFFF" THEN 
 				adr := '1' & addressBus(11 DOWNTO 0);
 			ELSE
@@ -120,6 +121,7 @@ RW : PROCESS
 
 		ELSIF writemem = '1' THEN
 			memdataready <= '0';
+		        WAIT FOR 1 ns;
 			IF UNSIGNED(addressBus) > x"FFFFF" THEN 
 				adr := '1' & addressBus(11 DOWNTO 0);
 			ELSE
