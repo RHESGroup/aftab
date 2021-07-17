@@ -45,7 +45,7 @@ ENTITY aftab_memory IS
 	GENERIC (
 		dataWidth    : INTEGER := 8;
 		addressWidth : INTEGER := 32;
-		size    	 : INTEGER := 2**13; -- 2^12 for data and 2^12 for instr, 4 K each
+		size         : INTEGER := 2**13; -- 2^12 for data and 2^12 for instr, 4 K each
 		cycle        : TIME    := 24 ns;
 		timer        : TIME    := 5 ns);  
 	PORT (
@@ -71,9 +71,9 @@ RW : PROCESS
 		VARIABLE adr                 : STD_LOGIC_VECTOR(12 DOWNTO 0);
 		VARIABLE memline             : LINE;
 		VARIABLE err_check           : FILE_OPEN_STATUS;
-		VARIABLE linechar			 : CHARACTER;
+		VARIABLE linechar	     : CHARACTER;
 		VARIABLE read_address	     : STD_LOGIC_VECTOR (31 DOWNTO 0);
-		VARIABLE read_data		     : STD_LOGIC_VECTOR (31 DOWNTO 0);
+		VARIABLE read_data           : STD_LOGIC_VECTOR (31 DOWNTO 0);
 		FILE f                       : TEXT;
 
 	BEGIN
