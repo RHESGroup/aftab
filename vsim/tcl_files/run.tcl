@@ -32,6 +32,7 @@ add wave -noupdate -group DARU /aftab_testbench/core/datapathAFTAB/daru/*
 
 add wave -noupdate -group SULU /aftab_testbench/core/datapathAFTAB/suau/*
 
+add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/rw/adr
 add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/mem
 
 run 40 us

@@ -107,7 +107,11 @@ RW : PROCESS
 
 		ELSIF readmem = '1' THEN
 			memdataready <= '0';
-			adr := addressBus(12 DOWNTO 0);
+			IF UNSIGNED(addressBus) > x"FFFFF" THEN 
+				adr := '1' & addressBus(11 DOWNTO 0);
+			ELSE
+				adr := '0' & addressBus(11 DOWNTO 0);
+			END IF;
 			dataBus <= mem(TO_INTEGER(UNSIGNED(adr)));
 		 	WAIT FOR timer;
 			memdataready <= '1';
@@ -116,7 +120,11 @@ RW : PROCESS
 
 		ELSIF writemem = '1' THEN
 			memdataready <= '0';
-			adr := addressBus(12 DOWNTO 0);
+			IF UNSIGNED(addressBus) > x"FFFFF" THEN 
+				adr := '1' & addressBus(11 DOWNTO 0);
+			ELSE
+				adr := '0' & addressBus(11 DOWNTO 0);
+			END IF;
 			mem(TO_INTEGER(UNSIGNED(adr))) <= dataBus;
 		 	WAIT FOR timer;
 			memdataready <= '1';
