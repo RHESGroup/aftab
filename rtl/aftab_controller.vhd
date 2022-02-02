@@ -1,7 +1,7 @@
 -- **************************************************************************************
 --	Filename:	aftab_controller.vhd
 --	Project:	CNL_RISC-V
---  Version:	1.0
+--      Version:	1.0
 --	History:
 --	Date:		16 February 2021
 --
@@ -37,7 +37,6 @@
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
 USE IEEE.std_logic_unsigned.ALL;
-
 ENTITY aftab_controller IS
 	GENERIC (len : INTEGER := 32);
 	PORT (
@@ -92,10 +91,35 @@ ENTITY aftab_controller IS
 			signedUnsigned            : OUT STD_LOGIC;
 			unsignedUnsigned          : OUT STD_LOGIC;
 			selAAL                    : OUT STD_LOGIC;
-			selAAH                    : OUT STD_LOGIC
-	);
+			selAAH                    : OUT STD_LOGIC;
+			--- Interrupts
+			interruptRaise            : IN  STD_LOGIC;
+			modeMtvec				  : IN STD_LOGIC_VECTOR (1 DOWNTO 0);	
+			mipCCLdDisable	          : OUT STD_LOGIC;
+			selCCMip_CSR			  : OUT STD_LOGIC;
+			selCause_CSR			  : OUT STD_LOGIC;
+			selPC_CSR				  : OUT STD_LOGIC;
+			ldValueCSR				  : OUT STD_LOGIC_VECTOR (2 DOWNTO 0);
+			ldCntCSR				  : OUT STD_LOGIC;
+			dnCntCSR			  	  : OUT STD_LOGIC;
+			upCntCSR			  	  : OUT STD_LOGIC;
+			selCSR				   	  : OUT STD_LOGIC;
+			selP1CSR				  : OUT STD_LOGIC;
+			selReadWriteCSR			  : OUT STD_LOGIC;
+			selImmCSR			      : OUT STD_LOGIC;
+			setCSR			          : OUT STD_LOGIC;
+			clrCSR			          : OUT STD_LOGIC;
+			writeRegBank			  : OUT STD_LOGIC;
+			selCSRAddrFromInst  	  : OUT STD_LOGIC;
+			selRomAddress			  : OUT STD_LOGIC;
+			statusAlterationPostCSR	  : OUT STD_LOGIC;
+			statusAlterationPreCSR	  : OUT STD_LOGIC;
+			selMepc_CSR			 	  : OUT STD_LOGIC;
+			selInterruptAddressDirect : OUT STD_LOGIC;
+			selInterruptAddressVectored	: OUT STD_LOGIC;
+			zeroCntCSR				  : OUT STD_LOGIC
+		    );
 END aftab_controller;
-
 ARCHITECTURE behavioral OF aftab_controller IS
 	TYPE state IS (fetch, getInstr, --fetch
 		decode, --decode
@@ -105,11 +129,14 @@ ARCHITECTURE behavioral OF aftab_controller IS
 		compare, --setCompare <
 		logical, --logical & | ^
 		shift, --shift << >>
-		multiplyDivide1, multiplyDivide2, multiplyDivide3, --Multilier and Divider * /
+		multiplyDivide1, multiplyDivide2, --Multilier and Divider * /
 		conditionalBranch, --conditionalBranch >=<
 		JAL, JALR, --unconditionalBranch
-		LUI --LUI, AUIPC
-	);
+		LUI, --LUI, AUIPC
+		updateMip, updateMcause, updateMstatus, updateMepc, updateMtvec,--Interrupt States
+		CSR, -- CSR Instructions
+		mretMstatus, mretMepc --mret instruction
+		);
 	SIGNAL p_state, n_state : state;
 	SIGNAL func3 : STD_LOGIC_VECTOR(2 DOWNTO 0);
 	SIGNAL func7, opcode : STD_LOGIC_VECTOR(6 DOWNTO 0);
@@ -118,29 +145,48 @@ ARCHITECTURE behavioral OF aftab_controller IS
 	CONSTANT uTypeImm : STD_LOGIC_VECTOR(11 DOWNTO 0) := "100000100100";
 	CONSTANT jTypeImm : STD_LOGIC_VECTOR(11 DOWNTO 0) := "101001001100";
 	CONSTANT bTypeImm : STD_LOGIC_VECTOR(11 DOWNTO 0) := "010101010100";
+	
+	CONSTANT Loads				 : STD_LOGIC_VECTOR(6 DOWNTO 0) := "0000011";
+	CONSTANT Stores				 : STD_LOGIC_VECTOR(6 DOWNTO 0) := "0100011";
+	CONSTANT Arithmetic          : STD_LOGIC_VECTOR(6 DOWNTO 0) := "0110011";
+	CONSTANT ImmediateArithmetic : STD_LOGIC_VECTOR(6 DOWNTO 0) := "0010011";
+	CONSTANT JumpAndLink		 : STD_LOGIC_VECTOR(6 DOWNTO 0) := "1101111";
+	CONSTANT JumpAndLinkRegister : STD_LOGIC_VECTOR(6 DOWNTO 0) := "1100111";
+	CONSTANT Branch 			 : STD_LOGIC_VECTOR(6 DOWNTO 0) := "1100011";
+	CONSTANT LoadUpperImmediate  : STD_LOGIC_VECTOR(6 DOWNTO 0) := "0110111";
+	CONSTANT AddUpperImmediatePC : STD_LOGIC_VECTOR(6 DOWNTO 0) := "0010111";
+	CONSTANT SystemAndCSR 		 : STD_LOGIC_VECTOR(6 DOWNTO 0) := "1110011";
 BEGIN
 	func3 <= IR(14 DOWNTO 12);
 	func7 <= IR(31 DOWNTO 25);
 	opcode <= IR(6 DOWNTO 0);
-	PROCESS (p_state, completeDARU, completeDAWU, completeAAU, opcode, func3, func7, lt, eq, gt) BEGIN
+StateTransition:	PROCESS (p_state, completeDARU, completeDAWU, completeAAU, opcode, func3, func7, lt, eq, gt, interruptRaise, modeMtvec) BEGIN
 		n_state <= fetch;
 		CASE p_state IS
 				--fetch
 			WHEN fetch =>
-				n_state <= getInstr;
+			
+				IF (interruptRaise = '1') THEN
+					n_state <= updateMip;
+				ELSE
+					n_state <= getInstr;
+				END IF;	
+				
 			WHEN getInstr =>
+			
 				IF (completeDARU = '1') THEN
 					n_state <= decode;
 				ELSE
 					n_state <= getInstr;
 				END IF;
+				
 				--decode
 			WHEN decode =>
-				IF (opcode = "0000011") THEN
+				IF (opcode = Loads) THEN
 					n_state <= loadInstr1;--load
-				ELSIF (opcode = "0100011") THEN
+				ELSIF (opcode = Stores) THEN
 					n_state <= storeInstr1;--store
-				ELSIF ((opcode = "0110011")) THEN
+				ELSIF ((opcode = Arithmetic)) THEN
 					IF (func7(0) = '1') THEN
 						n_state <= MultiplyDivide1;--multiplyDivide
 					ELSIF (func3 = "000") THEN
@@ -152,7 +198,7 @@ BEGIN
 					ELSIF (func3 = "001" OR func3 = "101") THEN
 						n_state <= shift;--shift
 					END IF;
-				ELSIF ((opcode = "0010011")) THEN --Immediate
+				ELSIF ((opcode = ImmediateArithmetic)) THEN --Immediate
 					IF (func3 = "000") THEN
 						n_state <= addSub;--addSub
 					ELSIF (func3 = "010" OR func3 = "011") THEN
@@ -162,14 +208,20 @@ BEGIN
 					ELSIF (func3 = "001" OR func3 = "101") THEN
 						n_state <= shift;--shift
 					END IF;
-				ELSIF (opcode = "1101111") THEN
+				ELSIF (opcode = JumpAndLink) THEN
 					n_state <= JAL;--JAL
-				ELSIF (opcode = "1100111") THEN
+				ELSIF (opcode = JumpAndLinkRegister) THEN
 					n_state <= JALR;--JALR
-				ELSIF (opcode = "1100011") THEN
+				ELSIF (opcode = Branch) THEN
 					n_state <= conditionalBranch;--conditionalBranch
-				ELSIF (opcode = "0110111" OR opcode = "0010111") THEN
-					n_state <= LUI;--conditionalBranch
+				ELSIF (opcode = LoadUpperImmediate OR opcode = AddUpperImmediatePC) THEN
+					n_state <= LUI;--LoadUpperImmediate & AddUpperImmediatePC
+				ELSIF (opcode = SystemAndCSR ) THEN
+					IF (func3 = "000") THEN
+						n_state <= mretMstatus;--mret Instructions
+					ELSE
+					    n_state <= CSR;--CSR Instructions
+					END IF;
 				ELSE
 					n_state <= fetch;
 				END IF;
@@ -225,33 +277,55 @@ BEGIN
 				--conditionalBranch
 			WHEN conditionalBranch =>
 				n_state <= fetch;
+			WHEN LUI =>
+				n_state <= fetch;
+			WHEN CSR =>
+				n_state <= fetch;
+			WHEN mretMstatus =>
+				n_state <= mretMepc;			
+			WHEN mretMepc =>
+				n_state <= fetch;			
+            --Interrupt states
+			WHEN updateMip =>
+				n_state <= updateMcause;
+			WHEN updateMcause =>
+				n_state <= updateMstatus;			
+			WHEN updateMstatus =>
+				n_state <= updateMepc;
+			WHEN updateMepc =>
+				n_state <= updateMtvec;			
+			WHEN updateMtvec =>
+				n_state <= fetch;
 			WHEN OTHERS => n_state <= fetch;
 		END CASE;
 	END PROCESS;
-	PROCESS (p_state, completeDARU, completeDAWU, completeAAU, opcode, func3, func7, lt, eq, gt) BEGIN
-
-		-- Fetch signals 
-		selI4 <= '0';
-		selPC <= '0';
-
-		selPCJ <= '0'; selPC <= '0'; selADR <= '0';  selP2 <= '0'; selJL <= '0'; selImm <= '0'; 
-		selAdd <= '0'; selInc4PC <= '0'; selBSU <= '0'; selLLU <= '0'; selASU <= '0'; selAAU <= '0'; selDARU <= '0';
+ControlSignalsDecoder: 	PROCESS (p_state, completeDARU, completeDAWU, completeAAU, opcode, func3, func7, lt, eq, gt, interruptRaise, modeMtvec) BEGIN
+		selPCJ <= '0'; selPC <= '0'; selADR <= '0'; selI4 <= '0'; selP2 <= '0'; selJL <= '0'; selImm <= '0'; selAdd <= '0'; selInc4PC <= '0'; selBSU <= '0'; selLLU <= '0'; selASU <= '0'; selAAU <= '0'; selDARU <= '0';
 		dataInstrBar <= '0'; writeRegFile <= '0'; addSubBar <= '0'; comparedsignedunsignedbar <= '0';
 		ldIR <= '0'; ldADR <= '0'; ldPC <= '0'; ldDr <= '0';
 		ldByteSigned <= '0'; ldHalfSigned <= '0'; load <= '0';
 		setOne <= '0'; setZero <= '0';
-		startDARU <= '0'; startDAWU <= '0'; startMultiplyAAU <= '0'; startDivideAAU <= '0'; signedSigned <= '0';
-		 signedUnsigned <= '0'; unsignedUnsigned <= '0'; selAAL <= '0'; selAAH <= '0';
+		startDARU <= '0'; startDAWU <= '0'; startMultiplyAAU <= '0'; startDivideAAU <= '0'; signedSigned <= '0'; signedUnsigned <= '0'; unsignedUnsigned <= '0'; selAAL <= '0'; selAAH <= '0';
 		muxCode <= (OTHERS => '0'); nBytes <= "00"; selLogic <= "00"; selShift <= "00"; pass <= '0'; selAuipc <= '0'; selP1 <= '0';
+		zeroCntCSR <= '0'; mipCCLdDisable <= '0'; upCntCSR <= '0'; dnCntCSR <= '0'; selRomAddress <= '0';
+		selCCMip_CSR <= '0'; writeRegBank <= '0'; selCause_CSR <= '0'; statusAlterationPreCSR <= '0';statusAlterationPostCSR <= '0';
+		selPC_CSR <= '0';  
+		ldValueCSR <= "000"; selCSRAddrFromInst <= '0'; selP1CSR <= '0'; selImmCSR <= '0'; selReadWriteCSR <= '0'; 
+		setCSR <= '0'; clrCSR <= '0';selCSR <= '0';selMepc_CSR <= '0';ldCntCSR <= '0'; selInterruptAddressDirect <= '0';selInterruptAddressVectored <= '0';
 		CASE p_state IS
 				--fetch
 			WHEN fetch =>
-				selPCJ <= '1';
-				nBytes <= "11";
-				dataInstrBar <= '0';
-				startDARU <= '1';
-				selPC <= '1';
-				--selI4 <= '1';
+				IF (interruptRaise = '1') THEN
+					zeroCntCSR <= '1';
+					mipCCLdDisable <= '1';
+				ELSE
+					selPCJ <= '1';
+					nBytes <= "11";
+					dataInstrBar <= '0';
+					startDARU <= '1';
+					selPC <= '1';
+				END IF;	
+
 			WHEN getInstr =>
 				IF (completeDARU = '1') THEN
 					ldIR <= '1';
@@ -260,11 +334,17 @@ BEGIN
 				END IF;
 				--decode
 			WHEN decode =>
+							
+				IF (opcode = "1110011" AND func3 = "000" ) THEN
+					ldValueCSR <= "010";
+					ldCntCSR <= '1';
+				END IF;
 
 			WHEN loadInstr1 =>
 				MuxCode <= iTypeImm;
 				ldADR <= '1';
 				selJL <= '1'; 
+				selP1<= '1'; 
 				ldPC <= '1';
 				selI4 <= '1';
 			WHEN loadInstr2 =>
@@ -274,7 +354,7 @@ BEGIN
 				nBytes <= func3(1) & (func3(1) OR func3(0));
 
 			WHEN getData =>
-				ldByteSigned <= NOT(func3(2)) OR NOT(func3(1)) OR NOT(func3(0));
+				ldByteSigned <= NOT(func3(2)) AND NOT(func3(1)) AND NOT(func3(0));
 				ldHalfSigned <= NOT(func3(2)) AND func3(0);
 				load <= func3(2) OR func3(1);
 				IF (completeDARU = '1') THEN
@@ -443,15 +523,80 @@ BEGIN
 				pass <= opcode(5);
 				addSubBar <= NOT (opcode(5));
 				selAuipc <= NOT (opcode(5));
-			WHEN OTHERS => selPCJ <= '0'; selPC <= '0'; selADR <= '0'; selP2 <= '0'; selJL <= '0'; selImm <= '0'; selAdd <= '0'; selInc4PC <= '0'; selBSU <= '0'; selLLU <= '0'; selASU <= '0'; selAAU <= '0'; selDARU <= '0';
-				dataInstrBar <= '0'; writeRegFile <= '0'; addSubBar <= '0'; comparedsignedunsignedbar <= '0';
-				ldIR <= '0'; ldADR <= '0'; ldDr <= '0';
-				ldByteSigned <= '0'; ldHalfSigned <= '0'; load <= '0';
-				setOne <= '0'; setZero <= '0';
-				startDARU <= '0'; startDAWU <= '0'; startMultiplyAAU <= '0'; startDivideAAU <= '0'; signedSigned <= '0'; signedUnsigned <= '0'; unsignedUnsigned <= '0'; selAAL <= '0'; selAAH <= '0';
-				muxCode <= (OTHERS => '0'); nBytes <= "00"; selLogic <= "00"; selShift <= "00"; pass <= '0'; selAuipc <= '0'; selP1 <= '0';
-				ldPC <= '0';
-				selI4 <= '0';
+			WHEN CSR =>
+				selCSRAddrFromInst <= '1';
+				selCSR <= '1';
+				writeRegFile <= '1';
+				writeRegBank  <= '1';
+				selP1CSR  <= NOT (func3(2));
+				selImmCSR <= func3(2);
+				selReadWriteCSR <= NOT(func3(1));
+				setCSR <= NOT(func3(0));
+				clrCSR <= func3(1) AND func3(0);
+				ldPC <= '1';
+				selI4 <= '1';
+				
+			WHEN mretMstatus =>
+				selRomAddress <= '1';
+				statusAlterationPostCSR <= '1';
+				writeRegBank <= '1';
+				upCntCSR <= '1';
+			WHEN mretMepc =>
+				selRomAddress <= '1';
+				selMepc_CSR <= '1';
+				ldPC <= '1';			
+				zeroCntCSR <= '1';			
+
+			-- Interrupt State Descriptions
+			WHEN updateMip =>
+				upCntCSR <= '1';
+				selRomAddress <= '1';
+				selCCMip_CSR <= '1';
+				writeRegBank <= '1';		
+				mipCCLdDisable <= '1';		
+			WHEN updateMcause =>
+				upCntCSR <= '1';
+				selRomAddress <= '1';
+				selCause_CSR <= '1';
+				writeRegBank <= '1';			
+				mipCCLdDisable <= '1';			
+			WHEN updateMstatus =>
+				upCntCSR <= '1';
+				selRomAddress <= '1';
+				statusAlterationPreCSR <= '1';
+				writeRegBank <= '1';	
+				mipCCLdDisable <= '1';
+			WHEN updateMepc =>
+				upCntCSR <= '1';
+				selRomAddress <= '1';
+				selPC_CSR <= '1';
+				writeRegBank <= '1';
+				mipCCLdDisable <= '1';
+			WHEN updateMtvec =>
+				zeroCntCSR <= '1';
+				selRomAddress <= '1';
+				ldPC <= '1';
+				mipCCLdDisable <= '1';
+
+				IF (modeMtvec = "00") THEN
+					selInterruptAddressDirect  <= '1';
+				ELSIF (modeMtvec = "01") THEN
+					selInterruptAddressVectored <= '1';
+				END IF;
+			WHEN OTHERS => 	
+			selPCJ <= '0'; selPC <= '0'; selADR <= '0'; selI4 <= '0'; selP2 <= '0'; selJL <= '0'; selImm <= '0'; selAdd <= '0'; selInc4PC <= '0'; selBSU <= '0'; selLLU <= '0'; selASU <= '0'; selAAU <= '0'; selDARU <= '0';
+			dataInstrBar <= '0'; writeRegFile <= '0'; addSubBar <= '0'; comparedsignedunsignedbar <= '0';
+			ldIR <= '0'; ldADR <= '0'; ldPC <= '0'; ldDr <= '0';
+			ldByteSigned <= '0'; ldHalfSigned <= '0'; load <= '0';
+			setOne <= '0'; setZero <= '0';
+			startDARU <= '0'; startDAWU <= '0'; startMultiplyAAU <= '0'; startDivideAAU <= '0'; signedSigned <= '0'; signedUnsigned <= '0'; unsignedUnsigned <= '0'; selAAL <= '0'; selAAH <= '0';
+			muxCode <= (OTHERS => '0'); nBytes <= "00"; selLogic <= "00"; selShift <= "00"; pass <= '0'; selAuipc <= '0'; selP1 <= '0';
+			zeroCntCSR <= '0'; mipCCLdDisable <= '0'; upCntCSR <= '0'; dnCntCSR <= '0'; selRomAddress <= '0';
+			selCCMip_CSR <= '0'; writeRegBank <= '0'; selCause_CSR <= '0'; statusAlterationPreCSR <= '0';statusAlterationPostCSR <= '0';
+			selPC_CSR <= '0';  
+			ldValueCSR <= "000"; selCSRAddrFromInst <= '0'; selP1CSR <= '0'; selImmCSR <= '0'; selReadWriteCSR <= '0'; 
+			setCSR <= '0'; clrCSR <= '0';selCSR <= '0';selMepc_CSR <= '0';ldCntCSR <= '0'; selInterruptAddressDirect <= '0';selInterruptAddressVectored <= '0';
+
 		END CASE;
 	END PROCESS;
 	sequential : PROCESS (clk, rst) BEGIN
