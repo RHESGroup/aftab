@@ -54,6 +54,7 @@ ENTITY aftab_daru_controller IS
 		selldEn 	 : OUT STD_LOGIC;
 		readMem		 : OUT STD_LOGIC;
 		enableAddr	 : OUT STD_LOGIC;
+		enableData	 : OUT STD_LOGIC;
 		incCnt		 : OUT STD_LOGIC;
 		zeroCnt		 : OUT STD_LOGIC;
 		completeDARU : OUT STD_LOGIC
@@ -98,6 +99,7 @@ BEGIN
 		selldEn <= '0'; 
 		readMem <= '0';
 		enableAddr <= '0'; 
+		enableData <= '0'; 
 		incCnt <= '0'; 
 		completeDARU <= '0'; 
 		initReading <= '0';
@@ -110,6 +112,7 @@ BEGIN
 				initReading <= startDARU;
 			WHEN waitforMemready =>
 				selldEn <= memReady;
+				enableData <= memReady;
 				readMem <= '1';
 				enableAddr <= '1';
 				incCnt <= memReady;
@@ -126,6 +129,8 @@ BEGIN
 				selldEn <= '0'; 
 				readMem <= '0';
 				enableAddr <= '0'; 
+				enableData <= '0'; 
+				enableData <= '0'; 
 				incCnt <= '0'; 
 				completeDARU <= '0'; 
 				initReading <= '0';
