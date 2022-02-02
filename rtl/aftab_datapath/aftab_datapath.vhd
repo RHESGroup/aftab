@@ -36,18 +36,14 @@
 -- **************************************************************************************
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-
 ENTITY aftab_datapath IS
 	GENERIC (len : INTEGER := 32);
 	PORT (
 		clk    						: IN STD_LOGIC;
 		rst            			    : IN STD_LOGIC;
-		-- Register File signals
 		writeRegFile			    : IN STD_LOGIC;
 		setOne						: IN STD_LOGIC;
 		setZero 					: IN STD_LOGIC;
-		IR                			: OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		
 		ComparedSignedUnsignedBar 	: IN STD_LOGIC;
 		selPC 						: IN STD_LOGIC;
 		selPCJ					    : IN STD_LOGIC;
@@ -96,7 +92,7 @@ ENTITY aftab_datapath IS
 		memDataIn       			: IN  STD_LOGIC_VECTOR (7 DOWNTO 0);
 		memAddrDAWU 			    : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 		memAddrDARU  				: OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		
+		IR                			: OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 		memDataOut         			: OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
 		lt  						: OUT STD_LOGIC;
 		eq  						: OUT STD_LOGIC;
@@ -105,20 +101,45 @@ ENTITY aftab_datapath IS
 		completeDARU  				: OUT STD_LOGIC;
 		readMem  					: OUT STD_LOGIC;
 		writeMem  					: OUT STD_LOGIC;
-		dataError       			: OUT STD_LOGIC
+		dataError       			: OUT STD_LOGIC;
+		
+		--CSR and Interrupt inputs
+		selCSR   					: IN  STD_LOGIC;
+		externalInterrupt		    : IN  STD_LOGIC;
+		timerInterrupt 			    : IN  STD_LOGIC;
+		softwareInterrupt			: IN  STD_LOGIC;
+		ldValueCSR					: IN  STD_LOGIC_VECTOR (2 DOWNTO 0);
+		mipCCLdDisable			    : IN  STD_LOGIC;
+		selImmCSR					: IN  STD_LOGIC;
+		selP1CSR					: IN  STD_LOGIC;
+		selReadWriteCSR				: IN  STD_LOGIC;
+		clrCSR						: IN  STD_LOGIC;
+		setCSR						: IN  STD_LOGIC;
+		selPC_CSR					: IN  STD_LOGIC;
+		selCCMip_CSR				: IN  STD_LOGIC;
+		selCause_CSR				: IN  STD_LOGIC;
+		selMepc_CSR					: IN  STD_LOGIC;
+		selInterruptAddressDirect  	: IN  STD_LOGIC;
+		selInterruptAddressVectored	: IN  STD_LOGIC;
+		statusAlterationPreCSR		: IN  STD_LOGIC;
+		statusAlterationPostCSR		: IN  STD_LOGIC;
+		writeRegBank				: IN  STD_LOGIC;
+		dnCntCSR					: IN  STD_LOGIC;
+		upCntCSR					: IN  STD_LOGIC;
+		ldCntCSR					: IN  STD_LOGIC;
+		zeroCntCSR					: IN  STD_LOGIC;
+		selCSRAddrFromInst			: IN  STD_LOGIC;
+		selRomAddress				: IN  STD_LOGIC;
+		interruptRaise				: OUT  STD_LOGIC;
+		modeMtvec					: OUT  STD_LOGIC_VECTOR (1 DOWNTO 0)	
 	);
 END ENTITY aftab_datapath;
-
 ARCHITECTURE behavioral OF aftab_datapath IS
-	SIGNAL imm12      : STD_LOGIC_VECTOR (11 DOWNTO 0);
 	SIGNAL immediate  : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL inst       : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL resAAH     : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL resAAL 	  : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL instrError : STD_LOGIC;
-	SIGNAL rs1        : STD_LOGIC_VECTOR (4 DOWNTO 0);
-	SIGNAL rs2        : STD_LOGIC_VECTOR (4 DOWNTO 0);
-	SIGNAL rd         : STD_LOGIC_VECTOR (4 DOWNTO 0);
 	SIGNAL p1         : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL p2         : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL writeData  : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
@@ -139,10 +160,27 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL outMux5    : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL addrIn     : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 
+	--CSR Signals
+	SIGNAL CCmieField 					 : STD_LOGIC;
+	SIGNAL mipCCLd 						 : STD_LOGIC;
+	SIGNAL cntInput  					 : STD_LOGIC_VECTOR (2 DOWNTO 0);
+	SIGNAL addressRegBank  				         : STD_LOGIC_VECTOR (11 DOWNTO 0);
+	SIGNAL outAddr  					 : STD_LOGIC_VECTOR (11 DOWNTO 0);
+	SIGNAL interruptSources  			         : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL CCmip  						 : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL outCSR  						 : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL inCSR  						 : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL causeCode  					 : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL CCmie 						 : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL interruptStartAddressDirect   : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL interruptStartAddressVectored : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+						
+					
+
 BEGIN
 	IR <= inst;
 	registerFile : ENTITY WORK.aftab_register_file
-		GENERIC MAP(len => 32)
+		GENERIC MAP(len => len)
 		PORT MAP(
 			clk => clk, 
 			rst => rst,
@@ -156,34 +194,8 @@ BEGIN
 			p1 => p1,
 			p2 => p2);
 			
-	mux6 : ENTITY WORK.aftab_multiplexer
-			GENERIC MAP(len => 32)
-		    PORT MAP(
-				a => p1, 
-				b => outPC, 
-				s0 => selP1, 
-				s1 => selAuipc,
-				w => outMux6);
-				
-	mux5 : ENTITY WORK.aftab_multiplexer
-			GENERIC MAP(len => 32)
-			PORT MAP(
-				a => p2, 
-				b => immediate,
-				s0 => selP2, 
-				s1 => selImm,
-				w => outMux5);
-			
-						
-	writeData <= inc4PC    WHEN selInc4PC = '1' ELSE
-				 bsuResult WHEN selBSU = '1'    ELSE
-				 lluResult WHEN selLLU = '1'    ELSE
-				 asuResult WHEN selASU = '1'    ELSE
-				 aauResult WHEN selAAU = '1'    ELSE
-				 adjDARU   WHEN selDARU = '1'   ELSE (OTHERS => '0');
-			
 	regIR : ENTITY WORK.aftab_register
-		GENERIC MAP(len => 32)
+		GENERIC MAP(len => len)
 		PORT MAP(
 			clk => clk, 
 			rst => rst, 
@@ -216,25 +228,24 @@ BEGIN
 			Imm => immediate);
 			
 	adder : ENTITY WORK.aftab_adder
-		GENERIC MAP(len => 32)
+		GENERIC MAP(len => len)
 		PORT MAP(
 			Cin => '0', 
 			A => immediate, 
 			B => outMux2,
 			addResult => addResult,
 			carryOut => OPEN);
+
+---	mux1 : 
+	inPC <= addResult 						  WHEN 	selAdd = '1'      			   	 ELSE
+			inc4PC 							  WHEN 	selI4 = '1'       			   	 ELSE
+			outCSR 							  WHEN selMepc_CSR = '1'  			   	 ELSE 
+			interruptStartAddressDirect  	  WHEN selInterruptAddressDirect = '1' 	 ELSE
+		    interruptStartAddressVectored  	  WHEN selInterruptAddressVectored = '1' ELSE (OTHERS => '0');
 			
-	mux1 : ENTITY WORK.aftab_multiplexer
-		GENERIC MAP(len => 32)
-		PORT MAP(
-			a => addResult,
-			b => inc4PC, 
-			s0 => selAdd,
-			s1 => selI4,
-			w => inPC);
 			
 	regPC : ENTITY WORK.aftab_register
-		GENERIC MAP(len => 32)
+		GENERIC MAP(len => len)
 		PORT MAP(
 			clk => clk, 
 			rst => rst, 
@@ -244,7 +255,7 @@ BEGIN
 			outReg => outPC);
 			
 	mux2 : ENTITY WORK.aftab_multiplexer
-			GENERIC MAP(len => 32)
+			GENERIC MAP(len => len)
 			PORT MAP(
 				a => outMux6,
 				b => outPC,
@@ -253,7 +264,7 @@ BEGIN
 				w => outMux2);
 				
 	mux3 : ENTITY WORK.aftab_multiplexer
-			GENERIC MAP(len => 32)
+			GENERIC MAP(len => len)
 			PORT MAP(
 				a => outADR,
 				b => outMux2,
@@ -262,7 +273,7 @@ BEGIN
 				w => addrIn);
 					
 	regADR : ENTITY WORK.aftab_register
-				GENERIC MAP(len => 32)
+				GENERIC MAP(len => len)
 				PORT MAP(
 					clk => clk,
 					rst => rst, 
@@ -272,17 +283,24 @@ BEGIN
 					outReg => outADR);
 					
 	i4PC : ENTITY WORK.aftab_adder
-			GENERIC MAP(len => 32)
+			GENERIC MAP(len => len)
 			PORT MAP(
 				Cin => '0', 
 				A => outPC,
 				B => (31 DOWNTO 3 => '0') & "100",
 				addResult => inc4PC,
 				carryOut => OPEN);
-	
+				
+	writeData <= inc4PC    WHEN selInc4PC = '1' ELSE
+				 bsuResult WHEN selBSU = '1'    ELSE
+				 lluResult WHEN selLLU = '1'    ELSE
+				 asuResult WHEN selASU = '1'    ELSE
+				 aauResult WHEN selAAU = '1'    ELSE
+				 adjDARU   WHEN selDARU = '1'   ELSE 
+				 outCSR    WHEN selCSR = '1'   ELSE (OTHERS => '0');
 				 
 	regDR : ENTITY WORK.aftab_register
-			 GENERIC MAP(len => 32)
+			 GENERIC MAP(len => len)
 			 PORT MAP(
 				clk => clk,
 				rst => rst,
@@ -291,8 +309,26 @@ BEGIN
 				inReg => p2, 
 				outReg => dataDAWU);
 				
+	mux5 : ENTITY WORK.aftab_multiplexer
+			GENERIC MAP(len => len)
+			PORT MAP(
+				a => p2, 
+				b => immediate,
+				s0 => selP2, 
+				s1 => selImm,
+				w => outMux5);
+				
+	mux6 : ENTITY WORK.aftab_multiplexer
+			GENERIC MAP(len => len)
+			PORT MAP(
+				a => p1, 
+				b => outPC, 
+				s0 => selP1, 
+				s1 => selAuipc,
+				w => outMux6);
+				
 	LLU : ENTITY WORK.aftab_llu
-			GENERIC MAP(len => 32)
+			GENERIC MAP(len => len)
 			PORT MAP(
 				ain => outMux6,
 				bin => outMux5,
@@ -300,7 +336,7 @@ BEGIN
 				result => lluResult);
 				
 	BSU : ENTITY WORK.aftab_barrel_shifter
-			GENERIC MAP(len => 32)
+			GENERIC MAP(len => len)
 			PORT MAP(
 				shIn => outMux6,
 				nSh => outMux5 (4 DOWNTO 0),
@@ -345,7 +381,6 @@ BEGIN
 				
 	aauResult <= resAAH WHEN selAAH = '1' ELSE
 				 resAAL WHEN selAAL = '1' ELSE (OTHERS => '0');
-				 
 	dawu : ENTITY WORK.aftab_dawu
 			PORT MAP(
 				clk => clk,
@@ -358,7 +393,7 @@ BEGIN
 				addrOut => memAddrDAWU,
 				dataOut => memDataOut,
 				writeMem => writeMem, 
-				dataError => dataError, 
+				dataError => open, 
 				completeDAWU => completeDAWU);
 				
 	daru : ENTITY WORK.aftab_daru
@@ -373,7 +408,7 @@ BEGIN
 				completeDARU => completeDARU,
 				dataOut => dataDARU, 
 				addrOut => memAddrDARU, 
-				dataError => dataError,
+				dataError => open,
 				instrError => instrError,
 				readMem => readMem);
 				
@@ -385,5 +420,107 @@ BEGIN
 					load => load,
 					dataIn => dataDARU, 
 					dataOut => adjDARU);
+--CSR Units
+	--interruptSourceSynchronizationRegister
+    mipCCLd <=	NOT (mipCCLdDisable);
+	interruptSources <= "00000000000000000000" & externalInterrupt & "000" & timerInterrupt & "000" & softwareInterrupt & "000";
+	interSrcSynchReg: ENTITY work.aftab_register  
+			GENERIC MAP(len => 32)
+			    PORT MAP(
+				clk =>    clk ,
+				rst =>    rst ,
+				zero =>   '0' ,
+				load =>   mipCCLd ,
+				inReg =>  interruptSources   ,
+				outReg => CCmip
+			);
+	ISLFCSR: ENTITY WORK.aftab_ISLFCSR 
+			GENERIC MAP (len => len)
+				PORT MAP(
+					selP1 =>selP1CSR ,
+					selIm =>selImmCSR ,
+					selReadWrite =>selReadWriteCSR ,
+					clr =>clrCSR ,
+					set => setCSR,
+					selPC => selPC_CSR,
+					selmip => selCCMip_CSR,
+					selCause => selCause_CSR,
+					statusAlterationPre => statusAlterationPreCSR ,
+					statusAlterationPost => statusAlterationPostCSR,
+					ir19_15 => inst (19 DOWNTO 15),
+					CCmip => CCmip,
+					causeCode => causeCode,
+					P1 => p1 ,
+					PC => outPC,
+					outCSR => outCSR,
+					inCSR => inCSR);
+
+	register_bank: ENTITY WORK.aftab_register_bank 
+			GENERIC MAP (len => len)
+			PORT MAP(
+				clk =>   clk   ,
+				rst => rst,
+				writeRegBank =>   writeRegBank  ,
+				addressRegBank => addressRegBank  ,
+				inputRegBank =>   inCSR  ,
+				outRegBank =>     outCSR ,
+				outMieFieldCCreg =>     CCmieField ,
+				outMieCCreg      =>     CCmie 
+				);	
+	--modeMtvec <= outCSR (1 DOWNTO 0);
+	
+	CSRCounter: ENTITY WORK.CSRCounter 
+			GENERIC MAP (len => 3)
+			PORT MAP(
+				clk => clk,
+				rst => rst ,
+				dnCnt => dnCntCSR,
+				upCnt => upCntCSR ,
+				ldCnt => ldCntCSR,
+				zeroCnt => zeroCntCSR ,
+				ldValue => ldValueCSR,
+				outCnt => cntInput
+			);	
+
+	-- ROM : ENTITY WORK.CSRAddressingROM_constant 
+			-- PORT MAP(
+				-- clk => clk,
+				-- inputAddr => index,
+				-- outdata => RomAddress
+			-- );
+
+	CSRAddressingDecoder : ENTITY WORK.CSRAddressingDecoder 
+			 PORT MAP(
+				cntInput => cntInput,
+				outAddr => outAddr
+			);			
+			
+	mux7 : ENTITY WORK.aftab_multiplexer
+			GENERIC MAP(len => 12)
+			PORT MAP(
+				a => inst(31 DOWNTO 20), 
+				b => outAddr, 
+				s0 => selCSRAddrFromInst, 
+				s1 => selRomAddress,
+				w => addressRegBank);
+	
+	interrCheckCauseDetection: ENTITY WORK.aftab_interrCheckCauseDetection
+				GENERIC MAP(len => len)
+				PORT MAP(
+					mipCC => CCmip ,
+					mieCC => CCmie ,
+					mieFieldCC => CCmieField ,
+					interruptRaise => interruptRaise ,
+					causeCode => causeCode
+				);	
+
+	interruptStartAddressGenerator: ENTITY WORK.aftab_iagu
+			GENERIC MAP(len => len)
+			PORT MAP(
+				mtvecBase 	=>	outCSR  ,
+				causeCode   => causeCode (5 DOWNTO 0)    ,
+				interruptStartAddressDirect    => interruptStartAddressDirect  , 
+				interruptStartAddressVectored  => interruptStartAddressVectored 
+			);			
 					
 END ARCHITECTURE behavioral;
