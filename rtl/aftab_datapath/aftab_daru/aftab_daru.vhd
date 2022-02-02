@@ -66,6 +66,7 @@ ARCHITECTURE behavioral OF aftab_daru IS
     SIGNAL initCnt	    : STD_LOGIC;
     SIGNAL initReading 	: STD_LOGIC;
     SIGNAL enableAddr 	: STD_LOGIC;
+    SIGNAL enableData 	: STD_LOGIC;
     SIGNAL LdErrorFlag 	: STD_LOGIC;
 	SIGNAL coCnt 		: STD_LOGIC;
 	SIGNAL sel		    : STD_LOGIC_VECTOR (1 DOWNTO 0);
@@ -90,6 +91,7 @@ BEGIN
 						initCnt => initCnt, 
 						initReading => initReading,
 						enableAddr => enableAddr,
+						enableData => enableData,
 						coCnt => coCnt,
 						dataOut => dataOut, 
 						addrOut => addrOut);
@@ -110,6 +112,7 @@ BEGIN
 						selldEn => selldEn,
 						readMem => readMem,
 						enableAddr => enableAddr, 
+						enableData => enableData, 
 						incCnt => incCnt,
 						zeroCnt => zeroCnt, 
 						completeDARU => completeDARU);
