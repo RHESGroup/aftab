@@ -1,7 +1,7 @@
 -- **************************************************************************************
 --	Filename:	aftab_core.vhd
 --	Project:	CNL_RISC-V
---  Version:	1.0
+--      Version:	1.0
 --	History:
 --	Date:		16 February 2021
 --
@@ -36,7 +36,6 @@
 -- **************************************************************************************
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
-
 ENTITY aftab_core IS
 	GENERIC (len : INTEGER := 32);
 	PORT (
@@ -47,7 +46,11 @@ ENTITY aftab_core IS
 		memWrite   : OUT STD_LOGIC;
 		memDataIN  : IN  STD_LOGIC_VECTOR (7 DOWNTO 0);
 		memDataOUT : OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
-		memAddr    : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0)
+		memAddr    : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		externalInterrupt   : IN  STD_LOGIC;
+		timerInterrupt      : IN  STD_LOGIC;
+		softwareInterrupt   : IN  STD_LOGIC;
+		interruptProcessing : OUT STD_LOGIC
 	);
 END ENTITY;
 --
@@ -105,8 +108,34 @@ ARCHITECTURE procedural OF aftab_core IS
 	SIGNAL nBytes : STD_LOGIC_VECTOR (1 DOWNTO 0);
 	SIGNAL selLogic : STD_LOGIC_VECTOR (1 DOWNTO 0);
 	SIGNAL selShift : STD_LOGIC_VECTOR (1 DOWNTO 0);
-	SIGNAL muxCode : STD_LOGIC_VECTOR (11 DOWNTO 0);
+	SIGNAL muxCode : STD_LOGIC_VECTOR (11 DOWNTO 0);		
+	SIGNAL modeMtvec : STD_LOGIC_VECTOR (1 DOWNTO 0);
 	SIGNAL IR : STD_LOGIC_VECTOR (31 DOWNTO 0);
+	SIGNAL selCSR : STD_LOGIC;
+	
+	SIGNAL interruptRaise : STD_LOGIC;
+	SIGNAL mipCCLdDisable : STD_LOGIC;
+	SIGNAL ldValueCSR : STD_LOGIC_VECTOR(2 DOWNTO 0);
+	SIGNAL selImmCSR : STD_LOGIC;
+	SIGNAL selReadWriteCSR : STD_LOGIC;
+	SIGNAL selP1CSR : STD_LOGIC;
+	SIGNAL clrCSR : STD_LOGIC;
+	SIGNAL setCSR : STD_LOGIC;
+	SIGNAL selPC_CSR : STD_LOGIC;
+	SIGNAL selCCMip_CSR : STD_LOGIC;
+	SIGNAL selCause_CSR : STD_LOGIC;
+	SIGNAL selMepc_CSR : STD_LOGIC;
+	SIGNAL statusAlterationPreCSR : STD_LOGIC;
+	SIGNAL statusAlterationPostCSR : STD_LOGIC;
+	SIGNAL writeRegBank : STD_LOGIC;
+	SIGNAL dnCntCSR : STD_LOGIC;
+	SIGNAL upCntCSR : STD_LOGIC;
+	SIGNAL ldCntCSR : STD_LOGIC;		
+	SIGNAL zeroCntCSR : STD_LOGIC;
+	SIGNAL selCSRAddrFromInst : STD_LOGIC;
+	SIGNAL selRomAddress : STD_LOGIC;
+	SIGNAL selInterruptAddressDirect   : STD_LOGIC;
+	SIGNAL selInterruptAddressVectored : STD_LOGIC;	
 BEGIN
 	datapathAFTAB : ENTITY WORK.aftab_datapath PORT MAP(
 		clk => clk,
@@ -171,7 +200,35 @@ BEGIN
 		completeDARU => completeDARU,
 		readMem => memRead,
 		writeMem => memWrite,
-		dataError => dataError
+		dataError => dataError,
+		selCSR => selCSR,
+		externalInterrupt => externalInterrupt,
+		timerInterrupt => timerInterrupt,
+		softwareInterrupt => softwareInterrupt,
+		ldValueCSR => ldValueCSR,
+		mipCCLdDisable => mipCCLdDisable,
+		selImmCSR => selImmCSR,
+		selP1CSR => selP1CSR,
+		selReadWriteCSR => selReadWriteCSR,
+		clrCSR => clrCSR,
+		setCSR => setCSR,
+		selPC_CSR => selPC_CSR,
+		selCCMip_CSR => selCCMip_CSR,
+		selCause_CSR => selCause_CSR,
+		selMepc_CSR => selMepc_CSR,
+		selInterruptAddressDirect   => selInterruptAddressDirect  ,
+		selInterruptAddressVectored => selInterruptAddressVectored,
+		statusAlterationPreCSR => statusAlterationPreCSR,
+		statusAlterationPostCSR => statusAlterationPostCSR,
+		writeRegBank => writeRegBank,
+		dnCntCSR => dnCntCSR,
+		upCntCSR => upCntCSR,
+		ldCntCSR => ldCntCSR,
+		zeroCntCSR => zeroCntCSR,
+		selCSRAddrFromInst => selCSRAddrFromInst,
+		selRomAddress => selRomAddress,
+		interruptRaise => interruptRaise,
+		modeMtvec => modeMtvec
 		);
 	controllerAFTAB : ENTITY WORK.aftab_controller PORT MAP(
 		clk => clk,
@@ -225,6 +282,33 @@ BEGIN
 		signedUnsigned => signedUnsigned,
 		unsignedUnsigned => unsignedUnsigned,
 		selAAL => selAAL,
-		selAAH => selAAH
+		selAAH => selAAH,
+		interruptRaise => interruptRaise ,
+		modeMtvec => modeMtvec,
+		mipCCLdDisable => mipCCLdDisable,
+		selCCMip_CSR => selCCMip_CSR,
+		selCause_CSR => selCause_CSR,
+		selPC_CSR => selPC_CSR,
+		ldValueCSR => ldValueCSR,
+		ldCntCSR => ldCntCSR,
+		dnCntCSR => dnCntCSR,
+		upCntCSR => upCntCSR,
+		selCSR => selCSR,
+		selP1CSR => selP1CSR,
+		selReadWriteCSR => selReadWriteCSR,
+		selImmCSR => selImmCSR,
+		setCSR => setCSR,
+		clrCSR => clrCSR,
+		writeRegBank => writeRegBank,
+		selCSRAddrFromInst => selCSRAddrFromInst,
+		selRomAddress => selRomAddress,
+		statusAlterationPostCSR => statusAlterationPostCSR,
+		statusAlterationPreCSR => statusAlterationPreCSR,
+		selMepc_CSR => selMepc_CSR,
+		selInterruptAddressDirect   => selInterruptAddressDirect  ,
+		selInterruptAddressVectored => selInterruptAddressVectored,
+		zeroCntCSR => zeroCntCSR
 		);
+		
+		interruptProcessing <= mipCCLdDisable;
 END ARCHITECTURE procedural;
