@@ -57,6 +57,7 @@ ENTITY aftab_daru_datapath IS
 		initCnt 	 : IN STD_LOGIC;
 		initReading  : IN STD_LOGIC;
 		enableAddr   : IN STD_LOGIC;
+		enableData   : IN STD_LOGIC;
 		coCnt 		 : OUT STD_LOGIC;
 		dataOut      : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 		addrOut      : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0)
@@ -66,10 +67,13 @@ END ENTITY aftab_daru_datapath;
 ARCHITECTURE behavioral OF aftab_daru_datapath IS
 	SIGNAL readAddr   : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL readAddrP  : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL dataIn     : STD_LOGIC_VECTOR (7 DOWNTO 0);
 	SIGNAL outCnt 	  : STD_LOGIC_VECTOR (1 DOWNTO 0);
 	SIGNAL nBytesOut  : STD_LOGIC_VECTOR (1 DOWNTO 0);
 	SIGNAL outDecoder : STD_LOGIC_VECTOR (3 DOWNTO 0);
 BEGIN
+
+	dataIn <= memData WHEN enableData = '1' ELSE	(OTHERS => 'Z');
 	-- addrReg
 	addrReg : ENTITY WORK.aftab_register
 				GENERIC MAP(len => 32)
@@ -116,7 +120,7 @@ BEGIN
 				rst => rst, 
 				zero => initReading,
 				load => outDecoder (0), 
-				inReg => memData, 
+				inReg => dataIn, 
 				outReg => dataOut (7 DOWNTO 0));
 	Reg1 : ENTITY WORK.aftab_register
 			GENERIC MAP(len => 8)
@@ -125,7 +129,7 @@ BEGIN
 				rst => rst, 
 				zero => initReading,
 				load => outDecoder (1), 
-				inReg => memData, 
+				inReg => dataIn, 
 				outReg => dataOut (15 DOWNTO 8));
 	Reg2 : ENTITY WORK.aftab_register
 			GENERIC MAP(len => 8)
@@ -134,7 +138,7 @@ BEGIN
 				rst => rst, 
 				zero => initReading,
 				load => outDecoder (2), 
-				inReg => memData, 
+				inReg => dataIn, 
 				outReg => dataOut (23 DOWNTO 16));
 	Reg3 : ENTITY WORK.aftab_register
 			GENERIC MAP(len => 8)
@@ -143,7 +147,7 @@ BEGIN
 				rst => rst, 
 				zero => initReading,
 				load => outDecoder(3), 
-				inReg => memData, 
+				inReg => dataIn, 
 				outReg => dataOut (31 DOWNTO 24));
 	Adder : ENTITY WORK.aftab_opt_adder
 				GENERIC MAP(len => 32)
@@ -151,8 +155,7 @@ BEGIN
 					A => readAddr,
 					B => outCnt, 
 					Sum => readAddrP);
-	coCnt <= '1' WHEN (outCnt = nBytesOut) ELSE
-		'0';
+	coCnt <= '1' WHEN (outCnt = nBytesOut) ELSE	'0';
 	-- Error Decoder
 	-- Error Register
 	-- Tri-State
