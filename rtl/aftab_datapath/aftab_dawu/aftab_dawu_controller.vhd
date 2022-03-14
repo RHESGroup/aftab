@@ -36,31 +36,30 @@
 -- **************************************************************************************
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-
 ENTITY aftab_dawu_controller IS
-	PORT (
-		clk          : IN STD_LOGIC;
-		rst          : IN STD_LOGIC;
-		coCnt		 : IN STD_LOGIC;
-		startDAWU	 : IN STD_LOGIC;
-		memReady 	 : IN STD_LOGIC;
-		ldData		 : OUT STD_LOGIC;
-		enableData	 : OUT STD_LOGIC;
-		enableAddr	 : OUT STD_LOGIC;
-		incCnt		 : OUT STD_LOGIC;
-		zeroCnt		 : OUT STD_LOGIC;
-		initCnt		 : OUT STD_LOGIC;
-		ldNumBytes	 : OUT STD_LOGIC;
+	PORT
+	(
+		clk          : IN  STD_LOGIC;
+		rst          : IN  STD_LOGIC;
+		coCnt        : IN  STD_LOGIC;
+		startDAWU    : IN  STD_LOGIC;
+		memReady     : IN  STD_LOGIC;
+		ldData       : OUT STD_LOGIC;
+		enableData   : OUT STD_LOGIC;
+		enableAddr   : OUT STD_LOGIC;
+		incCnt       : OUT STD_LOGIC;
+		zeroCnt      : OUT STD_LOGIC;
+		initCnt      : OUT STD_LOGIC;
+		ldNumBytes   : OUT STD_LOGIC;
 		zeroNumBytes : OUT STD_LOGIC;
-		ldAddr		 : OUT STD_LOGIC;
-		zeroAddr	 : OUT STD_LOGIC;
-		zeroData	 : OUT STD_LOGIC;
-		writeMem	 : OUT STD_LOGIC;
-		ldErrorFlag	 : OUT STD_LOGIC;
+		ldAddr       : OUT STD_LOGIC;
+		zeroAddr     : OUT STD_LOGIC;
+		zeroData     : OUT STD_LOGIC;
+		writeMem     : OUT STD_LOGIC;
+		ldErrorFlag  : OUT STD_LOGIC;
 		completeDAWU : OUT STD_LOGIC
 	);
 END ENTITY aftab_dawu_controller;
-
 ARCHITECTURE behavioral OF aftab_dawu_controller IS
 	TYPE state IS (waitForStart, waitForWrite);
 	SIGNAL pstate, nstate : state;
@@ -85,40 +84,40 @@ BEGIN
 		END CASE;
 	END PROCESS;
 	PROCESS (pstate, coCnt, startDAWU, memReady) BEGIN
-		ldData <= '0'; 
-		ldAddr <= '0'; 
-		enableData <= '0';
-		enableAddr <= '0';
-		incCnt <= '0';
-		zeroCnt <= '0'; 
-		initCnt <= '0'; 
-		ldNumBytes <= '0'; 
+		ldData       <= '0';
+		ldAddr       <= '0';
+		enableData   <= '0';
+		enableAddr   <= '0';
+		incCnt       <= '0';
+		zeroCnt      <= '0';
+		initCnt      <= '0';
+		ldNumBytes   <= '0';
 		zeroNumBytes <= '0';
-		ldAddr <= '0';
-		zeroAddr <= '0';
-		zeroData <= '0'; 
-		writeMem <= '0'; 
-		ldErrorFlag <= '0';
+		ldAddr       <= '0';
+		zeroAddr     <= '0';
+		zeroData     <= '0';
+		writeMem     <= '0';
+		ldErrorFlag  <= '0';
 		completeDAWU <= '0';
 		CASE pstate IS
 			WHEN waitForStart =>
 				IF (startDAWU = '1') THEN
-					ldAddr <= '1';
-					initCnt <= '1';
-					ldNumBytes <= '1';
+					ldAddr      <= '1';
+					initCnt     <= '1';
+					ldNumBytes  <= '1';
 					ldErrorFlag <= '1';
-					ldData <= '1';
+					ldData      <= '1';
 				ELSE
-					ldAddr <= '0';
-					initCnt <= '0';
-					ldNumBytes <= '0';
+					ldAddr      <= '0';
+					initCnt     <= '0';
+					ldNumBytes  <= '0';
 					ldErrorFlag <= '0';
-					ldData <= '0';
+					ldData      <= '0';
 				END IF;
 			WHEN waitForWrite =>
 				enableData <= '1';
 				enableAddr <= '1';
-				writeMem <= '1';
+				writeMem   <= '1';
 				IF (memReady = '1') THEN
 					incCnt <= '1';
 				ELSE
@@ -130,20 +129,20 @@ BEGIN
 					completeDAWU <= '0';
 				END IF;
 			WHEN OTHERS =>
-				ldData <= '0'; 
-				ldAddr <= '0';
-				enableData <= '0'; 
-				enableAddr <= '0'; 
-				incCnt <= '0';
-				zeroCnt <= '0';
-				initCnt <= '0';
-				ldNumBytes <= '0';
+				ldData       <= '0';
+				ldAddr       <= '0';
+				enableData   <= '0';
+				enableAddr   <= '0';
+				incCnt       <= '0';
+				zeroCnt      <= '0';
+				initCnt      <= '0';
+				ldNumBytes   <= '0';
 				zeroNumBytes <= '0';
-				ldAddr <= '0'; 
-				zeroAddr <= '0'; 
-				zeroData <= '0'; 
-				writeMem <= '0'; 
-				ldErrorFlag <= '0';
+				ldAddr       <= '0';
+				zeroAddr     <= '0';
+				zeroData     <= '0';
+				writeMem     <= '0';
+				ldErrorFlag  <= '0';
 				completeDAWU <= '0';
 		END CASE;
 	END PROCESS;
