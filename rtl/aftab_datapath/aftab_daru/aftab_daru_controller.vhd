@@ -36,14 +36,14 @@
 -- **************************************************************************************
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-
 ENTITY aftab_daru_controller IS
-	PORT (
-		clk          : IN STD_LOGIC;
-		rst          : IN STD_LOGIC;
-		startDARU    : IN STD_LOGIC;
-		coCnt        : IN STD_LOGIC;
-		memReady     : IN STD_LOGIC;
+	PORT
+	(
+		clk          : IN  STD_LOGIC;
+		rst          : IN  STD_LOGIC;
+		startDARU    : IN  STD_LOGIC;
+		coCnt        : IN  STD_LOGIC;
+		memReady     : IN  STD_LOGIC;
 		initCnt      : OUT STD_LOGIC;
 		ldAddr       : OUT STD_LOGIC;
 		zeroAddr     : OUT STD_LOGIC;
@@ -51,22 +51,19 @@ ENTITY aftab_daru_controller IS
 		initReading  : OUT STD_LOGIC;
 		ldErrorFlag  : OUT STD_LOGIC;
 		ldNumBytes   : OUT STD_LOGIC;
-		selldEn 	 : OUT STD_LOGIC;
-		readMem		 : OUT STD_LOGIC;
-		enableAddr	 : OUT STD_LOGIC;
-		enableData	 : OUT STD_LOGIC;
-		incCnt		 : OUT STD_LOGIC;
-		zeroCnt		 : OUT STD_LOGIC;
+		selldEn      : OUT STD_LOGIC;
+		readMem      : OUT STD_LOGIC;
+		enableAddr   : OUT STD_LOGIC;
+		enableData   : OUT STD_LOGIC;
+		incCnt       : OUT STD_LOGIC;
+		zeroCnt      : OUT STD_LOGIC;
 		completeDARU : OUT STD_LOGIC
 	);
 END ENTITY aftab_daru_controller;
-
 ARCHITECTURE behavioral OF aftab_daru_controller IS
 	TYPE state IS (waitforStart, waitforMemready, complete);
 	SIGNAL pstate, nstate : state;
-
 BEGIN
-
 	PROCESS (pstate, startDARU, coCnt, memReady) BEGIN
 		nstate <= waitforStart;
 		CASE pstate IS
@@ -89,51 +86,51 @@ BEGIN
 		END CASE;
 	END PROCESS;
 	PROCESS (pstate, startDARU, coCnt, memReady) BEGIN
-		initCnt <= '0'; 
-		ldAddr <= '0';
-		zeroCnt <= '0'; 
-		zeroAddr <= '0'; 
+		initCnt      <= '0';
+		ldAddr       <= '0';
+		zeroCnt      <= '0';
+		zeroAddr     <= '0';
 		zeroNumBytes <= '0';
-		ldErrorFlag <= '0';
-		ldNumBytes <= '0';
-		selldEn <= '0'; 
-		readMem <= '0';
-		enableAddr <= '0'; 
-		enableData <= '0'; 
-		incCnt <= '0'; 
-		completeDARU <= '0'; 
-		initReading <= '0';
+		ldErrorFlag  <= '0';
+		ldNumBytes   <= '0';
+		selldEn      <= '0';
+		readMem      <= '0';
+		enableAddr   <= '0';
+		enableData   <= '0';
+		incCnt       <= '0';
+		completeDARU <= '0';
+		initReading  <= '0';
 		CASE pstate IS
 			WHEN waitforStart =>
-				initCnt <= startDARU;
-				ldAddr <= startDARU;
+				initCnt     <= startDARU;
+				ldAddr      <= startDARU;
 				ldErrorFlag <= startDARU;
-				ldNumBytes <= startDARU;
+				ldNumBytes  <= startDARU;
 				initReading <= startDARU;
 			WHEN waitforMemready =>
-				selldEn <= memReady;
+				selldEn    <= memReady;
 				enableData <= memReady;
-				readMem <= '1';
+				readMem    <= '1';
 				enableAddr <= '1';
-				incCnt <= memReady;
+				incCnt     <= memReady;
 			WHEN complete =>
 				completeDARU <= '1';
 			WHEN OTHERS =>
-				initCnt <= '0'; 
-				ldAddr <= '0'; 
-				zeroCnt <= '0';
-				zeroAddr <= '0';
-				zeroNumBytes <= '0'; 
-				ldErrorFlag <= '0';
-				ldNumBytes <= '0'; 
-				selldEn <= '0'; 
-				readMem <= '0';
-				enableAddr <= '0'; 
-				enableData <= '0'; 
-				enableData <= '0'; 
-				incCnt <= '0'; 
-				completeDARU <= '0'; 
-				initReading <= '0';
+				initCnt      <= '0';
+				ldAddr       <= '0';
+				zeroCnt      <= '0';
+				zeroAddr     <= '0';
+				zeroNumBytes <= '0';
+				ldErrorFlag  <= '0';
+				ldNumBytes   <= '0';
+				selldEn      <= '0';
+				readMem      <= '0';
+				enableAddr   <= '0';
+				enableData   <= '0';
+				enableData   <= '0';
+				incCnt       <= '0';
+				completeDARU <= '0';
+				initReading  <= '0';
 		END CASE;
 	END PROCESS;
 	PROCESS (clk, rst) BEGIN
