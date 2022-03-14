@@ -38,31 +38,33 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.STD_LOGIC_ARITH.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
-
 ENTITY aftab_dawu IS
-	GENERIC (len : INTEGER := 32);
-	PORT (
-		clk, rst     : IN  STD_LOGIC;
-		startDAWU    : IN  STD_LOGIC;
-		memReady 	 : IN  STD_LOGIC;
-		nBytes       : IN  STD_LOGIC_VECTOR (1 DOWNTO 0);
-		addrIn       : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		dataIn       : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		addrOut      : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		dataOut      : OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
-		writeMem     : OUT STD_LOGIC;
-		dataError    : OUT STD_LOGIC;
-		completeDAWU : OUT STD_LOGIC
+	GENERIC
+		(len : INTEGER := 32);
+	PORT
+	(
+		clk                 : IN  STD_LOGIC;
+		rst                 : IN  STD_LOGIC;
+		startDAWU           : IN  STD_LOGIC;
+		memReady            : IN  STD_LOGIC;
+		nBytes              : IN  STD_LOGIC_VECTOR (1 DOWNTO 0);
+		addrIn              : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		dataIn              : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		checkMisalignedDAWU : IN  STD_LOGIC;
+		addrOut             : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		dataOut             : OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+		storeMisalignedFlag : OUT STD_LOGIC;
+		writeMem            : OUT STD_LOGIC;
+		completeDAWU        : OUT STD_LOGIC
 	);
 END ENTITY aftab_dawu;
-
 ARCHITECTURE Behavioral OF aftab_dawu IS
-	SIGNAL enableData 	: STD_LOGIC;
-	SIGNAL enableAddr 	: STD_LOGIC;
-	SIGNAL incCnt 	  	: STD_LOGIC;
-	SIGNAL zeroCnt    	: STD_LOGIC;
+	SIGNAL enableData   : STD_LOGIC;
+	SIGNAL enableAddr   : STD_LOGIC;
+	SIGNAL incCnt       : STD_LOGIC;
+	SIGNAL zeroCnt      : STD_LOGIC;
 	SIGNAL initCnt      : STD_LOGIC;
-	SIGNAL ldNumBytes 	: STD_LOGIC;
+	SIGNAL ldNumBytes   : STD_LOGIC;
 	SIGNAL zeroNumBytes : STD_LOGIC;
 	SIGNAL ldAddr       : STD_LOGIC;
 	SIGNAL zeroAddr     : STD_LOGIC;
@@ -71,47 +73,52 @@ ARCHITECTURE Behavioral OF aftab_dawu IS
 	SIGNAL coCnt        : STD_LOGIC;
 	SIGNAL ldErrorFlag  : STD_LOGIC;
 BEGIN
-	Datapath : ENTITY WORK.aftab_dawu_datapath GENERIC MAP (len => len)
-				PORT MAP(
-					clk => clk,
-					rst => rst, 
-					ldData => ldData,
-					enableData => enableData, 
-					enableAddr => enableAddr,
-					incCnt => incCnt, 
-					zeroCnt => zeroCnt,
-					initCnt => initCnt,
-					ldNumBytes => ldNumBytes,
-					zeroNumBytes => zeroNumBytes, 
-					ldAddr => ldAddr,
-					zeroAddr => zeroAddr, 
-					zeroData => zeroData,
-					nBytesIn => nBytes,
-					initValueCnt => "00",
-					dataIn => dataIn, 
-					addrIn => addrIn, 
-					coCnt => coCnt,
-					dataOut => dataOut, 
-					addrOut => addrOut);
+	Datapath : ENTITY WORK.aftab_dawu_datapath GENERIC
+		MAP (len => len)
+		PORT MAP
+		(
+		clk                 => clk,
+		rst                 => rst,
+		ldData              => ldData,
+		enableData          => enableData,
+		enableAddr          => enableAddr,
+		incCnt              => incCnt,
+		zeroCnt             => zeroCnt,
+		initCnt             => initCnt,
+		ldNumBytes          => ldNumBytes,
+		zeroNumBytes        => zeroNumBytes,
+		ldAddr              => ldAddr,
+		zeroAddr            => zeroAddr,
+		zeroData            => zeroData,
+		nBytesIn            => nBytes,
+		initValueCnt        => "00",
+		dataIn              => dataIn,
+		addrIn              => addrIn,
+		checkMisalignedDAWU => checkMisalignedDAWU,
+		storeMisalignedFlag => storeMisalignedFlag,
+		coCnt               => coCnt,
+		dataOut             => dataOut,
+		addrOut             => addrOut);
 	Controller : ENTITY WORK.aftab_dawu_controller
-					PORT MAP(
-						clk => clk, 
-						rst => rst, 
-						coCnt => coCnt,
-						startDAWU => startDAWU, 
-						memReady => memReady,
-						ldData => ldData, 
-						enableData => enableData,
-						enableAddr => enableAddr, 
-						incCnt => incCnt,
-						zeroCnt => zeroCnt,
-						initCnt => initCnt,
-						ldNumBytes => ldNumBytes, 
-						zeroNumBytes => zeroNumBytes,
-						ldAddr => ldAddr,
-						zeroAddr => zeroAddr,
-						zeroData => zeroData, 
-						writeMem => writeMem,
-						ldErrorFlag => ldErrorFlag, 
-						completeDAWU => completeDAWU);
+		PORT
+		MAP(
+		clk          => clk,
+		rst          => rst,
+		coCnt        => coCnt,
+		startDAWU    => startDAWU,
+		memReady     => memReady,
+		ldData       => ldData,
+		enableData   => enableData,
+		enableAddr   => enableAddr,
+		incCnt       => incCnt,
+		zeroCnt      => zeroCnt,
+		initCnt      => initCnt,
+		ldNumBytes   => ldNumBytes,
+		zeroNumBytes => zeroNumBytes,
+		ldAddr       => ldAddr,
+		zeroAddr     => zeroAddr,
+		zeroData     => zeroData,
+		writeMem     => writeMem,
+		ldErrorFlag  => ldErrorFlag,
+		completeDAWU => completeDAWU);
 END ARCHITECTURE Behavioral;
