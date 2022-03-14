@@ -36,84 +36,92 @@
 -- **************************************************************************************
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-
 ENTITY aftab_daru IS
-	PORT (
-		clk       	 : IN STD_LOGIC;
-		rst 		 : IN STD_LOGIC;
-		startDARU	 : IN STD_LOGIC;
-		nBytes       : IN  STD_LOGIC_VECTOR(1 DOWNTO 0);
-		addrIn       : IN  STD_LOGIC_VECTOR (31 DOWNTO 0);
-		memData      : IN  STD_LOGIC_VECTOR (7 DOWNTO 0);
-		memReady     : IN  STD_LOGIC;
-		completeDARU : OUT STD_LOGIC;
-		dataOut      : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
-		addrOut      : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
-		dataError 	 : OUT STD_LOGIC;
-	    instrError   : OUT STD_LOGIC;
-		readMem      : OUT STD_LOGIC
+	PORT
+	(
+		clk                 : IN  STD_LOGIC;
+		rst                 : IN  STD_LOGIC;
+		startDARU           : IN  STD_LOGIC;
+		nBytes              : IN  STD_LOGIC_VECTOR(1 DOWNTO 0);
+		addrIn              : IN  STD_LOGIC_VECTOR (31 DOWNTO 0);
+		memData             : IN  STD_LOGIC_VECTOR (7 DOWNTO 0);
+		memReady            : IN  STD_LOGIC;
+		dataInstrBar        : IN  STD_LOGIC;
+		checkMisalignedDARU : IN  STD_LOGIC;
+		instrMisalignedFlag : OUT STD_LOGIC;
+		loadMisalignedFlag  : OUT STD_LOGIC;
+		completeDARU        : OUT STD_LOGIC;
+		dataOut             : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
+		addrOut             : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
+		readMem             : OUT STD_LOGIC
 	);
 END ENTITY aftab_daru;
-
 ARCHITECTURE behavioral OF aftab_daru IS
-	SIGNAL zeroAddr 	: STD_LOGIC;
+	SIGNAL zeroAddr     : STD_LOGIC;
 	SIGNAL ldAddr       : STD_LOGIC;
 	SIGNAL selldEn      : STD_LOGIC;
 	SIGNAL zeroNumBytes : STD_LOGIC;
 	SIGNAL ldNumBytes   : STD_LOGIC;
-    SIGNAL zeroCnt	    : STD_LOGIC;
-    SIGNAL incCnt 		: STD_LOGIC;
-    SIGNAL initCnt	    : STD_LOGIC;
-    SIGNAL initReading 	: STD_LOGIC;
-    SIGNAL enableAddr 	: STD_LOGIC;
-    SIGNAL enableData 	: STD_LOGIC;
-    SIGNAL LdErrorFlag 	: STD_LOGIC;
-	SIGNAL coCnt 		: STD_LOGIC;
-	SIGNAL sel		    : STD_LOGIC_VECTOR (1 DOWNTO 0);
+	SIGNAL zeroCnt      : STD_LOGIC;
+	SIGNAL incCnt       : STD_LOGIC;
+	SIGNAL initCnt      : STD_LOGIC;
+	SIGNAL initReading  : STD_LOGIC;
+	SIGNAL enableAddr   : STD_LOGIC;
+	SIGNAL enableData   : STD_LOGIC;
+	SIGNAL LdErrorFlag  : STD_LOGIC;
+	SIGNAL coCnt        : STD_LOGIC;
+	SIGNAL sel          : STD_LOGIC_VECTOR (1 DOWNTO 0);
 	SIGNAL initValueCnt : STD_LOGIC_VECTOR (1 DOWNTO 0);
 BEGIN
-	DataPath :  ENTITY work.aftab_daru_datapath
-					GENERIC MAP(len => 32)
-					PORT MAP(
-						clk => clk, 
-						rst => rst, 
-						nBytes => nBytes, 
-						initValueCnt => "00", 
-						addrIn => addrIn,
-						memData => memData, 
-						zeroAddr => zeroAddr, 
-						ldAddr => ldAddr,
-						selldEn => selldEn, 
-						zeroNumBytes => zeroNumBytes, 
-						ldNumBytes => ldNumBytes,
-						zeroCnt => zeroCnt, 
-						incCnt => incCnt, 
-						initCnt => initCnt, 
-						initReading => initReading,
-						enableAddr => enableAddr,
-						enableData => enableData,
-						coCnt => coCnt,
-						dataOut => dataOut, 
-						addrOut => addrOut);
+	DataPath : ENTITY work.aftab_daru_datapath
+		GENERIC
+		MAP(len => 32)
+		PORT MAP
+		(
+			clk                 => clk,
+			rst                 => rst,
+			nBytes              => nBytes,
+			initValueCnt        => "00",
+			addrIn              => addrIn,
+			memData             => memData,
+			zeroAddr            => zeroAddr,
+			ldAddr              => ldAddr,
+			selldEn             => selldEn,
+			zeroNumBytes        => zeroNumBytes,
+			ldNumBytes          => ldNumBytes,
+			zeroCnt             => zeroCnt,
+			incCnt              => incCnt,
+			initCnt             => initCnt,
+			initReading         => initReading,
+			enableAddr          => enableAddr,
+			enableData          => enableData,
+			dataInstrBar        => dataInstrBar,
+			checkMisalignedDARU => checkMisalignedDARU,
+			instrMisalignedFlag => instrMisalignedFlag,
+			loadMisalignedFlag  => loadMisalignedFlag,
+			coCnt               => coCnt,
+			dataOut             => dataOut,
+			addrOut             => addrOut);
 	Controller : ENTITY work.aftab_daru_controller
-					PORT MAP(
-						clk => clk, 
-						rst => rst, 
-						startDARU => startDARU,
-						coCnt => coCnt,
-						memReady => memReady,
-						initCnt => initCnt, 
-						ldAddr => ldAddr, 
-						zeroAddr => zeroAddr,
-						zeroNumBytes => zeroNumBytes,
-						initReading => initReading,
-						ldErrorFlag => ldErrorFlag,
-						ldNumBytes => ldNumBytes, 
-						selldEn => selldEn,
-						readMem => readMem,
-						enableAddr => enableAddr, 
-						enableData => enableData, 
-						incCnt => incCnt,
-						zeroCnt => zeroCnt, 
-						completeDARU => completeDARU);
+		PORT
+	MAP(
+	clk          => clk,
+	rst          => rst,
+	startDARU    => startDARU,
+	coCnt        => coCnt,
+	memReady     => memReady,
+	initCnt      => initCnt,
+	ldAddr       => ldAddr,
+	zeroAddr     => zeroAddr,
+	zeroNumBytes => zeroNumBytes,
+	initReading  => initReading,
+	ldErrorFlag  => ldErrorFlag,
+	ldNumBytes   => ldNumBytes,
+	selldEn      => selldEn,
+	readMem      => readMem,
+	enableAddr   => enableAddr,
+	enableData   => enableData,
+	incCnt       => incCnt,
+	zeroCnt      => zeroCnt,
+	completeDARU => completeDARU);
 END ARCHITECTURE behavioral;
