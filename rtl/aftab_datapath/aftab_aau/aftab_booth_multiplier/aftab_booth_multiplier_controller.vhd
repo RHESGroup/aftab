@@ -38,35 +38,37 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 USE IEEE.NUMERIC_STD.ALL;
-
 ENTITY aftab_booth_multiplier_controller IS
-	GENERIC (len : INTEGER := 33; lenCnt : INTEGER := 6);
-	PORT (
-		clk            : IN  STD_LOGIC;
-		rst            : IN  STD_LOGIC;
-		startBooth     : IN  STD_LOGIC;
-		shrQ    	   : OUT STD_LOGIC;
-		ldQ 		   : OUT STD_LOGIC;
-		ldM 		   : OUT STD_LOGIC;
-		ldP			   : OUT STD_LOGIC;
-		zeroP 		   : OUT STD_LOGIC;
-		sel			   : OUT STD_LOGIC;
-		subSel         : OUT STD_LOGIC;
-		op             : IN  STD_LOGIC_VECTOR (1 DOWNTO 0);
-		done           : OUT STD_LOGIC
+	GENERIC
+	(
+		len    : INTEGER := 33;
+		lenCnt : INTEGER := 6);
+	PORT
+	(
+		clk        : IN  STD_LOGIC;
+		rst        : IN  STD_LOGIC;
+		startBooth : IN  STD_LOGIC;
+		shrQ       : OUT STD_LOGIC;
+		ldQ        : OUT STD_LOGIC;
+		ldM        : OUT STD_LOGIC;
+		ldP        : OUT STD_LOGIC;
+		zeroP      : OUT STD_LOGIC;
+		sel        : OUT STD_LOGIC;
+		subSel     : OUT STD_LOGIC;
+		op         : IN  STD_LOGIC_VECTOR (1 DOWNTO 0);
+		done       : OUT STD_LOGIC
 	);
 END ENTITY aftab_booth_multiplier_controller;
-
 ARCHITECTURE behavioral OF aftab_booth_multiplier_controller IS
 	TYPE state IS (INIT, COUNT, SHIFT);
 	SIGNAL pstate, nstate : state;
-	SIGNAL cnt	 	: STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0);
-	SIGNAL temp 	: STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0);
-	SIGNAL co 		: STD_LOGIC;
-	SIGNAL cnt_en 	: STD_LOGIC;
-	SIGNAL cnt_rst 	: STD_LOGIC;
-	SIGNAL initCnt 	: STD_LOGIC;
-	CONSTANT initValue : STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0) := STD_LOGIC_VECTOR (to_unsigned (((2 ** (lenCnt - 1)) - 2), lenCnt));
+	SIGNAL cnt            : STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0);
+	SIGNAL temp           : STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0);
+	SIGNAL co             : STD_LOGIC;
+	SIGNAL cnt_en         : STD_LOGIC;
+	SIGNAL cnt_rst        : STD_LOGIC;
+	SIGNAL initCnt        : STD_LOGIC;
+	CONSTANT initValue    : STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0) := STD_LOGIC_VECTOR (to_unsigned (((2 ** (lenCnt - 1)) - 2), lenCnt));
 BEGIN
 	PROCESS (pstate, startBooth, co, op) BEGIN
 		nstate <= INIT;
@@ -90,47 +92,47 @@ BEGIN
 		END CASE;
 	END PROCESS;
 	PROCESS (pstate, startBooth, co, op) BEGIN
-		ldM <= '0'; 
-		ldQ <= '0'; 
-		ldP <= '0'; 
-		zeroP <= '0'; 
-		shrQ <= '0';
-		sel <= '0'; 
-		subsel <= '0'; 
-		done <= '0'; 
-		cnt_rst <= '0'; 
-		initCnt <= '0'; 
-		cnt_en <= '0';
+		ldM     <= '0';
+		ldQ     <= '0';
+		ldP     <= '0';
+		zeroP   <= '0';
+		shrQ    <= '0';
+		sel     <= '0';
+		subsel  <= '0';
+		done    <= '0';
+		cnt_rst <= '0';
+		initCnt <= '0';
+		cnt_en  <= '0';
 		CASE pstate IS
 			WHEN INIT =>
-				ldQ <= startBooth;
-				zeroP <= startBooth;
-				ldM <= '1';
+				ldQ     <= startBooth;
+				zeroP   <= startBooth;
+				ldM     <= '1';
 				initCnt <= '1';
 			WHEN COUNT =>
 				cnt_en <= '1';
-				done <= co;
+				done   <= co;
 			WHEN SHIFT =>
 				shrQ <= '1';
-				ldP <= '1';
+				ldP  <= '1';
 				IF (op = "10") THEN
 					subsel <= '1';
-					sel <= '1';
+					sel    <= '1';
 				ELSIF (op = "01") THEN
 					sel <= '1';
 				END IF;
 			WHEN OTHERS =>
-				ldM <= '0'; 
-				ldQ <= '0'; 
-				ldP <= '0'; 
-				zeroP <= '0'; 
-				shrQ <= '0';
-				sel <= '0'; 
-				subsel <= '0';
-				done <= '0'; 
+				ldM     <= '0';
+				ldQ     <= '0';
+				ldP     <= '0';
+				zeroP   <= '0';
+				shrQ    <= '0';
+				sel     <= '0';
+				subsel  <= '0';
+				done    <= '0';
 				cnt_rst <= '0';
-				initCnt <= '0'; 
-				cnt_en <= '0';
+				initCnt <= '0';
+				cnt_en  <= '0';
 		END CASE;
 	END PROCESS;
 	sequential : PROCESS (clk) BEGIN
@@ -143,14 +145,16 @@ BEGIN
 		END IF;
 	END PROCESS sequential;
 	counter : ENTITY work.aftab_counter
-				GENERIC MAP(len => lenCnt)
-				PORT MAP(
-					clk => clk, 
-					rst => rst, 
-					zeroCnt => cnt_rst,
-					incCnt => cnt_en, 
-					initCnt => initCnt, 
-					initValue => initValue,
-					outCnt => cnt, 
-					coCnt => co);
+		GENERIC
+		MAP(len => lenCnt)
+		PORT MAP
+		(
+			clk       => clk,
+			rst       => rst,
+			zeroCnt   => cnt_rst,
+			incCnt    => cnt_en,
+			initCnt   => initCnt,
+			initValue => initValue,
+			outCnt    => cnt,
+			coCnt     => co);
 END ARCHITECTURE behavioral;
