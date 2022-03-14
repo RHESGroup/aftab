@@ -31,25 +31,34 @@
 -- **************************************************************************************
 --
 -- File content description:
--- CSR address logic of the AFTAB core
+-- CSR address logic monitors the address for updating the mirror CSRs
 --
 -- **************************************************************************************
-
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
-
 ENTITY aftab_CSR_address_logic IS
-	PORT 
+	PORT
 	(
-		addressRegBank : IN  std_logic_vector(11 DOWNTO 0);
-		loadMieReg     : OUT std_logic;
-		loadMieField   : OUT std_logic
+		addressRegBank : IN  STD_LOGIC_VECTOR(11 DOWNTO 0);
+		ldMieReg       : OUT STD_LOGIC;
+		ldMieUieField  : OUT STD_LOGIC;
+		mirrorUstatus  : OUT STD_LOGIC;
+		mirrorUie      : OUT STD_LOGIC;
+		mirrorUip      : OUT STD_LOGIC;
+		mirror         : OUT STD_LOGIC
 	);
 END ENTITY aftab_CSR_address_logic;
-
 ARCHITECTURE behavioral OF aftab_CSR_address_logic IS
+	SIGNAL mirrorUstatusTemp, mirrorUieTemp, mirrorUipTemp : STD_LOGIC;
 BEGIN
-	loadMieReg   <= '1' WHEN addressRegBank = X"304" ELSE '0';
-	loadMieField <= '1' WHEN addressRegBank = X"300" ELSE '0';
+	ldMieReg          <= '1' WHEN addressRegBank = X"304" ELSE '0';
+	ldMieUieField     <= '1' WHEN addressRegBank = X"300" ELSE '0';
+	mirrorUstatusTemp <= '1' WHEN addressRegBank(7 DOWNTO 0) = X"00" ELSE '0';
+	mirrorUieTemp     <= '1' WHEN addressRegBank(7 DOWNTO 0) = X"04" ELSE '0';
+	mirrorUipTemp     <= '1' WHEN addressRegBank(7 DOWNTO 0) = X"44" ELSE '0';
+	mirrorUstatus     <= mirrorUstatusTemp;
+	mirrorUie         <= mirrorUieTemp;
+	mirrorUip         <= mirrorUipTemp;
+	mirror            <= (mirrorUstatusTemp OR mirrorUieTemp) OR mirrorUipTemp;
 END ARCHITECTURE behavioral;

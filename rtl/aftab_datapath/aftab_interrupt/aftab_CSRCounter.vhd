@@ -31,7 +31,8 @@
 -- **************************************************************************************
 --
 -- File content description:
--- CSR counter of the AFTAB core
+-- CSR counter points to the address of the appropriate CSRs during 
+-- the interrupt entry and return instruction states
 --
 -- **************************************************************************************
 LIBRARY IEEE;
