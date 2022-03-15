@@ -227,8 +227,8 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL interruptStartAddressDirect   : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL interruptStartAddressVectored : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 BEGIN
-	validAccessCSR <= '1';
-	--validAccessCSR <= '1' WHEN (curPRV >= addressRegBank(9 DOWNTO 8)) ELSE '0';
+	
+	validAccessCSR <= '1' WHEN (curPRV >= addressRegBank(9 DOWNTO 8)) ELSE '0';
 	readOnlyCSR    <= '1' WHEN (addressRegBank(11 DOWNTO 10) = "11") ELSE '0';
 	IR             <= inst;
 	registerFile : ENTITY WORK.aftab_register_file
