@@ -519,7 +519,7 @@ BEGIN
 				selI4        <= '1';
 				dataInstrBar <= '1';
 			WHEN loadInstr2 =>
-				checkMisalignedDARU <= '1';
+				
 				startDataDARU       <= NOT(loadMisalignedOut);
 				ldFlags             <= '1';
 				dataInstrBar        <= '1';
