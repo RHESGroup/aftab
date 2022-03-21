@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -45,7 +45,7 @@ ENTITY aftab_full_adder IS
 		S    : OUT STD_LOGIC;
 		Cout : OUT STD_LOGIC);
 END aftab_full_adder;
-
+--
 ARCHITECTURE gate_level OF aftab_full_adder IS
 BEGIN
 	S <= A XOR B XOR Cin;
