@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -56,6 +56,7 @@ ENTITY aftab_daru IS
 		readMem             : OUT STD_LOGIC
 	);
 END ENTITY aftab_daru;
+--
 ARCHITECTURE behavioral OF aftab_daru IS
 	SIGNAL zeroAddr     : STD_LOGIC;
 	SIGNAL ldAddr       : STD_LOGIC;
@@ -68,7 +69,6 @@ ARCHITECTURE behavioral OF aftab_daru IS
 	SIGNAL initReading  : STD_LOGIC;
 	SIGNAL enableAddr   : STD_LOGIC;
 	SIGNAL enableData   : STD_LOGIC;
-	SIGNAL LdErrorFlag  : STD_LOGIC;
 	SIGNAL coCnt        : STD_LOGIC;
 	SIGNAL sel          : STD_LOGIC_VECTOR (1 DOWNTO 0);
 	SIGNAL initValueCnt : STD_LOGIC_VECTOR (1 DOWNTO 0);
@@ -78,50 +78,49 @@ BEGIN
 		MAP(len => 32)
 		PORT MAP
 		(
-		  clk                 => clk,
-		  rst                 => rst,
-		  nBytes              => nBytes,
-		  initValueCnt        => "00",
-		  addrIn              => addrIn,
-		  memData             => memData,
-		  zeroAddr            => zeroAddr,
-		  ldAddr              => ldAddr,
-		  selldEn             => selldEn,
-		  zeroNumBytes        => zeroNumBytes,
-		  ldNumBytes          => ldNumBytes,
-		  zeroCnt             => zeroCnt,
-		  incCnt              => incCnt,
-		  initCnt             => initCnt,
-		  initReading         => initReading,
-		  enableAddr          => enableAddr,
-		  enableData          => enableData,
-		  dataInstrBar        => dataInstrBar,
-		  checkMisalignedDARU => checkMisalignedDARU,
-		  instrMisalignedFlag => instrMisalignedFlag,
-		  loadMisalignedFlag  => loadMisalignedFlag,
-		  coCnt               => coCnt,
-		  dataOut             => dataOut,
-		  addrOut             => addrOut);
+			clk                 => clk,
+			rst                 => rst,
+			nBytes              => nBytes,
+			initValueCnt        => "00",
+			addrIn              => addrIn,
+			memData             => memData,
+			zeroAddr            => zeroAddr,
+			ldAddr              => ldAddr,
+			selldEn             => selldEn,
+			zeroNumBytes        => zeroNumBytes,
+			ldNumBytes          => ldNumBytes,
+			zeroCnt             => zeroCnt,
+			incCnt              => incCnt,
+			initCnt             => initCnt,
+			initReading         => initReading,
+			enableAddr          => enableAddr,
+			enableData          => enableData,
+			dataInstrBar        => dataInstrBar,
+			checkMisalignedDARU => checkMisalignedDARU,
+			instrMisalignedFlag => instrMisalignedFlag,
+			loadMisalignedFlag  => loadMisalignedFlag,
+			coCnt               => coCnt,
+			dataOut             => dataOut,
+			addrOut             => addrOut);
 	Controller : ENTITY work.aftab_daru_controller
 		PORT
-		MAP(
-		clk          => clk,
-		rst          => rst,
-		startDARU    => startDARU,
-		coCnt        => coCnt,
-		memReady     => memReady,
-		initCnt      => initCnt,
-		ldAddr       => ldAddr,
-		zeroAddr     => zeroAddr,
-		zeroNumBytes => zeroNumBytes,
-		initReading  => initReading,
-		ldErrorFlag  => ldErrorFlag,
-		ldNumBytes   => ldNumBytes,
-		selldEn      => selldEn,
-		readMem      => readMem,
-		enableAddr   => enableAddr,
-		enableData   => enableData,
-		incCnt       => incCnt,
-		zeroCnt      => zeroCnt,
-		completeDARU => completeDARU);
+	MAP(
+	clk          => clk,
+	rst          => rst,
+	startDARU    => startDARU,
+	coCnt        => coCnt,
+	memReady     => memReady,
+	initCnt      => initCnt,
+	ldAddr       => ldAddr,
+	zeroAddr     => zeroAddr,
+	zeroNumBytes => zeroNumBytes,
+	initReading  => initReading,
+	ldNumBytes   => ldNumBytes,
+	selldEn      => selldEn,
+	readMem      => readMem,
+	enableAddr   => enableAddr,
+	enableData   => enableData,
+	incCnt       => incCnt,
+	zeroCnt      => zeroCnt,
+	completeDARU => completeDARU);
 END ARCHITECTURE behavioral;
