@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -52,12 +52,12 @@ ENTITY aftab_shift_register IS
 		serOut  : OUT STD_LOGIC;
 		outReg  : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0));
 END ENTITY aftab_shift_register;
-
+--
 ARCHITECTURE behavioral OF aftab_shift_register IS
 BEGIN
 	PROCESS (clk, rst)
 		VARIABLE outReg_t : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		VARIABLE serOutp : STD_LOGIC;
+		VARIABLE serOutp  : STD_LOGIC;
 	BEGIN
 		IF (rst = '1') THEN
 			outReg_t := (OTHERS => '0');
@@ -79,4 +79,3 @@ BEGIN
 		serOut <= serOutp;
 	END PROCESS;
 END ARCHITECTURE behavioral;
-		       
