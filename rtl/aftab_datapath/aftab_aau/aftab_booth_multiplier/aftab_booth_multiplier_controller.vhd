@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -59,10 +59,10 @@ ENTITY aftab_booth_multiplier_controller IS
 		done       : OUT STD_LOGIC
 	);
 END ENTITY aftab_booth_multiplier_controller;
+--
 ARCHITECTURE behavioral OF aftab_booth_multiplier_controller IS
 	TYPE state IS (INIT, COUNT, SHIFT);
 	SIGNAL pstate, nstate : state;
-	SIGNAL cnt            : STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0);
 	SIGNAL temp           : STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0);
 	SIGNAL co             : STD_LOGIC;
 	SIGNAL cnt_en         : STD_LOGIC;
@@ -135,15 +135,13 @@ BEGIN
 				cnt_en  <= '0';
 		END CASE;
 	END PROCESS;
-	sequential : PROCESS (clk) BEGIN
-		IF (clk = '1' AND clk'EVENT) THEN
-			IF rst = '1' THEN
-				pstate <= INIT;
-			ELSE
-				pstate <= nstate;
-			END IF;
+	PROCESS (clk, rst) BEGIN
+		IF (rst = '1') THEN
+			pstate <= INIT;
+		ELSIF (clk = '1' AND clk'event) THEN
+			pstate <= nstate;
 		END IF;
-	END PROCESS sequential;
+	END PROCESS;
 	counter : ENTITY work.aftab_counter
 		GENERIC
 		MAP(len => lenCnt)
@@ -155,6 +153,6 @@ BEGIN
 			incCnt    => cnt_en,
 			initCnt   => initCnt,
 			initValue => initValue,
-			outCnt    => cnt,
+			outCnt    => OPEN,
 			coCnt     => co);
 END ARCHITECTURE behavioral;
