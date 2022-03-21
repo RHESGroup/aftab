@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -53,6 +53,7 @@ ENTITY aftab_su_divider IS
 		Remout            : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0)
 	);
 END ENTITY aftab_su_divider;
+--
 ARCHITECTURE behavioral OF aftab_su_divider IS
 	SIGNAL Remp        : STD_LOGIC_VECTOR (len DOWNTO 0);
 	SIGNAL ddIn        : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
