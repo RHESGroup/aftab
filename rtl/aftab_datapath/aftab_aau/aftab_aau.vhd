@@ -6,7 +6,7 @@
 --	Date:		16 February 2021
 --  Engineer:
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -58,6 +58,7 @@ ENTITY aftab_aau IS
 		dividedByZeroFlag : OUT STD_LOGIC
 	);
 END ENTITY aftab_aau;
+--
 ARCHITECTURE behavioral OF aftab_aau IS
 	SIGNAL resMult              : STD_LOGIC_VECTOR (2 * len + 1 DOWNTO 0);
 	SIGNAL resMultL             : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
