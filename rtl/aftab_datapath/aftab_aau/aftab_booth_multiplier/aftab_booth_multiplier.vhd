@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -50,6 +50,7 @@ ENTITY aftab_booth_multiplier IS
 	   doneBooth  : OUT STD_LOGIC
 	);
 END ENTITY aftab_booth_multiplier;
+--
 ARCHITECTURE behavioral OF aftab_booth_multiplier IS
 	SIGNAL op     : STD_LOGIC_VECTOR (1 DOWNTO 0);
 	SIGNAL shrQ   : STD_LOGIC;
