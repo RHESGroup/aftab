@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -56,10 +56,10 @@ ENTITY aftab_dawu_controller IS
 		zeroAddr     : OUT STD_LOGIC;
 		zeroData     : OUT STD_LOGIC;
 		writeMem     : OUT STD_LOGIC;
-		ldErrorFlag  : OUT STD_LOGIC;
 		completeDAWU : OUT STD_LOGIC
 	);
 END ENTITY aftab_dawu_controller;
+--
 ARCHITECTURE behavioral OF aftab_dawu_controller IS
 	TYPE state IS (waitForStart, waitForWrite);
 	SIGNAL pstate, nstate : state;
@@ -97,7 +97,6 @@ BEGIN
 		zeroAddr     <= '0';
 		zeroData     <= '0';
 		writeMem     <= '0';
-		ldErrorFlag  <= '0';
 		completeDAWU <= '0';
 		CASE pstate IS
 			WHEN waitForStart =>
@@ -105,13 +104,11 @@ BEGIN
 					ldAddr      <= '1';
 					initCnt     <= '1';
 					ldNumBytes  <= '1';
-					ldErrorFlag <= '1';
 					ldData      <= '1';
 				ELSE
 					ldAddr      <= '0';
 					initCnt     <= '0';
 					ldNumBytes  <= '0';
-					ldErrorFlag <= '0';
 					ldData      <= '0';
 				END IF;
 			WHEN waitForWrite =>
@@ -142,7 +139,6 @@ BEGIN
 				zeroAddr     <= '0';
 				zeroData     <= '0';
 				writeMem     <= '0';
-				ldErrorFlag  <= '0';
 				completeDAWU <= '0';
 		END CASE;
 	END PROCESS;
