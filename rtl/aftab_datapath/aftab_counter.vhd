@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -50,7 +50,7 @@ ENTITY aftab_counter IS
 		outCnt    : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 		coCnt     : OUT STD_LOGIC);
 END aftab_counter;
-
+--
 ARCHITECTURE Behavioral OF aftab_counter IS
 	SIGNAL temp   : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL coCntp : STD_LOGIC;
