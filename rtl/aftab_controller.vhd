@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -152,23 +152,25 @@ ENTITY aftab_controller IS
 		zeroCntCSR                     : OUT STD_LOGIC
 	);
 END aftab_controller;
+--
 ARCHITECTURE behavioral OF aftab_controller IS
-	TYPE state IS (fetch, getInstr,                                                                                                                          --fetch
-		decode,                                                                                                                                          --decode
-		loadInstr1, loadInstr2, getData,                                                                                                                 --load
-		storeInstr1, storeInstr2, putData,                                                                                                               --store
-		addSub,                                                                                                                                          --addSub + -
-		compare,                                                                                                                                         --setCompare <
-		logical,                                                                                                                                         --logical & | ^
-		shift,                                                                                                                                           --shift << >>
-		multiplyDivide1, multiplyDivide2,                                                                                                                --Multilier and Divider * /
-		conditionalBranch,                                                                                                                               --conditionalBranch >=<
-		JAL, JALR,                                                                                                                                       --unconditionalBranch
-		LUI,                                                                                                                                             --LUI, AUIPC
-		checkDelegation, updateTrapValue, updateMip, updateUip, updateCause, readMstatus, updateMstatus, updateUstatus, updateEpc, readTvec1, readTvec2, --Interrupt States
-		CSR, mirrorCSR,                                                                                                                                  --CSR Instructions
-		retEpc, retReadMstatus, retUpdateMstatus, retUpdateUstatus,                                                                                      --mret and uret instructions
-		ecall                                                                                                                                            --ecall instruction
+	TYPE state IS (fetch, getInstr,                                                                     --fetch
+		decode,                                                                                         --decode
+		loadInstr1, loadInstr2, getData,                                                                --load
+		storeInstr1, storeInstr2, putData,                                                              --store
+		addSub,                                                                                         --addSub + -
+		compare,                                                                                        --setCompare <
+		logical,                                                                                        --logical & | ^
+		shift,                                                                                          --shift << >>
+		multiplyDivide1, multiplyDivide2,                                                               --Multilier and Divider * /
+		conditionalBranch,                                                                              --conditionalBranch >=<
+		JAL, JALR,                                                                                      --unconditionalBranch
+		LUI,                                                                                            --LUI, AUIPC
+		checkDelegation, updateTrapValue, updateMip, updateUip, updateCause, readMstatus, 
+						 updateMstatus, updateUstatus, updateEpc, readTvec1, readTvec2, --Interrupt Entry States
+		CSR, mirrorCSR,                                                                                 -- CSR Instructions
+		retEpc, retReadMstatus, retUpdateMstatus, retUpdateUstatus,  --Interrupt Exit States            --mret and uret instructions
+		ecall                                                                                           --ecall instruction
 	);
 	SIGNAL p_state, n_state      : state;
 	SIGNAL func3                 : STD_LOGIC_VECTOR(2 DOWNTO 0);
@@ -196,9 +198,15 @@ BEGIN
 	func12          <= IR(31 DOWNTO 20);
 	opcode          <= IR(6 DOWNTO 0);
 	mretOrUretInstr <= IR(29);
-	StateTransition : PROCESS (p_state, completeDataDARU, completeInstrDARU, completeDAWU, completeAAU, opcode, func3, func7, func12, lt, eq, gt,
-		exceptionRaise, instrMisalignedOut, storeMisalignedOut, interruptRaise, loadMisalignedOut, modeTvec, dividedByZeroOut, mirror, mretOrUretInstr, 
-		previousPRV, delegationMode, ldMieUieField, ldMieReg, validAccessCSR, readOnlyCSR) BEGIN
+	StateTransition : PROCESS (p_state, completeDataDARU, completeInstrDARU, 
+							   completeDAWU, completeAAU, opcode, func3, func7, 
+							   func12, lt, eq, gt, exceptionRaise, instrMisalignedOut,
+							   storeMisalignedOut, interruptRaise, loadMisalignedOut, 
+							   modeTvec, dividedByZeroOut, mirror, mretOrUretInstr, 
+							   previousPRV, delegationMode, ldMieUieField, ldMieReg, 
+							   validAccessCSR, readOnlyCSR
+							   ) 
+	BEGIN
 		n_state <= fetch;
 		CASE p_state IS
 				--fetch
@@ -377,9 +385,15 @@ BEGIN
 			WHEN OTHERS => n_state <= fetch;
 		END CASE;
 	END PROCESS;
-	ControlSignalsDecoder : PROCESS (p_state, completeDataDARU, completeInstrDARU, completeDAWU, completeAAU, opcode, func3, func7, func12, lt, eq, gt,
-		exceptionRaise, instrMisalignedOut, storeMisalignedOut, interruptRaise, loadMisalignedOut, modeTvec, dividedByZeroOut, mirror, mretOrUretInstr, 
-		previousPRV, delegationMode, ldMieUieField, ldMieReg, validAccessCSR, readOnlyCSR) BEGIN
+	ControlSignalsDecoder : PROCESS (p_state, completeDataDARU, completeInstrDARU, 
+							   completeDAWU, completeAAU, opcode, func3, func7, 
+							   func12, lt, eq, gt, exceptionRaise, instrMisalignedOut,
+							   storeMisalignedOut, interruptRaise, loadMisalignedOut, 
+							   modeTvec, dividedByZeroOut, mirror, mretOrUretInstr, 
+							   previousPRV, delegationMode, ldMieUieField, ldMieReg, 
+							   validAccessCSR, readOnlyCSR
+							   ) 
+	BEGIN
 		selPC                          <= '0';                                                                                                                                                                 
 		selI4                          <= '0';
 		selP2                          <= '0';
@@ -519,7 +533,7 @@ BEGIN
 				selI4        <= '1';
 				dataInstrBar <= '1';
 			WHEN loadInstr2 =>
-				
+				--checkMisalignedDARU <= '1';
 				startDataDARU       <= NOT(loadMisalignedOut);
 				ldFlags             <= '1';
 				dataInstrBar        <= '1';
