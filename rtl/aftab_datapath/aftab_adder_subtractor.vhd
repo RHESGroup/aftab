@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -40,7 +40,7 @@ USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 
 ENTITY aftab_adder_subtractor IS
-	GENERIC (len : INTEGER := 33);
+	GENERIC (len : INTEGER := 32);
 	PORT (
 		a      : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 		b      : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
@@ -50,9 +50,9 @@ ENTITY aftab_adder_subtractor IS
 		outRes : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0)
 	);
 END ENTITY aftab_adder_subtractor;
-
+--
 ARCHITECTURE behavioral OF aftab_adder_subtractor IS
-	SIGNAL bSel : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL bSel         : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL addSubResult : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 BEGIN
 	bSel <= NOT(b) WHEN (subsel = '1') ELSE	b;
