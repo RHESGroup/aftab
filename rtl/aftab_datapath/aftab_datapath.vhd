@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -202,8 +202,6 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL CCuieField                    : STD_LOGIC;
 	SIGNAL mipCCLd                       : STD_LOGIC;
 	SIGNAL instrMisalignedFlag           : STD_LOGIC;
-	--SIGNAL loadMisalignedFlag            : STD_LOGIC;
-	--SIGNAL storeMisalignedFlag           : STD_LOGIC;
 	SIGNAL dividedByZeroFlag             : STD_LOGIC;
 	SIGNAL mirrorUserBar                 : STD_LOGIC;
 	SIGNAL mirrorUstatus                 : STD_LOGIC;
@@ -227,7 +225,7 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL interruptStartAddressDirect   : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL interruptStartAddressVectored : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 BEGIN
-	
+	--validAccessCSR <= '1';
 	validAccessCSR <= '1' WHEN (curPRV >= addressRegBank(9 DOWNTO 8)) ELSE '0';
 	readOnlyCSR    <= '1' WHEN (addressRegBank(11 DOWNTO 10) = "11") ELSE '0';
 	IR             <= inst;
@@ -491,7 +489,7 @@ BEGIN
 		dataOut             => instrDARU,
 		addrOut             => instrMemAddrDARU,
 		readMem             => readInstrMem);
-	suau : ENTITY WORK.aftab_sulu
+	sulu : ENTITY WORK.aftab_sulu
 		GENERIC
 		MAP (len => len)
 		PORT
@@ -504,7 +502,10 @@ BEGIN
 	--CSR Units
 	--interruptSourceSynchronizationRegister
 	mipCCLd          <= NOT (mipCCLdDisable);
-	interruptSources <= "00000000000000000000" & machineExternalInterrupt & "00" & userExternalInterrupt & machineTimerInterrupt & "00" & userTimerInterrupt & machineSoftwareInterrupt & "00" & userSoftwareInterrupt;
+	interruptSources <= "00000000000000000000" & machineExternalInterrupt &
+						"00" & userExternalInterrupt & machineTimerInterrupt & 
+						"00" & userTimerInterrupt & machineSoftwareInterrupt & 
+						"00" & userSoftwareInterrupt;
 	interSrcSynchReg : ENTITY work.aftab_register
 		GENERIC
 		MAP(len => 32)
@@ -517,7 +518,7 @@ BEGIN
 		inReg  => interruptSources,
 		outReg => CCmip
 		);
-	ISLFCSR : ENTITY WORK.aftab_ISLFCSR
+	CSRISL : ENTITY WORK.aftab_CSRISL
 		GENERIC
 		MAP (len => len)
 		PORT
@@ -572,7 +573,7 @@ BEGIN
 		outUieFieldCCreg => CCuieField,
 		outMieCCreg      => CCmie
 		);
-	CSRCounter : ENTITY WORK.aftab_CSRCounter
+	CSRCounter : ENTITY WORK.aftab_CSR_counter
 		GENERIC
 		MAP (len => 3)
 		PORT
@@ -586,7 +587,7 @@ BEGIN
 		ldValue => ldValueCSR,
 		outCnt  => cntOutput
 		);
-	CSRAddressingDecoder : ENTITY WORK.aftab_CSRAddressingDecoder
+	CSRAddressingDecoder : ENTITY WORK.aftab_CSR_addressing_decoder
 		PORT
 		MAP(
 		cntOutput => cntOutput,
@@ -610,7 +611,7 @@ BEGIN
 		s1 => mirrorUser,
 		w  => addressRegBank);
 	mirrorUserBar <= NOT(mirrorUser);
-	interrCheckCauseDetection : ENTITY WORK.aftab_interrCheckCauseDetection
+	interrCheckCauseDetection : ENTITY WORK.aftab_ICCD
 		GENERIC
 		MAP(len => len)
 		PORT
@@ -648,12 +649,14 @@ BEGIN
 		load   => ldFlags,
 		inReg  => exceptionSources,
 		outReg => tempFlags);
-	exceptionSources   <= ecallFlag & dividedByZeroFlag & illegalInstrFlag & instrMisalignedFlag & '0' & '0';
+	exceptionSources   <= ecallFlag & dividedByZeroFlag & 
+						  illegalInstrFlag & instrMisalignedFlag & 
+						  '0' & '0';
 	instrMisalignedOut <= instrMisalignedFlag;
 	loadMisalignedOut  <= '0'; --not used
 	storeMisalignedOut <= '0'; --not used
 	dividedByZeroOut   <= dividedByZeroFlag;
-	interruptStartAddressGenerator : ENTITY WORK.aftab_iagu
+	interruptStartAddressGenerator : ENTITY WORK.aftab_isagu
 		GENERIC
 		MAP(len => len)
 		PORT
