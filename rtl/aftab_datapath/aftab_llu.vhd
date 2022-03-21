@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -47,7 +47,7 @@ ENTITY aftab_llu IS
 		result   : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0)
 	);
 END ENTITY aftab_llu;
-
+--
 ARCHITECTURE behavioral OF aftab_llu IS
 	SIGNAL y : STD_LOGIC_VECTOR (ain'LENGTH - 1 DOWNTO 0);
 BEGIN
