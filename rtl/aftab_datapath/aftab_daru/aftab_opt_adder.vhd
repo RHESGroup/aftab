@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -44,7 +44,7 @@ ENTITY aftab_opt_adder IS
 		B   : IN  STD_LOGIC_VECTOR(1 DOWNTO 0);
 		Sum : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0));
 END aftab_opt_adder;
-
+--
 ARCHITECTURE Behavioral OF aftab_opt_adder IS
 	SIGNAL Cin  : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL Cout : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
