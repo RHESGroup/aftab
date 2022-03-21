@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -58,6 +58,7 @@ ENTITY aftab_dawu IS
 		completeDAWU        : OUT STD_LOGIC
 	);
 END ENTITY aftab_dawu;
+--
 ARCHITECTURE Behavioral OF aftab_dawu IS
 	SIGNAL enableData   : STD_LOGIC;
 	SIGNAL enableAddr   : STD_LOGIC;
@@ -71,54 +72,52 @@ ARCHITECTURE Behavioral OF aftab_dawu IS
 	SIGNAL ldData       : STD_LOGIC;
 	SIGNAL zeroData     : STD_LOGIC;
 	SIGNAL coCnt        : STD_LOGIC;
-	SIGNAL ldErrorFlag  : STD_LOGIC;
 BEGIN
 	Datapath : ENTITY WORK.aftab_dawu_datapath GENERIC
 		MAP (len => len)
 		PORT MAP
 		(
-		clk                 => clk,
-		rst                 => rst,
-		ldData              => ldData,
-		enableData          => enableData,
-		enableAddr          => enableAddr,
-		incCnt              => incCnt,
-		zeroCnt             => zeroCnt,
-		initCnt             => initCnt,
-		ldNumBytes          => ldNumBytes,
-		zeroNumBytes        => zeroNumBytes,
-		ldAddr              => ldAddr,
-		zeroAddr            => zeroAddr,
-		zeroData            => zeroData,
-		nBytesIn            => nBytes,
-		initValueCnt        => "00",
-		dataIn              => dataIn,
-		addrIn              => addrIn,
-		checkMisalignedDAWU => checkMisalignedDAWU,
-		storeMisalignedFlag => storeMisalignedFlag,
-		coCnt               => coCnt,
-		dataOut             => dataOut,
-		addrOut             => addrOut);
+			clk                 => clk,
+			rst                 => rst,
+			ldData              => ldData,
+			enableData          => enableData,
+			enableAddr          => enableAddr,
+			incCnt              => incCnt,
+			zeroCnt             => zeroCnt,
+			initCnt             => initCnt,
+			ldNumBytes          => ldNumBytes,
+			zeroNumBytes        => zeroNumBytes,
+			ldAddr              => ldAddr,
+			zeroAddr            => zeroAddr,
+			zeroData            => zeroData,
+			nBytesIn            => nBytes,
+			initValueCnt        => "00",
+			dataIn              => dataIn,
+			addrIn              => addrIn,
+			checkMisalignedDAWU => checkMisalignedDAWU,
+			storeMisalignedFlag => storeMisalignedFlag,
+			coCnt               => coCnt,
+			dataOut             => dataOut,
+			addrOut             => addrOut);
 	Controller : ENTITY WORK.aftab_dawu_controller
 		PORT
-		MAP(
-		clk          => clk,
-		rst          => rst,
-		coCnt        => coCnt,
-		startDAWU    => startDAWU,
-		memReady     => memReady,
-		ldData       => ldData,
-		enableData   => enableData,
-		enableAddr   => enableAddr,
-		incCnt       => incCnt,
-		zeroCnt      => zeroCnt,
-		initCnt      => initCnt,
-		ldNumBytes   => ldNumBytes,
-		zeroNumBytes => zeroNumBytes,
-		ldAddr       => ldAddr,
-		zeroAddr     => zeroAddr,
-		zeroData     => zeroData,
-		writeMem     => writeMem,
-		ldErrorFlag  => ldErrorFlag,
-		completeDAWU => completeDAWU);
+	MAP(
+	clk          => clk,
+	rst          => rst,
+	coCnt        => coCnt,
+	startDAWU    => startDAWU,
+	memReady     => memReady,
+	ldData       => ldData,
+	enableData   => enableData,
+	enableAddr   => enableAddr,
+	incCnt       => incCnt,
+	zeroCnt      => zeroCnt,
+	initCnt      => initCnt,
+	ldNumBytes   => ldNumBytes,
+	zeroNumBytes => zeroNumBytes,
+	ldAddr       => ldAddr,
+	zeroAddr     => zeroAddr,
+	zeroData     => zeroData,
+	writeMem     => writeMem,
+	completeDAWU => completeDAWU);
 END ARCHITECTURE Behavioral;
