@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -50,6 +50,7 @@ ENTITY aftab_divider IS
 		Q         : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 		Remainder : OUT STD_LOGIC_VECTOR (len DOWNTO 0));
 END ENTITY aftab_divider;
+--
 ARCHITECTURE behavioral OF aftab_divider IS
 	SIGNAL R33         : STD_LOGIC;
 	SIGNAL shRRegR     : STD_LOGIC;
@@ -71,26 +72,26 @@ BEGIN
 		MAP(len => len)
 		PORT MAP
 		(
-		clk         => clk,
-		rst         => rst,
-		dividend    => dividend,
-		divisor     => divisor,
-		shRRegR     => shRRegR,
-		ShLRegR     => ShLRegR,
-		ldRegR      => ldRegR,
-		zeroRegR    => zeroRegR,
-		QQ0         => QQ0,
-		seldividend => seldividend,
-		selline1    => selline1,
-		shRRegQ     => shRRegQ,
-		ShLRegQ     => ShLRegQ,
-		ldRegQ      => ldRegQ,
-		zeroRegQ    => zeroRegQ,
-		zeroRegM    => zeroRegM,
-		ldRegM      => ldRegM,
-		R33         => R33,
-		Q           => Q,
-		Remainder   => Remainder);
+			clk         => clk,
+			rst         => rst,
+			dividend    => dividend,
+			divisor     => divisor,
+			shRRegR     => shRRegR,
+			ShLRegR     => ShLRegR,
+			ldRegR      => ldRegR,
+			zeroRegR    => zeroRegR,
+			QQ0         => QQ0,
+			seldividend => seldividend,
+			selline1    => selline1,
+			shRRegQ     => shRRegQ,
+			ShLRegQ     => ShLRegQ,
+			ldRegQ      => ldRegQ,
+			zeroRegQ    => zeroRegQ,
+			zeroRegM    => zeroRegM,
+			ldRegM      => ldRegM,
+			R33         => R33,
+			Q           => Q,
+			Remainder   => Remainder);
 	ControllerDiv : ENTITY work.aftab_divider_controller
 		GENERIC
 		MAP(len => len)
