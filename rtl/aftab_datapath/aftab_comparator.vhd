@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -49,7 +49,7 @@ ENTITY aftab_comparator IS
 		Gt                       : OUT STD_LOGIC
 	);
 END ENTITY aftab_comparator;
-
+--
 ARCHITECTURE behavioral OF aftab_comparator IS
 	SIGNAL ainp : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL binp : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
