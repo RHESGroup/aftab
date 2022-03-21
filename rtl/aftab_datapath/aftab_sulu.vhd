@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -31,7 +31,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Signed/unsigned load unit for the AFTAB core
+--	signed/unsigned load unit for the AFTAB core
 --
 -- **************************************************************************************
 LIBRARY IEEE;
@@ -47,10 +47,10 @@ ENTITY aftab_sulu IS
 		dataOut        : OUT STD_LOGIC_VECTOR(len - 1 DOWNTO 0)
 	);
 END aftab_sulu;
-
+--
 ARCHITECTURE Behavioral OF aftab_sulu IS
 BEGIN
-	dataOut <= (31 DOWNTO 8 => dataIn(7)) & dataIn (7 DOWNTO 0) WHEN loadByteSigned = '1' ELSE
-			(31 DOWNTO 16 => dataIn(15)) & dataIn (15 DOWNTO 0) WHEN loadHalfSigned = '1' ELSE
-														 dataIn WHEN load = '1'           ELSE (OTHERS => '0');
+	dataOut <= (31 DOWNTO 8 => dataIn(7)) & dataIn (7 DOWNTO 0)  WHEN loadByteSigned = '1' ELSE
+			 (31 DOWNTO 16 => dataIn(15)) & dataIn (15 DOWNTO 0) WHEN loadHalfSigned = '1' ELSE
+														  dataIn WHEN load = '1'           ELSE (OTHERS => '0');
 END Behavioral;
