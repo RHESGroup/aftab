@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -48,7 +48,7 @@ ENTITY aftab_barrel_shifter IS
 		shOut : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0)
 	);
 END ENTITY aftab_barrel_shifter;
-
+--
 ARCHITECTURE behavioral OF aftab_barrel_shifter IS
 BEGIN
 	PROCESS (ShIn, nSh, selSh) BEGIN
@@ -57,7 +57,7 @@ BEGIN
 		ELSIF (selSh = "10") THEN
 			shOut <= STD_LOGIC_VECTOR (unsigned (shIn) SRL (to_integer (unsigned (nSh))));
 		ELSIF (selSh = "11") THEN
-			shOut <= TO_STDLOGICVECTOR (TO_BITVECTOR (STD_LOGIC_VECTOR (unsigned(shIn))) SRA to_integer (unsigned(nSh)));
+			shOut <= to_stdlogicvector (to_bitvector (STD_LOGIC_VECTOR (unsigned(shIn))) SRA to_integer (unsigned(nSh)));
 		ELSE
 			shOut <= (OTHERS => '0');
 		END IF;
