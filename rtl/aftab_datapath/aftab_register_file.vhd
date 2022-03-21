@@ -1,11 +1,11 @@
 -- **************************************************************************************
---	Filename:	aftab_shift_register.vhd
+--	Filename:	aftab_register_file.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
 --	History:
---	Date:		18 May 2021
+--	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -31,59 +31,56 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Generic shift register for the AFTAB core
+--	Register File Unit (RFU) of the AFTAB core
 --
 -- **************************************************************************************
-library IEEE;
-use IEEE.std_logic_1164.all;
-use IEEE.std_logic_unsigned.all;
-use IEEE.numeric_std.all;
-use IEEE.math_real.all;
-use WORK.all;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
+ENTITY aftab_register_file IS
+	GENERIC (len : INTEGER := 32);
+	PORT (
+		clk          : IN  STD_LOGIC;
+		rst          : IN  STD_LOGIC;
+		setZero      : IN  STD_LOGIC;
+		setOne       : IN  STD_LOGIC;
+		rs1          : IN  STD_LOGIC_VECTOR (4 DOWNTO 0);
+		rs2          : IN  STD_LOGIC_VECTOR (4 DOWNTO 0);
+		rd           : IN  STD_LOGIC_VECTOR (4 DOWNTO 0);
+		writeData    : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		writeRegFile : IN  STD_LOGIC;
+		p1           : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		p2           : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0)
+	);
+END ENTITY aftab_register_file;
+ARCHITECTURE behavioral OF aftab_register_file IS
+	TYPE reg_arr IS ARRAY (0 TO 31) OF STD_LOGIC_VECTOR (31 DOWNTO 0);
 
-entity aftab_register_file is
- generic (len: integer := 32);
- port ( clk: 		IN std_logic;
-        rst: 	    IN std_logic;
-		setZero:     IN std_logic;
-	    setOne:      IN std_logic;
-		rd: 	IN std_logic_vector(integer(log2(real(len)))-1 downto 0);  
-		rs1: 	IN std_logic_vector(integer(log2(real(len)))-1 downto 0);
-		rs2: 	IN std_logic_vector(integer(log2(real(len)))-1 downto 0);
-		writedata: 	IN std_logic_vector(len-1 downto 0);
-		writeRegFile: 	IN std_logic;
-        p1: 		OUT std_logic_vector(len-1 downto 0);
-		p2: 		OUT std_logic_vector(len-1 downto 0));
-end aftab_register_file;
-
-architecture A of aftab_register_file is
-
-    -- suggested structures
-    subtype REG_ADDR is natural range 0 to len-1; -- using natural type
-	type REG_ARRAY is array(REG_ADDR) of std_logic_vector(len-1 downto 0); 
-	signal REGISTERS : REG_ARRAY; 
-		
-begin 
-
-RegProc: process(CLK)
-begin 
-	if CLK = '1' and CLK'EVENT then
-		if rst = '1' then 
-			REGISTERS <= (others => (others => '0'));
-		else 
-				   p1 <= Registers(to_integer(unsigned(rs1)));
-				   p2 <= Registers(to_integer(unsigned(rs2)));
-				if writeRegFile = '1' then 
-					    Registers(to_integer(unsigned(rd))) <= writedata; 
-
-				end if;
-
-				if setZero = '1' then 
-					Registers(to_integer(unsigned(rd))) <= ((others => '0') ); 
-				elsif setOne= '1' then 
-					Registers(to_integer(unsigned(rd))) <= std_logic_vector(to_unsigned(1,len)); 
-				end if;
-		end if; 
-	end if;
-end process RegProc;
-end A;
+	SIGNAL rData : reg_arr;
+	ATTRIBUTE ramstyle : string;
+	ATTRIBUTE raminit : string;
+	ATTRIBUTE ramstyle OF rData : SIGNAL IS "M9K";
+	--ATTRIBUTE raminit OF rData : SIGNAL IS "my_init_file.mif";
+	
+BEGIN
+	p1 <= rData(to_integer (unsigned(rs1))) WHEN (rs1 /= "00000") ELSE (OTHERS => '0');
+	p2 <= rData(to_integer (unsigned(rs2))) WHEN (rs2 /= "00000") ELSE (OTHERS => '0');
+	
+	--wrProc : PROCESS (clk) -- FPGA
+	wrProc : PROCESS (clk, rst)
+	 BEGIN
+		IF (rst = '1') THEN
+			rData <= (OTHERS => (OTHERS => '0'));
+		ELSIF (clk = '1' AND clk'EVENT) THEN
+			IF (rd /= "00000") THEN
+				IF (setOne = '1') THEN
+					rData(to_integer(unsigned(rd))) <= ((len - 1 DOWNTO 1 => '0') & '1');
+				ELSIF (setZero = '1') THEN
+					rData(to_integer(unsigned(rd))) <= (OTHERS => '0');
+				ELSIF (writeRegFile = '1') THEN
+					rData(to_integer(unsigned(rd))) <= writeData;
+				END IF;
+			END IF;
+		END IF;
+	END PROCESS;
+END ARCHITECTURE behavioral;
