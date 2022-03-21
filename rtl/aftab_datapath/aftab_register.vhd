@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -37,19 +37,20 @@
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
-
 ENTITY aftab_register IS
-	GENERIC (len : INTEGER := 32);
-	PORT (
-		clk   	: IN  STD_LOGIC;
-		rst  	: IN  STD_LOGIC;
-		zero 	: IN  STD_LOGIC;
-		load   	: IN  STD_LOGIC;
-		inReg   : IN  STD_LOGIC_VECTOR(len - 1 DOWNTO 0);
-		outReg  : OUT STD_LOGIC_VECTOR(len - 1 DOWNTO 0)
+	GENERIC
+		(len : INTEGER := 32);
+	PORT
+	(
+		clk    : IN  STD_LOGIC;
+		rst    : IN  STD_LOGIC;
+		zero   : IN  STD_LOGIC;
+		load   : IN  STD_LOGIC;
+		inReg  : IN  STD_LOGIC_VECTOR(len - 1 DOWNTO 0);
+		outReg : OUT STD_LOGIC_VECTOR(len - 1 DOWNTO 0)
 	);
 END ENTITY aftab_register;
-
+--
 ARCHITECTURE behavioral OF aftab_register IS
 BEGIN
 	PROCESS (clk, rst)
