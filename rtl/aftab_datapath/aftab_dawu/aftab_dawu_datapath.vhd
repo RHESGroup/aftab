@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -66,6 +66,7 @@ ENTITY aftab_dawu_datapath IS
 		addrOut             : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0)
 	);
 END ENTITY aftab_dawu_datapath;
+--
 ARCHITECTURE Behavioral OF aftab_dawu_datapath IS
 	SIGNAL muxOut     : STD_LOGIC_VECTOR (7 DOWNTO 0);
 	SIGNAL outReg0    : STD_LOGIC_VECTOR (7 DOWNTO 0);
