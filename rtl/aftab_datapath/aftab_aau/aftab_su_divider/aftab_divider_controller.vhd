@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -62,11 +62,10 @@ ENTITY aftab_divider_controller IS
 		QQ0        : OUT STD_LOGIC
 	);
 END ENTITY aftab_divider_controller;
-
+--
 ARCHITECTURE behavioral OF aftab_divider_controller IS
 	TYPE state IS (idle_state, step1, step2);
 	SIGNAL pstate, nstate : state;
-	SIGNAL outCnt  : STD_LOGIC_VECTOR(5 DOWNTO 0);
 	SIGNAL zeroCnt : STD_LOGIC;
 	SIGNAL incCnt  : STD_LOGIC;
 	SIGNAL initCnt : STD_LOGIC;
@@ -82,7 +81,7 @@ BEGIN
 			incCnt => incCnt,
 			initCnt => initCnt, 
 			initValue => initValue,
-			outCnt => outCnt,
+			outCnt => OPEN,
 			coCnt => coCnt);
 			
 	QQ0 <= NOT (R33);
