@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -49,7 +49,6 @@ ENTITY aftab_daru_controller IS
 		zeroAddr     : OUT STD_LOGIC;
 		zeroNumBytes : OUT STD_LOGIC;
 		initReading  : OUT STD_LOGIC;
-		ldErrorFlag  : OUT STD_LOGIC;
 		ldNumBytes   : OUT STD_LOGIC;
 		selldEn      : OUT STD_LOGIC;
 		readMem      : OUT STD_LOGIC;
@@ -60,6 +59,7 @@ ENTITY aftab_daru_controller IS
 		completeDARU : OUT STD_LOGIC
 	);
 END ENTITY aftab_daru_controller;
+--
 ARCHITECTURE behavioral OF aftab_daru_controller IS
 	TYPE state IS (waitforStart, waitforMemready, complete);
 	SIGNAL pstate, nstate : state;
@@ -91,7 +91,6 @@ BEGIN
 		zeroCnt      <= '0';
 		zeroAddr     <= '0';
 		zeroNumBytes <= '0';
-		ldErrorFlag  <= '0';
 		ldNumBytes   <= '0';
 		selldEn      <= '0';
 		readMem      <= '0';
@@ -104,7 +103,6 @@ BEGIN
 			WHEN waitforStart =>
 				initCnt     <= startDARU;
 				ldAddr      <= startDARU;
-				ldErrorFlag <= startDARU;
 				ldNumBytes  <= startDARU;
 				initReading <= startDARU;
 			WHEN waitforMemready =>
@@ -121,7 +119,6 @@ BEGIN
 				zeroCnt      <= '0';
 				zeroAddr     <= '0';
 				zeroNumBytes <= '0';
-				ldErrorFlag  <= '0';
 				ldNumBytes   <= '0';
 				selldEn      <= '0';
 				readMem      <= '0';
