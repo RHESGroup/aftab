@@ -3,9 +3,9 @@
 --	Project:	CNL_RISC-V
 --  Version:	1.0
 --	History:
---	Date:		1 June 2021
+--	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -36,47 +36,83 @@
 -- **************************************************************************************
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
-
 ENTITY aftab_testbench IS
 END aftab_testbench;
-
 ARCHITECTURE behavior OF aftab_testbench IS
-
-	-- Core inputs
+	--Inputs
 	SIGNAL clk          : STD_LOGIC                    := '0';
 	SIGNAL rst          : STD_LOGIC                    := '0';
-	SIGNAL memReady     : STD_LOGIC                    := '0';
-	SIGNAL dataBus      : STD_LOGIC_VECTOR(7 DOWNTO 0):= (OTHERS => 'Z');
-	-- Core outputs
-	SIGNAL memRead      : STD_LOGIC;
-	SIGNAL memWrite     : STD_LOGIC;
-	SIGNAL memAddr      : STD_LOGIC_VECTOR(31 DOWNTO 0):= (OTHERS => 'Z');
+--	SIGNAL memReady     : STD_LOGIC                    := '0';
+	SIGNAL dataMemReady      : STD_LOGIC := '0';
+	SIGNAL instrMemReady      : STD_LOGIC := '0';
+	--SIGNAL memDataIN    : STD_LOGIC_VECTOR(7 DOWNTO 0) := (OTHERS => '0');
+	SIGNAL instrMem, dataMem    : STD_LOGIC_VECTOR(7 DOWNTO 0):= (OTHERS => 'Z');
+	--Outputs
+
+	SIGNAL readDataMem      : STD_LOGIC;
+	SIGNAL readInstrMem      : STD_LOGIC;
+	SIGNAL writeDataMem     : STD_LOGIC;
+	SIGNAL interruptProcessing : STD_LOGIC;
+	--SIGNAL memDataOUT   : STD_LOGIC_VECTOR(7 DOWNTO 0);
+	SIGNAL instrMemAddr, dataMemAddr      : STD_LOGIC_VECTOR(31 DOWNTO 0):= (OTHERS => 'Z');
 	SIGNAL cs           : STD_LOGIC := '0';
 	SIGNAL opr          : BOOLEAN   := FALSE;
+	
+	-- Interrupts 
+	
+	SIGNAL machineExternalInterrupt  : STD_LOGIC    := '0';
+	SIGNAL machineTimerInterrupt    : STD_LOGIC    := '0';
+	SIGNAL machineSoftwareInterrupt : STD_LOGIC    := '0';
+	SIGNAL userExternalInterrupt	 : STD_LOGIC    := '0';
+	SIGNAL userTimerInterrupt 		 : STD_LOGIC    := '0';
+	SIGNAL userSoftwareInterrupt	 : STD_LOGIC    := '0';
 	CONSTANT clk_period : TIME      := 30 ns;
-
 BEGIN
-
-	core : ENTITY WORK.aftab_core PORT MAP (
-		clk        => clk,
-		rst        => rst,
-		memReady   => memReady,
-		memRead    => memRead,
-		memWrite   => memWrite,
-		memDataIN  => dataBus,
-		memDataOUT => dataBus,
-		memAddr    => memAddr
+	-- Instantiate the Unit Under Test (UUT)
+	uut : ENTITY WORK.aftab_core PORT MAP(
+		clk                => clk             ,
+		rst                => rst             ,
+		dataMemReady       => dataMemReady    ,
+		instrMemReady      => instrMemReady   ,
+		instrMemIn         => instrMem      ,
+		dataMemIn          => dataMem      ,
+		dataMemOut         => dataMem      ,
+		readDataMem        => readDataMem     ,
+		readInstrMem       => readInstrMem    ,
+		writeDataMem       => writeDataMem    ,
+		dataMemAddr        => dataMemAddr     ,
+		instrMemAddr       => instrMemAddr    ,
+		
+		
+		machineExternalInterrupt    =>  machineExternalInterrupt  ,
+		machineTimerInterrupt      =>  machineTimerInterrupt    ,
+		machineSoftwareInterrupt   =>  machineSoftwareInterrupt ,
+		userExternalInterrupt	   =>  userExternalInterrupt	,
+		userTimerInterrupt 		   =>  userTimerInterrupt 		,
+		userSoftwareInterrupt	   =>  userSoftwareInterrupt	,
+		interruptProcessing  =>   interruptProcessing
+		
+		
 	);
+	
 
-	memory : ENTITY WORK.aftab_memory PORT MAP(
-		clk => clk ,
-		rst => rst ,
-		readmem => memRead ,
-		writemem => memWrite ,
-		addressBus => memAddr ,
-		dataBus => dataBus ,
-		memdataready => memReady
-	);	
+--		
+		 Inst_aftab_InstrMemory: ENTITY WORK.MemoryModel PORT MAP(
+		 clk => clk ,
+		 readmem => readInstrMem ,
+		 writemem => '0' ,
+		 addressBus => instrMemAddr ,
+		 dataBus => instrMem ,
+		 memDataReady => instrMemReady
+	 );	
+		Inst_aftab_DataMemory: ENTITY WORK.MemoryModel PORT MAP(
+		 clk => clk ,
+		 readmem => readDataMem ,
+		 writemem => writeDataMem ,
+		 addressBus => dataMemAddr ,
+		 dataBus => dataMem ,
+		 memDataReady => dataMemReady
+	 );	
 		
 		
 	clk_process : PROCESS
@@ -93,11 +129,15 @@ BEGIN
 		WAIT FOR 100 ns;
 		opr <= TRUE;
 		WAIT FOR 2 ns;
-		cs  <= '1';
+		--cs  <= '1';
 		rst <= '1';
 		WAIT FOR 40 ns;
-		rst <= '0';
+		rst <= '0';		
+		WAIT FOR 4000 ns;
+		userTimerInterrupt <= '1';
+		WAIT FOR 300 ns;
+		userTimerInterrupt <= '0';
+
 		WAIT;
 	END PROCESS;
-
 END;
