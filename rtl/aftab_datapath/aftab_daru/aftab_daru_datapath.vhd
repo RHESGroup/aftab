@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -68,6 +68,7 @@ ENTITY aftab_daru_datapath IS
 		addrOut             : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0)
 	);
 END ENTITY aftab_daru_datapath;
+--
 ARCHITECTURE behavioral OF aftab_daru_datapath IS
 	SIGNAL readAddr   : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL readAddrP  : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
