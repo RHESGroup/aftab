@@ -1,5 +1,5 @@
 -- **************************************************************************************
---	Filename:	aftab_divider_controller.vhd
+--	Filename:	aftab_divider_datapath.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
 --	History:
@@ -31,144 +31,128 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Controller of generic integer divider for the AFTAB core
+--	Datapath of generic integer divider for the AFTAB core
 --
 -- **************************************************************************************
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
-USE IEEE.NUMERIC_STD.ALL;
-
-ENTITY aftab_divider_controller IS
-	GENERIC (len : INTEGER := 33; lenCnt : INTEGER := 6);
-	PORT (
-		clk        : IN  STD_LOGIC;
-		rst        : IN  STD_LOGIC;
-		startDiv   : IN  STD_LOGIC;
-		R33        : IN  STD_LOGIC;
-		doneDiv    : OUT STD_LOGIC;
-		shRRegR    : OUT STD_LOGIC;
-		ShLRegR    : OUT STD_LOGIC;
-		ldRegR     : OUT STD_LOGIC;
-		zeroRegR   : OUT STD_LOGIC;
-		seldividend: OUT STD_LOGIC;
-		selline1   : OUT STD_LOGIC;
-		shRRegQ    : OUT STD_LOGIC;
-		ShLRegQ    : OUT STD_LOGIC;
-		ldRegQ     : OUT STD_LOGIC;
-		zeroRegQ   : OUT STD_LOGIC;
-		zeroRegM   : OUT STD_LOGIC;
-		ldRegM     : OUT STD_LOGIC;
-		QQ0        : OUT STD_LOGIC
+ENTITY aftab_divider_datapath IS
+	GENERIC
+		(len : INTEGER := 33);
+	PORT
+	(
+		clk         : IN  STD_LOGIC;
+		rst         : IN  STD_LOGIC;
+		dividend    : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		divisor     : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		shRRegR     : IN  STD_LOGIC;
+		ShLRegR     : IN  STD_LOGIC;
+		ldRegR      : IN  STD_LOGIC;
+		zeroRegR    : IN  STD_LOGIC;
+		QQ0         : IN  STD_LOGIC;
+		seldividend : IN  STD_LOGIC;
+		selline1    : IN  STD_LOGIC;
+		shRRegQ     : IN  STD_LOGIC;
+		ShLRegQ     : IN  STD_LOGIC;
+		ldRegQ      : IN  STD_LOGIC;
+		zeroRegQ    : IN  STD_LOGIC;
+		zeroRegM    : IN  STD_LOGIC;
+		ldRegM      : IN  STD_LOGIC;
+		R33         : OUT STD_LOGIC;
+		Q           : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		Remainder   : OUT STD_LOGIC_VECTOR (len DOWNTO 0)
 	);
-END ENTITY aftab_divider_controller;
+END ENTITY aftab_divider_datapath;
 --
-ARCHITECTURE behavioral OF aftab_divider_controller IS
-	TYPE state IS (idle_state, step1, step2);
-	SIGNAL pstate, nstate : state;
-	SIGNAL zeroCnt : STD_LOGIC;
-	SIGNAL incCnt  : STD_LOGIC;
-	SIGNAL initCnt : STD_LOGIC;
-	SIGNAL coCnt   : STD_LOGIC;
-	CONSTANT initValue : STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0) := STD_LOGIC_VECTOR (to_unsigned ((((2 ** lenCnt) - 1) - len - 1), lenCnt));
+ARCHITECTURE behavioral OF aftab_divider_datapath IS
+	SIGNAL AddResult   : STD_LOGIC_VECTOR (len DOWNTO 0);
+	SIGNAL sub         : STD_LOGIC_VECTOR (len DOWNTO 0);
+	SIGNAL M           : STD_LOGIC_VECTOR (len DOWNTO 0);
+	SIGNAL divisorp    : STD_LOGIC_VECTOR (len DOWNTO 0);
+	SIGNAL Rprev       : STD_LOGIC_VECTOR (len DOWNTO 0);
+	SIGNAL line1       : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL outMux1     : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL Qprev       : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL leftbitOutR : STD_LOGIC;
+	SIGNAL leftbitOutQ : STD_LOGIC;
+	SIGNAL rightbitInR : STD_LOGIC;
+	SIGNAL sMux        : STD_LOGIC;
 BEGIN
-	counter : ENTITY work.aftab_counter
-		GENERIC MAP(len => lenCnt)
-		PORT MAP(
-			clk => clk, 
-			rst => rst, 
-			zeroCnt => zeroCnt, 
-			incCnt => incCnt,
-			initCnt => initCnt, 
-			initValue => initValue,
-			outCnt => OPEN,
-			coCnt => coCnt);
-			
-	QQ0 <= NOT (R33);
-	PROCESS (coCnt, startDiv, pstate) BEGIN
-		nstate <= idle_state;
-		CASE pstate IS
-			WHEN idle_state =>
-				IF (startDiv = '1') THEN
-					nstate <= step1;
-				ELSE
-					nstate <= idle_state;
-				END IF;
-			WHEN step1 =>
-				IF (coCnt = '1') THEN
-					nstate <= idle_state;
-				ELSE
-					nstate <= step2;
-				END IF;
-			WHEN step2 =>
-				nstate <= step1;
-		END CASE;
-	END PROCESS;
-	PROCESS (coCnt, startDiv, pstate) BEGIN
-		shRRegR <= '0'; 
-		ShLRegR <= '0'; 
-		ldRegR <= '0'; 
-		zeroRegR <= '0';
-		seldividend <= '0'; 
-		selline1 <= '0'; 
-		shRRegQ <= '0'; 
-		ShLRegQ <= '0'; 
-		ldRegQ <= '0';
-		zeroRegQ <= '0'; 
-		zeroRegM <= '0'; 
-		ldRegM <= '0'; 
-		doneDiv <= '0';
-		incCnt <= '0'; 
-		initCnt <= '0';
-		zeroCnt <= '0';
-		CASE pstate IS
-			WHEN idle_state =>
-				initCnt <= '1';
-				zeroRegR <= '1';
-				ldRegQ <= '1';
-				ldRegM <= '1'; 
-				seldividend <= '1';
-				doneDiv <= '0';
-			WHEN step1 =>
-				zeroCnt <= '0';
-				initCnt <= '0';
-				incCnt <= '0';
-				ShLRegR <= '1';
-				shLRegQ <= '1';
-				IF (coCnt = '1') THEN
-					doneDiv <= '1';
-				END IF;
-			WHEN step2 =>
-				ldRegR <= '1';
-				ldRegQ <= '1';
-				selline1 <= '1';
-				incCnt <= '1';
-				ShLRegR <= '0';
-				zeroRegR <= '0';
-			WHEN OTHERS =>
-				shRRegR <= '0'; 
-				ShLRegR <= '0'; 
-				ldRegR <= '0'; 
-				zeroRegR <= '0';
-				seldividend <= '0'; 
-				selline1 <= '0'; 
-				shRRegQ <= '0'; 
-				ShLRegQ <= '0';
-				ldRegQ <= '0'; 
-				zeroRegQ <= '0'; 
-				zeroRegM <= '0'; 
-				ldRegM <= '0';
-				doneDiv <= '0'; 
-				incCnt <= '0'; 
-				initCnt <= '0'; 
-				zeroCnt <= '0';
-		END CASE;
-	END PROCESS;
-	PROCESS (clk, rst) BEGIN
-		IF (rst = '1') THEN
-			pstate <= idle_state;
-		ELSIF (clk = '1' AND clk'event) THEN
-			pstate <= nstate;
-		END IF;
-	END PROCESS;
+	R33 <= sub(len);
+	-- ShReg 33 bit R
+	ShRegR : ENTITY work.aftab_shift_register
+		GENERIC
+		MAP (len + 1)
+		PORT MAP
+		(
+			clk    => clk,
+			rst    => rst,
+			inReg  => AddResult,
+			shiftR => shRRegR,
+			shiftL => ShLRegR,
+			load   => ldRegR,
+			zero   => zeroRegR,
+			serIn  => leftbitOutQ,
+			serOut => OPEN,
+			outReg => Rprev);
+	-- ShReg 32 bit Q
+	ShRegQ : ENTITY work.aftab_shift_register
+		GENERIC
+		MAP (len)
+		PORT
+		MAP (
+		clk    => clk,
+		rst    => rst,
+		inReg  => outMux1,
+		shiftR => shRRegQ,
+		shiftL => ShLRegQ,
+		load   => ldRegQ,
+		zero   => zeroRegQ,
+		serIn  => '0',
+		serOut => leftbitOutQ,
+		outReg => Qprev);
+	-- concatenation
+	divisorp <= divisor(len - 1) & divisor;
+	-- Reg 33 bit M
+	RegM : ENTITY WORK.aftab_register
+		GENERIC
+		MAP (len => len + 1)
+		PORT
+		MAP (
+		clk    => clk,
+		rst    => rst,
+		zero   => zeroRegM,
+		load   => ldRegM,
+		inReg  => divisorp,
+		outReg => M);
+	-- Subtractor 33 bit
+	sub   <= Rprev - M;
+	-- line 1
+	line1 <= Qprev (len - 1 DOWNTO 1) & QQ0;
+	-- Mux 33 bit
+	Mux33b : ENTITY work.aftab_multiplexer
+		GENERIC
+		MAP (len => len)
+		PORT
+		MAP (
+		a  => dividend,
+		b  => line1,
+		s0 => seldividend,
+		s1 => selline1,
+		W  => outMux1);
+	-- Mux 34 bit
+	sMux <= NOT(sub(len));
+	Mux34b : ENTITY work.aftab_multiplexer
+		GENERIC
+		MAP (len => len + 1)
+		PORT
+		MAP (
+		a  => sub,
+		b  => Rprev,
+		s0 => sMux,
+		s1 => sub(len),
+		W  => AddResult);
+	Q         <= Qprev;
+	Remainder <= Rprev;
 END ARCHITECTURE behavioral;
