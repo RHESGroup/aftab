@@ -43,16 +43,12 @@ ENTITY aftab_core IS
 	(
 		clk                      : IN  STD_LOGIC;
 		rst                      : IN  STD_LOGIC;
-		dataMemReady             : IN  STD_LOGIC;
-		instrMemReady            : IN  STD_LOGIC;
-		instrMemIn               : IN  STD_LOGIC_VECTOR (7 DOWNTO 0);
-		dataMemIn                : IN  STD_LOGIC_VECTOR (7 DOWNTO 0);
-		dataMemOut               : OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
-		readDataMem              : OUT STD_LOGIC;
-		readInstrMem             : OUT STD_LOGIC;
-		writeDataMem             : OUT STD_LOGIC;
-		dataMemAddr              : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		instrMemAddr             : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		memReady       	         : IN  STD_LOGIC;
+		memDataIn                : IN  STD_LOGIC_VECTOR (7 DOWNTO 0);
+		memDataOut               : OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+		memRead                  : OUT STD_LOGIC;
+		memWrite                 : OUT STD_LOGIC;
+		memAddr                  : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 		--interrupt inputs and outputs
 		machineExternalInterrupt : IN  STD_LOGIC;
 		machineTimerInterrupt    : IN  STD_LOGIC;
@@ -60,6 +56,7 @@ ENTITY aftab_core IS
 		userExternalInterrupt    : IN  STD_LOGIC;
 		userTimerInterrupt       : IN  STD_LOGIC;
 		userSoftwareInterrupt    : IN  STD_LOGIC;
+		platformInterruptSignals : IN  STD_LOGIC_VECTOR (15 DOWNTO 0);
 		interruptProcessing      : OUT STD_LOGIC
 	);
 END ENTITY;
@@ -70,6 +67,8 @@ ARCHITECTURE procedural OF aftab_core IS
 	SIGNAL selP2                          : STD_LOGIC;
 	SIGNAL selP1                          : STD_LOGIC;
 	SIGNAL selJL                          : STD_LOGIC;
+	SIGNAL selADR                         : STD_LOGIC;
+	SIGNAL selPCJ                         : STD_LOGIC;
 	SIGNAL selImm                         : STD_LOGIC;
 	SIGNAL selAdd                         : STD_LOGIC;
 	SIGNAL selI4PC                        : STD_LOGIC;
@@ -97,11 +96,9 @@ ARCHITECTURE procedural OF aftab_core IS
 	SIGNAL load                           : STD_LOGIC;
 	SIGNAL setOne                         : STD_LOGIC;
 	SIGNAL setZero                        : STD_LOGIC;
-	SIGNAL startDataDARU                  : STD_LOGIC;
-	SIGNAL startInstrDARU                 : STD_LOGIC;
+	SIGNAL startDARU                      : STD_LOGIC;
 	SIGNAL startDAWU                      : STD_LOGIC;
-	SIGNAL completeDataDARU               : STD_LOGIC;
-	SIGNAL completeInstrDARU              : STD_LOGIC;
+	SIGNAL completeDARU                   : STD_LOGIC;
 	SIGNAL completeDAWU                   : STD_LOGIC;
 	SIGNAL startMultiplyAAU               : STD_LOGIC;
 	SIGNAL startDivideAAU                 : STD_LOGIC;
@@ -188,6 +185,8 @@ BEGIN
 			selI4                          => selI4,
 			selAdd                         => selAdd,
 			selJL                          => selJL,
+			selADR                         => selADR,
+			selPCJ                         => selPCJ,
 			selInc4pc                      => selInc4pc,
 			selBSU                         => selBSU,
 			selLLU                         => selLLU,
@@ -215,8 +214,7 @@ BEGIN
 			muxCode                        => muxCode,
 			selLogic                       => selLogic,
 			startDAWU                      => startDAWU,
-			startDataDARU                  => startDataDARU,
-			startInstrDARU                 => startInstrDARU,
+			startDARU                      => startDARU,
 			startMultiplyAAU               => startMultiplyAAU,
 			startDivideAAU                 => startDivideAAU,
 			signedSigned                   => signedSigned,
@@ -227,24 +225,19 @@ BEGIN
 			dataInstrBar                   => dataInstrBar,
 			completeAAU                    => completeAAU,
 			nBytes                         => nBytes,
-			dataMemReady                   => dataMemReady,
-			instrMemReady                  => instrMemReady,
-			instrMemIn                     => instrMemIn,
-			dataMemIn                      => dataMemIn,
-			dataMemOut                     => dataMemOut,
-			dataMemAddrDAWU                => dataMemAddr,
-			dataMemAddrDARU                => dataMemAddr,
-			instrMemAddrDARU               => instrMemAddr,
-			writeDataMem                   => writeDataMem,
-			readDataMem                    => readDataMem,
-			readInstrMem                   => readInstrMem,
+			memReady                       => memReady,
+			memDataIn                      => memDataIn,
+			memDataOut                     => memDataOut,
+			memAddrDAWU                    => memAddr,
+			memAddrDARU                    => memAddr,
+			writeMem                       => memWrite,
+			readMem                        => memRead,
 			IR                             => IR,
 			lt                             => lt,
 			eq                             => eq,
 			gt                             => gt,
 			completeDAWU                   => completeDAWU,
-			completeDataDARU               => completeDataDARU,
-			completeInstrDARU              => completeInstrDARU,
+			completeDARU                   => completeDARU,
 			selCSR                         => selCSR,
 			machineExternalInterrupt       => machineExternalInterrupt,
 			machineTimerInterrupt          => machineTimerInterrupt,
@@ -252,6 +245,7 @@ BEGIN
 			userExternalInterrupt          => userExternalInterrupt,
 			userTimerInterrupt             => userTimerInterrupt,
 			userSoftwareInterrupt          => userSoftwareInterrupt,
+			platformInterruptSignals       => platformInterruptSignals,
 			ldValueCSR                     => ldValueCSR,
 			mipCCLdDisable                 => mipCCLdDisable,
 			selImmCSR                      => selImmCSR,
@@ -311,8 +305,7 @@ BEGIN
 	MAP(
 	clk                            => clk,
 	rst                            => rst,
-	completeDataDARU               => completeDataDARU,
-	completeInstrDARU              => completeInstrDARU,
+	completeDARU                   => completeDARU,
 	completeDAWU                   => completeDAWU,
 	completeAAU                    => completeAAU,
 	lt                             => lt,
@@ -328,6 +321,8 @@ BEGIN
 	selP1                          => selP1,
 	selP2                          => selP2,
 	selJL                          => selJL,
+	selADR                         => selADR,
+	selPCJ                         => selPCJ,
 	selImm                         => selImm,
 	selAdd                         => selAdd,
 	selInc4PC                      => selInc4PC,
@@ -351,8 +346,7 @@ BEGIN
 	load                           => load,
 	setOne                         => setOne,
 	setZero                        => setZero,
-	startDataDARU                  => startDataDARU,
-	startInstrDARU                 => startInstrDARU,
+	startDARU                      => startDARU,
 	startDAWU                      => startDAWU,
 	startMultiplyAAU               => startMultiplyAAU,
 	startDivideAAU                 => startDivideAAU,
