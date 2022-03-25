@@ -7,7 +7,7 @@ use IEEE.numeric_std.all;
 USE IEEE.STD_LOGIC_TEXTIO.ALL;
 USE STD.TEXTIO.ALL;
 --
-ENTITY memorySegment IS
+ENTITY aftab_memory_segment IS
 	GENERIC
 	(
 		dataWidth       : INTEGER := 8;
@@ -25,9 +25,9 @@ ENTITY memorySegment IS
 		dataBus                : INOUT STD_LOGIC_VECTOR (dataWidth - 1 DOWNTO 0);
 		memDataReady           : OUT   STD_LOGIC
 	);
-END memorySegment;
+END aftab_memory_segment;
 --
-ARCHITECTURE behavioral OF memorySegment IS
+ARCHITECTURE behavioral OF aftab_memory_segment IS
 	PROCEDURE check (segmentSize : IN INTEGER; blockSize : IN INTEGER) IS
 		VARIABLE countSeg, countBlock : INTEGER := 0;
 		VARIABLE s                    : STD_LOGIC_VECTOR (9 DOWNTO 0);
