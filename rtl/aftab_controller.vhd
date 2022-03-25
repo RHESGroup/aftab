@@ -44,8 +44,7 @@ ENTITY aftab_controller IS
 	(
 		clk                            : IN  STD_LOGIC;
 		rst                            : IN  STD_LOGIC;
-		completeDataDARU               : IN  STD_LOGIC;
-		completeInstrDARU              : IN  STD_LOGIC;
+		completeDARU                   : IN  STD_LOGIC;
 		completeDAWU                   : IN  STD_LOGIC;
 		completeAAU                    : IN  STD_LOGIC;
 		lt                             : IN  STD_LOGIC;
@@ -61,6 +60,8 @@ ENTITY aftab_controller IS
 		selP1                          : OUT STD_LOGIC;
 		selP2                          : OUT STD_LOGIC;
 		selJL                          : OUT STD_LOGIC;
+		selADR                         : OUT STD_LOGIC;
+		selPCJ                         : OUT STD_LOGIC;
 		selImm                         : OUT STD_LOGIC;
 		selAdd                         : OUT STD_LOGIC;
 		selInc4PC                      : OUT STD_LOGIC;
@@ -84,8 +85,7 @@ ENTITY aftab_controller IS
 		load                           : OUT STD_LOGIC;
 		setOne                         : OUT STD_LOGIC;
 		setZero                        : OUT STD_LOGIC;
-		startDataDARU                  : OUT STD_LOGIC;
-		startInstrDARU                 : OUT STD_LOGIC;
+		startDARU                      : OUT STD_LOGIC;
 		startDAWU                      : OUT STD_LOGIC;
 		startMultiplyAAU               : OUT STD_LOGIC;
 		startDivideAAU                 : OUT STD_LOGIC;
@@ -148,35 +148,34 @@ ENTITY aftab_controller IS
 		userStatusAlterationPreCSR     : OUT STD_LOGIC;
 		machineStatusAlterationPostCSR : OUT STD_LOGIC;
 		userStatusAlterationPostCSR    : OUT STD_LOGIC;
-		machineOrUserBar               : OUT STD_LOGIC;
 		zeroCntCSR                     : OUT STD_LOGIC
 	);
 END aftab_controller;
 --
 ARCHITECTURE behavioral OF aftab_controller IS
-	TYPE state IS (fetch, getInstr,                                                                     --fetch
-		decode,                                                                                         --decode
-		loadInstr1, loadInstr2, getData,                                                                --load
-		storeInstr1, storeInstr2, putData,                                                              --store
-		addSub,                                                                                         --addSub + -
-		compare,                                                                                        --setCompare <
-		logical,                                                                                        --logical & | ^
-		shift,                                                                                          --shift << >>
-		multiplyDivide1, multiplyDivide2,                                                               --Multilier and Divider * /
-		conditionalBranch,                                                                              --conditionalBranch >=<
-		JAL, JALR,                                                                                      --unconditionalBranch
-		LUI,                                                                                            --LUI, AUIPC
+	TYPE state IS (fetch, getInstr,                                                                                                                  --fetch
+		decode,                                                                                                                                          --decode
+		loadInstr1, loadInstr2, getData,                                                                                                                 --load
+		storeInstr1, storeInstr2, putData,                                                                                                               --store
+		addSub,                                                                                                                                          --addSub + -
+		compare,                                                                                                                                         --setCompare <
+		logical,                                                                                                                                         --logical & | ^
+		shift,                                                                                                                                           --shift << >>
+		multiplyDivide1, multiplyDivide2,                                                                                                                --Multilier and Divider * /
+		conditionalBranch,                                                                                                                               --conditionalBranch >=<
+		JAL, JALR,                                                                                                                                       --unconditionalBranch
+		LUI,                                                                                                                                             --LUI, AUIPC
 		checkDelegation, updateTrapValue, updateMip, updateUip, updateCause, readMstatus, 
 						 updateMstatus, updateUstatus, updateEpc, readTvec1, readTvec2, --Interrupt Entry States
-		CSR, mirrorCSR,                                                                                 -- CSR Instructions
-		retEpc, retReadMstatus, retUpdateMstatus, retUpdateUstatus,  --Interrupt Exit States            --mret and uret instructions
-		ecall                                                                                           --ecall instruction
+		CSR, mirrorCSR,                                                                                                                                  -- CSR Instructions
+		retEpc, retReadMstatus, retUpdateMstatus, retUpdateUstatus,  --Interrupt Exit States                                                                                     --mret and uret instructions
+		ecall                                                                                                                                            --ecall instruction
 	);
 	SIGNAL p_state, n_state      : state;
 	SIGNAL func3                 : STD_LOGIC_VECTOR(2 DOWNTO 0);
 	SIGNAL func7, opcode         : STD_LOGIC_VECTOR(6 DOWNTO 0);
 	SIGNAL func12                : STD_LOGIC_VECTOR(11 DOWNTO 0);
-	SIGNAL mretOrUretInstr       : STD_LOGIC;
+	SIGNAL mretOrUretBar       : STD_LOGIC;
 	CONSTANT iTypeImm            : STD_LOGIC_VECTOR(11 DOWNTO 0) := "010011001001";
 	CONSTANT sTypeImm            : STD_LOGIC_VECTOR(11 DOWNTO 0) := "010011010010";
 	CONSTANT uTypeImm            : STD_LOGIC_VECTOR(11 DOWNTO 0) := "100000100100";
@@ -197,12 +196,12 @@ BEGIN
 	func7           <= IR(31 DOWNTO 25);
 	func12          <= IR(31 DOWNTO 20);
 	opcode          <= IR(6 DOWNTO 0);
-	mretOrUretInstr <= IR(29);
-	StateTransition : PROCESS (p_state, completeDataDARU, completeInstrDARU, 
+	mretOrUretBar   <= IR(29);
+	StateTransition : PROCESS (p_state, completeDARU, 
 							   completeDAWU, completeAAU, opcode, func3, func7, 
 							   func12, lt, eq, gt, exceptionRaise, instrMisalignedOut,
 							   storeMisalignedOut, interruptRaise, loadMisalignedOut, 
-							   modeTvec, dividedByZeroOut, mirror, mretOrUretInstr, 
+							   modeTvec, dividedByZeroOut, mirror, mretOrUretBar, 
 							   previousPRV, delegationMode, ldMieUieField, ldMieReg, 
 							   validAccessCSR, readOnlyCSR
 							   ) 
@@ -219,7 +218,7 @@ BEGIN
 					n_state <= getInstr;
 				END IF;
 			WHEN getInstr =>
-				IF (completeInstrDARU = '1') THEN
+				IF (completeDARU = '1') THEN
 					n_state <= decode;
 				ELSE
 					n_state <= getInstr;
@@ -281,7 +280,7 @@ BEGIN
 					n_state <= getData;
 				END IF;
 			WHEN getData =>
-				IF (completeDataDARU = '1') THEN
+				IF (completeDARU = '1') THEN
 					n_state <= fetch;
 				ELSE
 					n_state <= getData;
@@ -369,27 +368,27 @@ BEGIN
 			WHEN updateUip =>
 				n_state <= updateCause;
 			WHEN updateCause =>
-				n_state <= readMstatus;
-			WHEN readMstatus =>
-				n_state <= updateMstatus;
-			WHEN updateMstatus =>
-				n_state <= updateUstatus;
-			WHEN updateUstatus =>
 				n_state <= updateEpc;
 			WHEN updateEpc =>
 				n_state <= readTvec1;
 			WHEN readTvec1 =>
 				n_state <= readTvec2;
 			WHEN readTvec2 =>
-				n_state                <= fetch;
+				n_state <= readMstatus;
+			WHEN readMstatus =>
+				n_state <= updateMstatus;
+			WHEN updateMstatus =>
+				n_state <= updateUstatus;
+			WHEN updateUstatus =>
+				n_state <= fetch;
 			WHEN OTHERS => n_state <= fetch;
 		END CASE;
 	END PROCESS;
-	ControlSignalsDecoder : PROCESS (p_state, completeDataDARU, completeInstrDARU, 
+	ControlSignalsDecoder : PROCESS (p_state, completeDARU, 
 							   completeDAWU, completeAAU, opcode, func3, func7, 
 							   func12, lt, eq, gt, exceptionRaise, instrMisalignedOut,
 							   storeMisalignedOut, interruptRaise, loadMisalignedOut, 
-							   modeTvec, dividedByZeroOut, mirror, mretOrUretInstr, 
+							   modeTvec, dividedByZeroOut, mirror, mretOrUretBar, 
 							   previousPRV, delegationMode, ldMieUieField, ldMieReg, 
 							   validAccessCSR, readOnlyCSR
 							   ) 
@@ -397,6 +396,8 @@ BEGIN
 		selPC                          <= '0';                                                                                                                                                                 
 		selI4                          <= '0';
 		selP2                          <= '0';
+		selPCJ                         <= '0';
+		selADR                         <= '0';
 		selJL                          <= '0';
 		selImm                         <= '0';
 		selAdd                         <= '0';
@@ -419,8 +420,7 @@ BEGIN
 		load                           <= '0';
 		setOne                         <= '0';
 		setZero                        <= '0';
-		startDataDARU                  <= '0';
-		startInstrDARU                 <= '0';
+		startDARU                      <= '0';
 		startDAWU                      <= '0';
 		startMultiplyAAU               <= '0';
 		startDivideAAU                 <= '0';
@@ -468,7 +468,6 @@ BEGIN
 		ecallFlag                      <= '0';
 		machineStatusAlterationPreCSR  <= '0';
 		userStatusAlterationPreCSR     <= '0';
-		machineOrUserBar               <= '0';
 		selMedeleg_CSR                 <= '0';
 		selMideleg_CSR                 <= '0';
 		ldUser                         <= '0';
@@ -490,15 +489,16 @@ BEGIN
 					selMideleg_CSR <= '1';
 				ELSE
 					nBytes              <= "11";
+					selPCJ              <= '1';
 					dataInstrBar        <= '0';
 					selPC               <= '1';
-					startInstrDARU      <= NOT(instrMisalignedOut);
+					startDARU           <= '1';
 					ldFlags             <= '1';
 					checkMisalignedDARU <= '1';
 				END IF;
 			WHEN getInstr =>
 				dataInstrBar <= '0';
-				IF (completeInstrDARU = '1') THEN
+				IF (completeDARU = '1') THEN
 					ldIR <= '1';
 				ELSE
 					ldIR <= '0';
@@ -517,7 +517,7 @@ BEGIN
 				END IF;
 				IF (opcode = SystemAndCSR) THEN --mret or uret
 					IF (func3 = "000" AND (func12 = X"302" OR func12 = X"002")) THEN
-						ldValueCSR <= "011";
+						ldValueCSR <= "010";
 						ldCntCSR   <= '1';
 					END IF;
 					IF (func3 /= "000") THEN
@@ -534,17 +534,18 @@ BEGIN
 				dataInstrBar <= '1';
 			WHEN loadInstr2 =>
 				--checkMisalignedDARU <= '1';
-				startDataDARU       <= NOT(loadMisalignedOut);
-				ldFlags             <= '1';
-				dataInstrBar        <= '1';
-				nBytes              <= func3(1) & (func3(1) OR func3(0)); --nByte = 00 => Load Byte , nByte = 01 => Load Half, nByte = 11 => Load Word
+				selADR          <= '1';
+				startDARU       <= NOT(loadMisalignedOut);
+				ldFlags         <= '1';
+				dataInstrBar    <= '1';
+				nBytes          <= func3(1) & (func3(1) OR func3(0)); --nByte = 00 => Load Byte , nByte = 01 => Load Half, nByte = 11 => Load Word
 
 			WHEN getData =>
 				ldByteSigned <= NOT(func3(2)) AND NOT(func3(1)) AND NOT(func3(0));
 				ldHalfSigned <= NOT(func3(2)) AND func3(0);
 				load         <= func3(2) OR func3(1);
 				dataInstrBar <= '1';
-				IF (completeDataDARU = '1') THEN
+				IF (completeDARU = '1') THEN
 					writeRegFile <= '1';
 					selDARU      <= '1';
 				ELSE
@@ -562,6 +563,7 @@ BEGIN
 			WHEN storeInstr2 =>
 				checkMisalignedDAWU <= '1';
 				ldFlags             <= '1';
+				selADR              <= '1';
 				startDAWU           <= NOT(storeMisalignedOut);
 				nBytes              <= func3(1) & (func3(1) OR func3(0));
 			WHEN putData =>
@@ -616,6 +618,7 @@ BEGIN
 				--multiplyDivide
 			WHEN multiplyDivide1 =>
 				ldFlags          <= '1';
+				illegalInstrFlag <= dividedByZeroOut;
 				selP1            <= '1';
 				selP2            <= '1';
 				startDivideAAU   <= func3(2);
@@ -727,7 +730,8 @@ BEGIN
 				selI4              <= '1' AND (validAccessCSR AND NOT(readOnlyCSR));
 				loadMieReg         <= ldMieReg AND validAccessCSR;
 				loadMieUieField    <= ldMieUieField AND validAccessCSR;
-				illegalInstrFlag   <= NOT(validAccessCSR) OR readOnlyCSR;
+				illegalInstrFlag   <= NOT(validAccessCSR);
+				--illegalInstrFlag   <= NOT(validAccessCSR) OR readOnlyCSR;
 				ldFlags            <= '1';
 			WHEN mirrorCSR =>
 				selCSRAddrFromInst <= '1';
@@ -740,9 +744,10 @@ BEGIN
 				clrCSR             <= func3(1) AND func3(0);
 				mirrorUser         <= '1';
 			WHEN retEpc =>
-				mirrorUser    <= NOT(mretOrUretInstr);
+				mirrorUser    <= NOT(mretOrUretBar);
 				selRomAddress <= '1';
-				dnCntCSR      <= '1';
+			    ldValueCSR <= "100";
+			    ldCntCSR   <= '1';
 			WHEN retReadMstatus =>
 				selMepc_CSR   <= '1';
 				ldPC          <= '1';
@@ -751,7 +756,7 @@ BEGIN
 			WHEN retUpdateMstatus =>
 				mirrorUser    <= '0';
 				selRomAddress <= '1';
-				IF (mretOrUretInstr = '1') THEN
+				IF (mretOrUretBar = '1') THEN
 					ldMachine <= previousPRV(0);
 					ldUser    <= NOT(previousPRV(0));
 				ELSE
@@ -759,15 +764,14 @@ BEGIN
 					ldUser    <= '1';
 				END IF;
 				loadMieUieField                <= ldMieUieField;
-				machineStatusAlterationPostCSR <= mretOrUretInstr;
-				userStatusAlterationPostCSR    <= NOT(mretOrUretInstr);
+				machineStatusAlterationPostCSR <= mretOrUretBar;
+				userStatusAlterationPostCSR    <= NOT(mretOrUretBar);
 				writeRegBank                   <= '1';
 			WHEN retUpdateUstatus =>
-				--	machineOrUserBar <= '0';
 				selRomAddress                  <= '1';
 				mirrorUser                     <= '1';
-				machineStatusAlterationPostCSR <= mretOrUretInstr;
-				userStatusAlterationPostCSR    <= NOT(mretOrUretInstr);
+				machineStatusAlterationPostCSR <= mretOrUretBar;
+				userStatusAlterationPostCSR    <= NOT(mretOrUretBar);
 				writeRegBank                   <= '1';
 				zeroCntCSR                     <= '1';
 			WHEN ecall =>
@@ -793,7 +797,6 @@ BEGIN
 				writeRegBank   <= '1';
 				mipCCLdDisable <= '1';
 			WHEN updateUip => --new
-				--machineOrUserBar <= '0';---
 				selRomAddress  <= '1';
 				mirrorUser     <= '1';
 				upCntCSR       <= '1';
@@ -807,27 +810,6 @@ BEGIN
 				selCause_CSR   <= '1';
 				writeRegBank   <= '1';
 				mipCCLdDisable <= '1';
-			WHEN readMstatus =>
-				mirrorUser     <= '0';
-				selRomAddress  <= '1';
-				mipCCLdDisable <= '1';
-			WHEN updateMstatus =>
-				mirrorUser                    <= '0';
-				selRomAddress                 <= '1';
-				loadMieUieField               <= ldMieUieField;
-				machineStatusAlterationPreCSR <= delegationMode(0);
-				userStatusAlterationPreCSR    <= NOT(delegationMode(0));
-				writeRegBank                  <= '1';
-				mipCCLdDisable                <= '1';
-			WHEN updateUstatus => --new
-				mirrorUser                    <= '1';
-				selRomAddress                 <= '1';
-				mirrorUser                    <= '1';
-				upCntCSR                      <= '1';
-				machineStatusAlterationPreCSR <= delegationMode(0);
-				userStatusAlterationPreCSR    <= NOT(delegationMode(0));
-				writeRegBank                  <= '1';
-				mipCCLdDisable                <= '1';
 			WHEN updateEpc =>
 				mirrorUser     <= NOT(delegationMode(0));
 				selRomAddress  <= '1';
@@ -844,7 +826,8 @@ BEGIN
 				mirrorUser     <= NOT(delegationMode(0));
 				ldMachine      <= delegationMode(0);
 				ldUser         <= NOT(delegationMode(0));
-				selMepc_CSR    <= '1';
+				--selMepc_CSR    <= '1';
+				upCntCSR       <= '1';
 				ldPC           <= '1';
 				mipCCLdDisable <= '1';
 				zeroFlags      <= exceptionRaise;
@@ -853,11 +836,35 @@ BEGIN
 				ELSIF (modeTvec = "01") THEN
 					selInterruptAddressVectored <= '1';
 				END IF;
+			WHEN readMstatus =>
+				mirrorUser     <= '0';
+				selRomAddress  <= '1';
+				mipCCLdDisable <= '1';
+			WHEN updateMstatus =>
+				mirrorUser                    <= '0';
+				selRomAddress                 <= '1';
+				loadMieUieField               <= ldMieUieField;
+				machineStatusAlterationPreCSR <= delegationMode(0);
+				userStatusAlterationPreCSR    <= NOT(delegationMode(0));
+				writeRegBank                  <= '1';
+				mipCCLdDisable                <= '1';
+			WHEN updateUstatus => --new
+				mirrorUser                    <= '1';
+				selRomAddress                 <= '1';
+				mirrorUser                    <= '1';
+				machineStatusAlterationPreCSR <= delegationMode(0);
+				userStatusAlterationPreCSR    <= NOT(delegationMode(0));
+				writeRegBank                  <= '1';
+				mipCCLdDisable                <= '1';
+			    ldMachine      				  <= delegationMode(0);
+				ldUser                        <= NOT(delegationMode(0));
 			WHEN OTHERS =>
 				selPC                          <= '0';
 				selI4                          <= '0';
 				selP2                          <= '0';
 				selJL                          <= '0';
+				selPCJ                         <= '0';
+				selADR                         <= '0';
 				selImm                         <= '0';
 				selAdd                         <= '0';
 				selInc4PC                      <= '0';
@@ -879,8 +886,7 @@ BEGIN
 				load                           <= '0';
 				setOne                         <= '0';
 				setZero                        <= '0';
-				startDataDARU                  <= '0';
-				startInstrDARU                 <= '0';
+				startDARU                      <= '0';
 				startDAWU                      <= '0';
 				startMultiplyAAU               <= '0';
 				startDivideAAU                 <= '0';
@@ -928,7 +934,6 @@ BEGIN
 				ecallFlag                      <= '0';
 				machineStatusAlterationPreCSR  <= '0';
 				userStatusAlterationPreCSR     <= '0';
-				machineOrUserBar               <= '0';
 				selMedeleg_CSR                 <= '0';
 				selMideleg_CSR                 <= '0';
 				ldUser                         <= '0';
