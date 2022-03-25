@@ -51,15 +51,15 @@ BEGIN
 	outAddr(7)           <= '0';
 	outAddr(6)           <= '1' WHEN cntOutput = "000" ELSE
 									'1' WHEN cntOutput = "001" ELSE
-									'1' WHEN cntOutput = "011" ELSE
+									'1' WHEN cntOutput = "010" ELSE
 									'1' WHEN cntOutput = "111" ELSE
 									'0';
 	outAddr(05 DOWNTO 3) <= "000";
 	outAddr(02 DOWNTO 0) <= "100" WHEN cntOutput = "000" ELSE --mip
 									"010" WHEN cntOutput = "001" ELSE --mcause
-									"000" WHEN cntOutput = "010" ELSE --mstatus
-									"001" WHEN cntOutput = "011" ELSE --mepc
-									"101" WHEN cntOutput = "100" ELSE --mtvec
+									"000" WHEN cntOutput = "100" ELSE --mstatus
+									"001" WHEN cntOutput = "010" ELSE --mepc
+									"101" WHEN cntOutput = "011" ELSE --mtvec
 									"000" WHEN cntOutput = "101" ELSE
 									"000" WHEN cntOutput = "110" ELSE
 									"011" WHEN cntOutput = "111" ELSE --mtval

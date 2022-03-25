@@ -36,11 +36,14 @@
 -- **************************************************************************************
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.STD_LOGIC_UNSIGNED.ALL;
 
 ENTITY aftab_isagu IS
 	GENERIC (len : INTEGER := 32);
 	PORT 
 	(
+		--exceptionRaise                : IN  STD_LOGIC;-- since both exception and interrupt are handled in vectored mode
+		--interruptRaise                : IN  STD_LOGIC;-- since both exception and interrupt are handled in vectored mode
 		tvecBase                      : IN  STD_LOGIC_VECTOR(len - 1 DOWNTO 0);
 		causeCode                     : IN  STD_LOGIC_VECTOR(5 DOWNTO 0);
 		modeTvec                      : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
@@ -53,5 +56,6 @@ ARCHITECTURE Behavioral OF aftab_isagu IS
 BEGIN
 	modeTvec <= tvecBase (1 DOWNTO 0);
 	interruptStartAddressDirect   <= tvecBase;
-	interruptStartAddressVectored <= tvecBase(len - 1 DOWNTO 8) & (causeCode & "00");
+	interruptStartAddressVectored <="00" & ( tvecBase(len - 1 DOWNTO 2) + (causeCode & "00"));
+									
 END Behavioral;

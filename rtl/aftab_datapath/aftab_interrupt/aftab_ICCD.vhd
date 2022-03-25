@@ -73,8 +73,9 @@ ARCHITECTURE behavioral OF aftab_ICCD IS
 	SIGNAL interRaiseTemp, exceptionRaiseTemp : STD_LOGIC;
 	SIGNAL tempIllegalInstr, tempInstrAddrMisaligned, 
 		   tempStoreAddrMisaligned,	tempLoadAddrMisaligned, 
-		   tempDividedByZero, tempEcallFlag : STD_LOGIC;
+		   tempDividedByZero, tempEcallFlag, interRaiseReserved : STD_LOGIC;
 	SIGNAL currentPRV, delegationReg : STD_LOGIC_VECTOR(1 DOWNTO 0);
+	SIGNAL interReserved : STD_LOGIC_VECTOR(15 DOWNTO 0);
 	SIGNAL interRaiseMachineExternal, interRaiseMachineSoftware, 
 		   interRaiseMachineTimer, interRaiseUserExternal, 
 		   interRaiseUserSoftware, interRaiseUserTimer, 
@@ -83,7 +84,7 @@ BEGIN
 	PROCESS (clk, rst)
 	BEGIN
 		IF (rst = '1') THEN
-			currentPRV <= "00";
+			currentPRV <= "11";
 		ELSIF (clk = '1' AND clk 'EVENT) THEN
 			IF (ldMachine = '1') THEN
 				currentPRV <= "11";
@@ -127,9 +128,23 @@ BEGIN
 	interRaiseUserExternal    <= (user AND uieFieldCC) AND (mipCC(8) AND mieCC(8));
 	interRaiseUserSoftware    <= (user AND uieFieldCC) AND (mipCC(0) AND mieCC(0));
 	interRaiseUserTimer       <= (user AND uieFieldCC) AND (mipCC(4) AND mieCC(4));
+	
+	interReserved             <= (mipCC(31 DOWNTO 16) AND mieCC(31 DOWNTO 16));
+	interRaiseReserved        <= mieFieldCC AND (interReserved(15) OR interReserved(14) OR 
+												 interReserved(13) OR interReserved(12) OR 
+												 interReserved(11) OR interReserved(10) OR 
+												 interReserved(9)  OR interReserved(8)  OR 
+												 interReserved(7)  OR interReserved(6)  OR 
+												 interReserved(5)  OR interReserved(4)  OR 
+												 interReserved(3)  OR interReserved(2)  OR 
+												 interReserved(1)  OR interReserved(0));
+	
+	
+	
 	interRaiseTemp            <= interRaiseMachineExternal OR interRaiseMachineSoftware OR 
 								 interRaiseMachineTimer    OR interRaiseUserExternal    OR 
-								 interRaiseUserSoftware    OR interRaiseUserTimer;
+								 interRaiseUserSoftware    OR interRaiseUserTimer       OR 
+								 interRaiseReserved;
 	interruptRaise <= interRaiseTemp;
 	causeCodeGeneration : PROCESS (exceptionRaiseTemp, tempIllegalInstr, tempInstrAddrMisaligned, 
 									tempStoreAddrMisaligned, tempLoadAddrMisaligned, tempDividedByZero, 
@@ -137,36 +152,65 @@ BEGIN
 								   )
 	BEGIN
 		IF (exceptionRaiseTemp = '1') THEN
-			IF (tempIllegalInstr = '1') THEN
-				causeCode <= NOT(exceptionRaiseTemp) & STD_LOGIC_VECTOR(to_unsigned(2, len - 1));
+			IF    (tempIllegalInstr = '1') THEN
+				causeCode <= '0' & STD_LOGIC_VECTOR(to_unsigned(2, len - 1));
 			ELSIF (tempInstrAddrMisaligned = '1') THEN
-				causeCode <= NOT(exceptionRaiseTemp) & STD_LOGIC_VECTOR(to_unsigned(0, len - 1));
+				causeCode <= '0' & STD_LOGIC_VECTOR(to_unsigned(0, len - 1));
 			ELSIF (tempStoreAddrMisaligned = '1') THEN
-				causeCode <= NOT(exceptionRaiseTemp) & STD_LOGIC_VECTOR(to_unsigned(6, len - 1));
+				causeCode <= '0' & STD_LOGIC_VECTOR(to_unsigned(6, len - 1));
 			ELSIF (tempLoadAddrMisaligned = '1') THEN
-				causeCode <= NOT(exceptionRaiseTemp) & STD_LOGIC_VECTOR(to_unsigned(4, len - 1));
-			ELSIF (tempDividedByZero = '1') THEN
-				causeCode <= NOT(exceptionRaiseTemp) & STD_LOGIC_VECTOR(to_unsigned(10, len - 1));
+				causeCode <= '0' & STD_LOGIC_VECTOR(to_unsigned(4, len - 1));
 			ELSIF (tempEcallFlag = '1') THEN
-				causeCode <= NOT(exceptionRaiseTemp) & STD_LOGIC_VECTOR(to_unsigned(11, len - 1));
+				causeCode <= '0' & STD_LOGIC_VECTOR(to_unsigned(8, len - 1)); --ecall from user
 			ELSE
 				causeCode <= (OTHERS => '0');
 			END IF;
 		ELSIF (interRaiseTemp = '1') THEN
-			IF (mipCC(11) = '1') THEN
-				causeCode <= interRaiseTemp & STD_LOGIC_VECTOR(to_unsigned(11, len - 1));
-			ELSIF (mipCC(11) = '0' AND mipCC(3) = '1') THEN
-				causeCode <= interRaiseTemp & STD_LOGIC_VECTOR(to_unsigned(3, len - 1));
-			ELSIF (mipCC(11) = '0' AND mipCC(3) = '0' AND mipCC(7) = '1') THEN
-				causeCode <= interRaiseTemp & STD_LOGIC_VECTOR(to_unsigned(7, len - 1));
-			ELSIF (mipCC(11) = '0' AND mipCC(3) = '0' AND mipCC(7) = '0' AND mipCC(8) = '1') THEN
-				causeCode <= interRaiseTemp & STD_LOGIC_VECTOR(to_unsigned(8, len - 1));
-			ELSIF (mipCC(11) = '0' AND mipCC(3) = '0' AND mipCC(7) = '0' AND 
-														  mipCC(8) = '0' AND mipCC(0) = '1') THEN
-				causeCode <= interRaiseTemp & STD_LOGIC_VECTOR(to_unsigned(0, len - 1));
-			ELSIF (mipCC(11) = '0' AND mipCC(3) = '0' AND mipCC(7) = '0' AND mipCC(8) = '0' AND 
-														  mipCC(0) = '0' AND mipCC(4) = '1') THEN
-				causeCode <= interRaiseTemp & STD_LOGIC_VECTOR(to_unsigned(4, len - 1));
+			IF    (mipCC(11) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(11, len - 1));
+			ELSIF (mipCC(3) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(3, len - 1));
+			ELSIF (mipCC(7) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(7, len - 1));
+			ELSIF (mipCC(8) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(8, len - 1));
+			ELSIF (mipCC(0) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(0, len - 1));
+			ELSIF (mipCC(4) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(4, len - 1));		
+			--for reserved		
+			ELSIF (mipCC(16) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(16, len - 1));	
+			ELSIF (mipCC(17) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(17, len - 1));
+			ELSIF (mipCC(18) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(18, len - 1));
+			ELSIF (mipCC(19) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(19, len - 1));
+			ELSIF (mipCC(20) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(20, len - 1));
+			ELSIF (mipCC(21) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(21, len - 1));
+			ELSIF (mipCC(22) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(22, len - 1));
+			ELSIF (mipCC(23) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(23, len - 1));
+			ELSIF (mipCC(24) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(24, len - 1));
+			ELSIF (mipCC(25) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(25, len - 1));
+			ELSIF (mipCC(26) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(26, len - 1));
+			ELSIF (mipCC(27) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(27, len - 1));
+			ELSIF (mipCC(28) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(28, len - 1));
+			ELSIF (mipCC(29) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(29, len - 1));
+			ELSIF (mipCC(30) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(30, len - 1));
+			ELSIF (mipCC(31) = '1') THEN
+				causeCode <= '1' & STD_LOGIC_VECTOR(to_unsigned(31, len - 1));
 			ELSE
 				causeCode <= (OTHERS => '0');
 			END IF;
@@ -181,7 +225,7 @@ BEGIN
 							   )
 	BEGIN
 		IF (exceptionRaiseTemp = '1') THEN
-			IF (tempIllegalInstr = '1' AND user = '1' AND medelegCSR(2) = '1') THEN
+			IF    (tempIllegalInstr = '1' AND user = '1' AND medelegCSR(2) = '1') THEN
 				delegationReg <= "00";
 			ELSIF (tempInstrAddrMisaligned = '1' AND user = '1' AND medelegCSR(0) = '1') THEN
 				delegationReg <= "00";
@@ -197,17 +241,14 @@ BEGIN
 				delegationReg <= "11";
 			END IF;
 		ELSIF (interRaiseTemp = '1') THEN
-			IF ((mipCC(11) = '0' AND mipCC(3) = '0' AND mipCC(7) = '0' AND mipCC(8) = '1') AND 
-															user = '1' AND midelegCSR(8) = '1') THEN
+			IF    (mipCC(8) = '1' AND user = '1' AND midelegCSR(8) = '1') THEN
 				delegationReg <= "00";
-			ELSIF ((mipCC(11) = '0' AND mipCC(3) = '0' AND mipCC(7) = '0' AND mipCC(8) = '0' AND
-										mipCC(0) = '1') AND user = '1' AND midelegCSR(0) = '1') THEN
+			ELSIF (mipCC(0) = '1' AND user = '1' AND midelegCSR(0) = '1') THEN
 				delegationReg <= "00";
-			ELSIF ((mipCC(11) = '0' AND mipCC(3) = '0' AND mipCC(7) = '0' AND mipCC(8) = '0' AND 
-					 mipCC(0) = '0' AND mipCC(4) = '1') AND user = '1' AND midelegCSR(4) = '1') THEN
+			ELSIF (mipCC(4) = '1' AND user = '1' AND midelegCSR(4) = '1') THEN
 				delegationReg <= "00";
 			ELSE
-				delegationReg <= "11";
+				delegationReg <= "11"; --Also for the 16 reserved interrupts 
 			END IF;
 		ELSE
 			delegationReg <= "11";
