@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -61,34 +61,34 @@ ENTITY aftab_booth_multiplier_controller IS
 END ENTITY aftab_booth_multiplier_controller;
 --
 ARCHITECTURE behavioral OF aftab_booth_multiplier_controller IS
-	TYPE state IS (INIT, COUNT, SHIFT);
+	TYPE state IS (Idle, Init, Count_Shift);
 	SIGNAL pstate, nstate : state;
 	SIGNAL temp           : STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0);
 	SIGNAL co             : STD_LOGIC;
 	SIGNAL cnt_en         : STD_LOGIC;
 	SIGNAL cnt_rst        : STD_LOGIC;
 	SIGNAL initCnt        : STD_LOGIC;
-	CONSTANT initValue    : STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0) := STD_LOGIC_VECTOR (to_unsigned (((2 ** (lenCnt - 1)) - 2), lenCnt));
+	CONSTANT initValue    : STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0) := STD_LOGIC_VECTOR (to_unsigned (((2 ** (lenCnt - 1)) - 1), lenCnt));
 BEGIN
 	PROCESS (pstate, startBooth, co, op) BEGIN
-		nstate <= INIT;
+		nstate <= Init;
 		CASE pstate IS
-			WHEN INIT =>
+			WHEN Idle=>
 				IF (startBooth = '1') THEN
-					nstate <= COUNT;
+					nstate <= Init;
 				ELSE
-					nstate <= INIT;
+					nstate <= Idle;
 				END IF;
-			WHEN COUNT =>
+			WHEN Init=>
+				nstate <= Count_Shift;
+			WHEN Count_Shift =>
 				IF (co = '0') THEN
-					nstate <= SHIFT;
+					nstate <= Count_Shift;
 				ELSE
-					nstate <= INIT;
+					nstate <= Idle;
 				END IF;
-			WHEN SHIFT =>
-				nstate <= COUNT;
 			WHEN OTHERS =>
-				nstate <= INIT;
+				nstate <= Init;
 		END CASE;
 	END PROCESS;
 	PROCESS (pstate, startBooth, co, op) BEGIN
@@ -104,15 +104,16 @@ BEGIN
 		initCnt <= '0';
 		cnt_en  <= '0';
 		CASE pstate IS
-			WHEN INIT =>
+			WHEN Idle =>
+				done   <= '1';
+			WHEN Init =>
 				ldQ     <= startBooth;
 				zeroP   <= startBooth;
 				ldM     <= '1';
 				initCnt <= '1';
-			WHEN COUNT =>
+			WHEN Count_Shift =>
 				cnt_en <= '1';
-				done   <= co;
-			WHEN SHIFT =>
+				--done   <= co;
 				shrQ <= '1';
 				ldP  <= '1';
 				IF (op = "10") THEN
@@ -135,13 +136,15 @@ BEGIN
 				cnt_en  <= '0';
 		END CASE;
 	END PROCESS;
-	PROCESS (clk, rst) BEGIN
-		IF (rst = '1') THEN
-			pstate <= INIT;
+	
+	sequential : PROCESS (clk, rst) BEGIN
+		IF rst = '1' THEN
+			pstate <= Idle;
 		ELSIF (clk = '1' AND clk'event) THEN
 			pstate <= nstate;
 		END IF;
-	END PROCESS;
+	END PROCESS sequential;
+	
 	counter : ENTITY work.aftab_counter
 		GENERIC
 		MAP(len => lenCnt)
@@ -154,5 +157,6 @@ BEGIN
 			initCnt   => initCnt,
 			initValue => initValue,
 			outCnt    => OPEN,
-			coCnt     => co);
+			coCnt     => co
+		);
 END ARCHITECTURE behavioral;
