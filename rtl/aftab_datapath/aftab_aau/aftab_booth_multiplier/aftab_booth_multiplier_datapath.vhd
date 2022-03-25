@@ -5,7 +5,7 @@
 --	History:
 --	Date:		16 February 2021
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
+-- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -56,7 +56,6 @@ ENTITY aftab_booth_multiplier_datapath IS
 		op     : OUT STD_LOGIC_VECTOR (1 DOWNTO 0)
 	);
 END ENTITY aftab_booth_multiplier_datapath;
---
 ARCHITECTURE behavioral OF aftab_booth_multiplier_datapath IS
 	SIGNAL outM   : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL Pin    : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
