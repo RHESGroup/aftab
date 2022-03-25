@@ -51,6 +51,8 @@ ENTITY aftab_datapath IS
 		selI4                          : IN  STD_LOGIC;
 		selAdd                         : IN  STD_LOGIC;
 		selJL                          : IN  STD_LOGIC;
+		selADR                         : IN  STD_LOGIC;
+		selPCJ                         : IN  STD_LOGIC;
 		selInc4PC                      : IN  STD_LOGIC;
 		selBSU                         : IN  STD_LOGIC;
 		selLLU                         : IN  STD_LOGIC;
@@ -78,8 +80,7 @@ ENTITY aftab_datapath IS
 		muxCode                        : IN  STD_LOGIC_VECTOR (11 DOWNTO 0);
 		selLogic                       : IN  STD_LOGIC_VECTOR (1 DOWNTO 0);
 		startDAWU                      : IN  STD_LOGIC;
-		startDataDARU                  : IN  STD_LOGIC;
-		startInstrDARU                 : IN  STD_LOGIC;
+		startDARU                 	   : IN  STD_LOGIC;
 		startMultiplyAAU               : IN  STD_LOGIC;
 		startDivideAAU                 : IN  STD_LOGIC;
 		signedSigned                   : IN  STD_LOGIC;
@@ -89,24 +90,19 @@ ENTITY aftab_datapath IS
 		selAAH                         : IN  STD_LOGIC;
 		dataInstrBar                   : IN  STD_LOGIC;
 		nBytes                         : IN  STD_LOGIC_VECTOR (1 DOWNTO 0);
-		dataMemReady                   : IN  STD_LOGIC;
-		instrMemReady                  : IN  STD_LOGIC;
-		instrMemIn                     : IN  STD_LOGIC_VECTOR (7 DOWNTO 0);
-		dataMemIn                      : IN  STD_LOGIC_VECTOR (7 DOWNTO 0);
-		dataMemOut                     : OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
-		dataMemAddrDAWU                : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		dataMemAddrDARU                : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		instrMemAddrDARU               : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		writeDataMem                   : OUT STD_LOGIC;
-		readDataMem                    : OUT STD_LOGIC;
-		readInstrMem                   : OUT STD_LOGIC;
+		memReady                       : IN  STD_LOGIC;
+		memDataIn                      : IN  STD_LOGIC_VECTOR (7 DOWNTO 0);
+		memDataOut                     : OUT STD_LOGIC_VECTOR (7 DOWNTO 0);
+		memAddrDAWU                    : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		memAddrDARU                    : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		writeMem                       : OUT STD_LOGIC;
+		readMem                        : OUT STD_LOGIC;
 		IR                             : OUT STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 		lt                             : OUT STD_LOGIC;
 		eq                             : OUT STD_LOGIC;
 		gt                             : OUT STD_LOGIC;
 		completeDAWU                   : OUT STD_LOGIC;
-		completeDataDARU               : OUT STD_LOGIC;
-		completeInstrDARU              : OUT STD_LOGIC;
+		completeDARU                   : OUT STD_LOGIC;
 		completeAAU                    : OUT STD_LOGIC;
 		--CSR and Interrupt inputs and outputs
 		selCSR                         : IN  STD_LOGIC;
@@ -116,6 +112,7 @@ ENTITY aftab_datapath IS
 		userExternalInterrupt          : IN  STD_LOGIC;
 		userTimerInterrupt             : IN  STD_LOGIC;
 		userSoftwareInterrupt          : IN  STD_LOGIC;
+		platformInterruptSignals       : IN  STD_LOGIC_VECTOR (15 DOWNTO 0);
 		ldValueCSR                     : IN  STD_LOGIC_VECTOR (2 DOWNTO 0);
 		mipCCLdDisable                 : IN  STD_LOGIC;
 		selImmCSR                      : IN  STD_LOGIC;
@@ -182,7 +179,6 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL writeData                     : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL outMux6                       : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL dataDARU                      : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-	SIGNAL instrDARU                     : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL dataDAWU                      : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL adjDARU                       : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL addResult                     : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
@@ -198,6 +194,8 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL outMux5                       : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL addrIn                        : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	--CSR Signals
+	SIGNAL exceptionRaiseTemp            : STD_LOGIC;
+	SIGNAL interruptRaiseTemp            : STD_LOGIC;
 	SIGNAL CCmieField                    : STD_LOGIC;
 	SIGNAL CCuieField                    : STD_LOGIC;
 	SIGNAL mipCCLd                       : STD_LOGIC;
@@ -211,6 +209,7 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL cntOutput                     : STD_LOGIC_VECTOR (2 DOWNTO 0);
 	SIGNAL exceptionSources              : STD_LOGIC_VECTOR (5 DOWNTO 0);
 	SIGNAL tempFlags                     : STD_LOGIC_VECTOR (5 DOWNTO 0);
+	SIGNAL causeCodeTemp                 : STD_LOGIC_VECTOR (5 DOWNTO 0);
 	SIGNAL preAddressRegBank             : STD_LOGIC_VECTOR (11 DOWNTO 0);
 	SIGNAL mirrorAddress                 : STD_LOGIC_VECTOR (11 DOWNTO 0);
 	SIGNAL addressRegBank                : STD_LOGIC_VECTOR (11 DOWNTO 0);
@@ -254,7 +253,7 @@ BEGIN
 		rst    => rst,
 		zero   => zeroIR,
 		load   => ldIR,
-		inReg  => instrDARU,
+		inReg  => dataDARU,
 		outReg => inst);
 	immSelSignEx : ENTITY WORK.aftab_imm_sel_sign_ext
 		PORT
@@ -436,59 +435,52 @@ BEGIN
 		dividedByZeroFlag => dividedByZeroFlag,
 		completeAAU       => completeAAU);
 	mux9 :  aauResult <= resAAH WHEN selAAH = '1' ELSE
-		resAAL WHEN selAAL = '1' ELSE (OTHERS => '0');
+		                 resAAL WHEN selAAL = '1' ELSE (OTHERS => '0');
+	mux3 : ENTITY WORK.aftab_multiplexer
+			GENERIC MAP(len => len)
+			PORT MAP(
+				a => outADR,
+				b => outMux2,
+				s0 => selADR, 
+				s1 => selPCJ, 
+				w => addrIn);
 	dawu : ENTITY WORK.aftab_dawu
 		PORT
 		MAP(
 		clk                 => clk,
 		rst                 => rst,
 		startDAWU           => startDAWU,
-		memReady            => dataMemReady,
+		memReady            => memReady,
 		nBytes              => nBytes,
-		addrIn              => outADR,
+		addrIn              => addrIn,
 		dataIn              => dataDAWU,
 		checkMisalignedDAWU => checkMisalignedDAWU,
-		addrOut             => dataMemAddrDAWU,
-		dataOut             => dataMemOut,
+		addrOut             => memAddrDAWU,
+		dataOut             => memDataOut,
 		storeMisalignedFlag => OPEN,
-		writeMem            => writeDataMem,
+		writeMem            => writeMem,
 		completeDAWU        => completeDAWU);
-	DARUForData : ENTITY WORK.aftab_daru
+	
+		
+	daru : ENTITY WORK.aftab_daru
 		PORT
 		MAP(
 		clk                 => clk,
 		rst                 => rst,
-		startDARU           => startDataDARU, --controller
+		startDARU           => startDARU, --controller
 		nBytes              => nBytes,
-		addrIn              => outADR,
-		memData             => dataMemIn,
-		memReady            => dataMemReady, --core
-		dataInstrBar        => dataInstrBar,
-		checkMisalignedDARU => checkMisalignedDARU,
-		instrMisalignedFlag => OPEN,
-		loadMisalignedFlag  => OPEN,
-		completeDARU        => completeDataDARU, --controller
-		dataOut             => dataDARU,
-		addrOut             => dataMemAddrDARU,
-		readMem             => readDataMem); -- core
-	DARUForInstr : ENTITY WORK.aftab_daru
-		PORT
-		MAP(
-		clk                 => clk,
-		rst                 => rst,
-		startDARU           => startInstrDARU,
-		nBytes              => nBytes,
-		addrIn              => outPC,
-		memData             => instrMemIn,
-		memReady            => instrMemReady,
+		addrIn              => addrIn,
+		memData             => memDataIn,
+		memReady            => memReady, --core
 		dataInstrBar        => dataInstrBar,
 		checkMisalignedDARU => checkMisalignedDARU,
 		instrMisalignedFlag => instrMisalignedFlag,
 		loadMisalignedFlag  => OPEN,
-		completeDARU        => completeInstrDARU,
-		dataOut             => instrDARU,
-		addrOut             => instrMemAddrDARU,
-		readMem             => readInstrMem);
+		completeDARU        => completeDARU, --controller
+		dataOut             => dataDARU,
+		addrOut             => memAddrDARU,
+		readMem             => readMem); -- core
+
 	sulu : ENTITY WORK.aftab_sulu
 		GENERIC
 		MAP (len => len)
@@ -502,7 +494,7 @@ BEGIN
 	--CSR Units
 	--interruptSourceSynchronizationRegister
 	mipCCLd          <= NOT (mipCCLdDisable);
-	interruptSources <= "00000000000000000000" & machineExternalInterrupt &
+	interruptSources <= platformInterruptSignals & "0000" & machineExternalInterrupt &
 						"00" & userExternalInterrupt & machineTimerInterrupt & 
 						"00" & userTimerInterrupt & machineSoftwareInterrupt & 
 						"00" & userSoftwareInterrupt;
@@ -631,8 +623,8 @@ BEGIN
 		mieFieldCC     => CCmieField,
 		uieFieldCC     => CCuieField,
 		tempFlags      => tempFlags,
-		interruptRaise => interruptRaise,
-		exceptionRaise => exceptionRaise,
+		interruptRaise => interruptRaiseTemp,
+		exceptionRaise => exceptionRaiseTemp,
 		delegationMode => delegationMode,
 		curPRV         => curPRV,
 		causeCode      => causeCode,
@@ -656,13 +648,20 @@ BEGIN
 	loadMisalignedOut  <= '0'; --not used
 	storeMisalignedOut <= '0'; --not used
 	dividedByZeroOut   <= dividedByZeroFlag;
+	
+	interruptRaise <= interruptRaiseTemp;
+	exceptionRaise <= exceptionRaiseTemp;
+	
+	causeCodeTemp <= causeCode(31) & causeCode (4 DOWNTO 0);
 	interruptStartAddressGenerator : ENTITY WORK.aftab_isagu
 		GENERIC
 		MAP(len => len)
 		PORT
 		MAP(
+		--exceptionRaise                => exceptionRaiseTemp,-- since both exception and interrupt are handled in vectored mode
+		--interruptRaise                => interruptRaiseTemp,-- since both exception and interrupt are handled in vectored mode
 		tvecBase                      => outCSR,
-		causeCode                     => causeCode (5 DOWNTO 0),
+		causeCode                     => causeCodeTemp,
 		modeTvec                      => modeTvec,
 		interruptStartAddressDirect   => interruptStartAddressDirect,
 		interruptStartAddressVectored => interruptStartAddressVectored
