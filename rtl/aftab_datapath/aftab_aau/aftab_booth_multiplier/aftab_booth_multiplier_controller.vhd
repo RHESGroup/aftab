@@ -48,8 +48,8 @@ ENTITY aftab_booth_multiplier_controller IS
 		clk        : IN  STD_LOGIC;
 		rst        : IN  STD_LOGIC;
 		startBooth : IN  STD_LOGIC;
-		shrQ       : OUT STD_LOGIC;
-		ldQ        : OUT STD_LOGIC;
+		shrMr      : OUT STD_LOGIC;
+		ldMr       : OUT STD_LOGIC;
 		ldM        : OUT STD_LOGIC;
 		ldP        : OUT STD_LOGIC;
 		zeroP      : OUT STD_LOGIC;
@@ -93,10 +93,10 @@ BEGIN
 	END PROCESS;
 	PROCESS (pstate, startBooth, co, op) BEGIN
 		ldM     <= '0';
-		ldQ     <= '0';
+		ldMr    <= '0';
 		ldP     <= '0';
 		zeroP   <= '0';
-		shrQ    <= '0';
+		shrMr   <= '0';
 		sel     <= '0';
 		subsel  <= '0';
 		done    <= '0';
@@ -107,15 +107,15 @@ BEGIN
 			WHEN Idle =>
 				done   <= '1';
 			WHEN Init =>
-				ldQ     <= startBooth;
+				ldMr    <= startBooth;
 				zeroP   <= startBooth;
 				ldM     <= '1';
 				initCnt <= '1';
 			WHEN Count_Shift =>
 				cnt_en <= '1';
 				--done   <= co;
-				shrQ <= '1';
-				ldP  <= '1';
+				shrMr <= '1';
+				ldP   <= '1';
 				IF (op = "10") THEN
 					subsel <= '1';
 					sel    <= '1';
@@ -124,10 +124,10 @@ BEGIN
 				END IF;
 			WHEN OTHERS =>
 				ldM     <= '0';
-				ldQ     <= '0';
+				ldMr    <= '0';
 				ldP     <= '0';
 				zeroP   <= '0';
-				shrQ    <= '0';
+				shrMr   <= '0';
 				sel     <= '0';
 				subsel  <= '0';
 				done    <= '0';
