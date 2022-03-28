@@ -45,7 +45,7 @@ ENTITY aftab_booth_multiplier IS
 	   rst        : IN  STD_LOGIC;
 	   startBooth : IN  STD_LOGIC;
 	   M          : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-	   Q          : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	   Mr         : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	   P          : OUT STD_LOGIC_VECTOR (2 * len - 1 DOWNTO 0);
 	   doneBooth  : OUT STD_LOGIC
 	);
@@ -53,8 +53,8 @@ END ENTITY aftab_booth_multiplier;
 -- 
 ARCHITECTURE behavioral OF aftab_booth_multiplier IS
 	SIGNAL op     : STD_LOGIC_VECTOR (1 DOWNTO 0);
-	SIGNAL shrQ   : STD_LOGIC;
-	SIGNAL ldQ    : STD_LOGIC;
+	SIGNAL shrMr  : STD_LOGIC;
+	SIGNAL ldMr   : STD_LOGIC;
 	SIGNAL ldM    : STD_LOGIC;
 	SIGNAL ldP    : STD_LOGIC;
 	SIGNAL zeroP  : STD_LOGIC;
@@ -68,15 +68,15 @@ BEGIN
 		(
 		 clk    => clk,
 		 rst    => rst,
-		 shrQ   => shrQ,
-		 ldQ    => ldQ,
+		 shrMr  => shrMr,
+		 ldMr   => ldMr,
 		 ldM    => ldM,
 		 ldp    => ldp,
 		 zeroP  => zeroP,
 		 sel    => sel,
 		 subsel => subsel,
 		 M      => M,
-		 Q      => Q,
+		 Mr     => Mr,
 		 P      => P,
 		 op     => op);
 	Controller : ENTITY WORK.aftab_booth_multiplier_controller
@@ -87,8 +87,8 @@ BEGIN
 		clk        => clk,
 		rst        => rst,
 		startBooth => startBooth,
-		shrQ       => shrQ,
-		ldQ        => ldQ,
+		shrMr      => shrMr,
+		ldMr       => ldMr,
 		ldM        => ldM,
 		ldP        => ldP,
 		zeroP      => zeroP,
