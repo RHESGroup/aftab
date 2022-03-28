@@ -1,5 +1,5 @@
 -- **************************************************************************************
---	Filename:	aftab_booth_multiplier.vhd
+--	Filename:	aftab_aau.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
 --	History:
@@ -32,7 +32,7 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Generic Booth multiplier for the AFTAB core
+--	Attached Arithmetic Unit for the AFTAB core
 --
 -- **************************************************************************************
 LIBRARY IEEE;
@@ -85,7 +85,7 @@ BEGIN
 			rst        => rst,
 			startBooth => startMultAAU,
 			M          => in1Mult,
-			Q          => in2Mult,
+			Mr         => in2Mult,
 			P          => resMult,
 			doneBooth  => doneMult);
 	resMultL             <= resMult (len - 1 DOWNTO 0);
