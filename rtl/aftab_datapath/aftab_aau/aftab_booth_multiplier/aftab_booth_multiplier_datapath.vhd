@@ -43,15 +43,15 @@ ENTITY aftab_booth_multiplier_datapath IS
 	(
 		clk    : IN  STD_LOGIC;
 		rst    : IN  STD_LOGIC;
-		shrQ   : IN  STD_LOGIC;
-		ldQ    : IN  STD_LOGIC;
+		shrMr  : IN  STD_LOGIC;
+		ldMr   : IN  STD_LOGIC;
 		ldM    : IN  STD_LOGIC;
 		ldp    : IN  STD_LOGIC;
 		zeroP  : IN  STD_LOGIC;
 		sel    : IN  STD_LOGIC;
 		subsel : IN  STD_LOGIC;
 		M      : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-		Q      : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+		Mr     : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 		P      : OUT STD_LOGIC_VECTOR (2 * len - 1 DOWNTO 0);
 		op     : OUT STD_LOGIC_VECTOR (1 DOWNTO 0)
 	);
@@ -61,9 +61,9 @@ ARCHITECTURE behavioral OF aftab_booth_multiplier_datapath IS
 	SIGNAL Pin    : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL Pout   : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL result : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-	SIGNAL outQ   : STD_LOGIC_VECTOR (len DOWNTO 0);
-	SIGNAL shQ    : STD_LOGIC_VECTOR (len DOWNTO 0);
-	SIGNAL seiQ   : STD_LOGIC;
+	SIGNAL outMr  : STD_LOGIC_VECTOR (len DOWNTO 0);
+	SIGNAL shMr   : STD_LOGIC_VECTOR (len DOWNTO 0);
+	SIGNAL seiMr  : STD_LOGIC;
 BEGIN
 	mReg : ENTITY WORK.aftab_register
 		GENERIC
@@ -76,22 +76,22 @@ BEGIN
 			load   => ldM,
 			inReg  => M,
 			outReg => outM);
-	shQ <= (Q & '0');
-	qReg : ENTITY WORK.aftab_shift_register
+	shMr <= (Mr & '0');
+	MrReg : ENTITY WORK.aftab_shift_register
 		GENERIC
 		MAP(len => len + 1)
 		PORT
 		MAP(
 		clk    => clk,
 		rst    => rst,
-		inReg  => shQ,
-		shiftR => shrQ,
+		inReg  => shMr,
+		shiftR => shrMr,
 		shiftL => '0',
-		load   => ldQ,
+		load   => ldMr,
 		zero   => '0',
-		serIn  => seiQ,
+		serIn  => seiMr,
 		serOut => OPEN,
-		outReg => outQ);
+		outReg => outMr);
 	pReg : ENTITY WORK.aftab_register
 		GENERIC
 		MAP(len => len)
@@ -115,7 +115,7 @@ BEGIN
 		cout   => OPEN,
 		outRes => result);
 	Pin  <= (result (len - 1) & result (len - 1 DOWNTO 1)) WHEN sel = '1' ELSE (Pout(len - 1) & Pout (len - 1 DOWNTO 1));
-	seiQ <= result (0) WHEN sel = '1' ELSE Pout (0);
-	op   <= outQ (1 DOWNTO 0);
-	P    <= (Pout & outQ (len DOWNTO 1));
+	seiMr<= result (0) WHEN sel = '1' ELSE Pout (0);
+	op   <= outMr (1 DOWNTO 0);
+	P    <= (Pout & outMr (len DOWNTO 1));
 END ARCHITECTURE behavioral;
