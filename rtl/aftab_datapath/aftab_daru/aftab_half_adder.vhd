@@ -1,5 +1,5 @@
 -- **************************************************************************************
---	Filename:	aftab_oneBitReg.vhd
+--	Filename:	aftab_half_adder.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
 --	History:
@@ -31,35 +31,24 @@
 -- **************************************************************************************
 --
 --	File content description:
---	one bit register for the AFTAB core
+--	half adder for the AFTAB core
 --
 -- **************************************************************************************
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.ALL;
-USE IEEE.STD_LOGIC_UNSIGNED.ALL;
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
 
-ENTITY aftab_oneBitReg IS
-    	PORT (
-    	    	clk, rst   : IN  STD_LOGIC;
-    	    	zero, load : IN  STD_LOGIC;
-    	    	inReg      : IN  STD_LOGIC;
-    	    	outReg     : OUT STD_LOGIC
-    	);
-END ENTITY aftab_oneBitReg;
+ENTITY aftab_half_adder IS
+	PORT (
+		i_bit1 : IN STD_LOGIC;
+		i_bit2 : IN STD_LOGIC;
+		o_sum   : OUT STD_LOGIC;
+		o_carry : OUT STD_LOGIC
+	);
+END aftab_half_adder;
 --
-ARCHITECTURE behavioral OF aftab_oneBitReg IS
-
+ARCHITECTURE rtl OF aftab_half_adder IS
 BEGIN
-    	PROCESS (clk, rst)
-    	BEGIN
-    	    	IF (rst = '1') THEN
-    	    	    	outReg <= '0';
-    	    	ELSIF (clk = '1' AND clk 'EVENT) THEN
-    	    	    	IF (zero = '1') THEN
-    	    	    	    	outReg <= '0';
-    	    	    	ELSIF (load = '1') THEN
-    	    	    	    	outReg <= inReg;
-    	    	    	END IF;
-    	    	END IF;
-    	END PROCESS;
-END ARCHITECTURE behavioral;
+	o_sum <= i_bit1 XOR i_bit2;
+	o_carry <= i_bit1 AND i_bit2;
+END rtl;
