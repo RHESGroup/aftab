@@ -2,10 +2,9 @@
 --	Filename:	aftab_daru_datapath.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
---	History:
---	Date:		16 February 2021
+--	Date:		25 March 2022
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
+-- Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -34,6 +33,7 @@
 --	Datapath of the Data Adjustment Read Unit (DARU) of the AFTAB core
 --
 -- **************************************************************************************
+
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
@@ -177,7 +177,7 @@ BEGIN
 		B   => outCnt,
 		Sum => readAddrP);
 	coCnt <= '1' WHEN (outCnt = nBytesOut) ELSE '0';
-	errorDecoder : ENTITY work.aftab_errorDecoderDARU
+	errorDecoder : ENTITY work.aftab_daru_error_detector
 		GENERIC
 		MAP(len => 32)
 		PORT

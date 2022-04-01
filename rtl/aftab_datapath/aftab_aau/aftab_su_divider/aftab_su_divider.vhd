@@ -2,10 +2,9 @@
 --	Filename:	aftab_su_divider.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
---	History:
---	Date:		16 February 2021
+--	Date:		25 March 2022
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
+-- Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -34,6 +33,7 @@
 --	Container for the integer divider of the AFTAB core
 --
 -- **************************************************************************************
+
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY aftab_su_divider IS
@@ -67,7 +67,6 @@ ARCHITECTURE behavioral OF aftab_su_divider IS
 	SIGNAL divisorZero : STD_LOGIC;
 BEGIN
 	divisorZero       <= '1' WHEN divisor = X"00000000" ELSE '0';
-	--	dividedByZeroFlag <='1' WHEN (divisor=X"00000000" and startSDiv)  ELSE  '0';
 	dividedByZeroFlag <= startSDiv AND divisorZero;
 	safeStart         <= NOT(divisorZero) AND startSDiv;
 	endd              <= dividend (len - 1) AND SignedUnsignedbar;

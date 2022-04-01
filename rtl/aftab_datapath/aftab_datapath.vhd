@@ -2,10 +2,9 @@
 --	Filename:	aftab_datapath.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
---	History:
---	Date:		16 February 2021
+--	Date:		25 March 2022
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
+-- Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -34,6 +33,7 @@
 --	Datapath of the AFTAB core
 --
 -- **************************************************************************************
+
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 ENTITY aftab_datapath IS
@@ -510,7 +510,7 @@ BEGIN
 		inReg  => interruptSources,
 		outReg => CCmip
 		);
-	CSRISL : ENTITY WORK.aftab_CSRISL
+	CSRISL : ENTITY WORK.aftab_csr_isl
 		GENERIC
 		MAP (len => len)
 		PORT
@@ -565,7 +565,7 @@ BEGIN
 		outUieFieldCCreg => CCuieField,
 		outMieCCreg      => CCmie
 		);
-	CSRCounter : ENTITY WORK.aftab_CSR_counter
+	CSRCounter : ENTITY WORK.aftab_csr_counter
 		GENERIC
 		MAP (len => 3)
 		PORT
@@ -579,7 +579,7 @@ BEGIN
 		ldValue => ldValueCSR,
 		outCnt  => cntOutput
 		);
-	CSRAddressingDecoder : ENTITY WORK.aftab_CSR_addressing_decoder
+	CSRAddressingDecoder : ENTITY WORK.aftab_csr_addressing_decoder
 		PORT
 		MAP(
 		cntOutput => cntOutput,
@@ -603,7 +603,7 @@ BEGIN
 		s1 => mirrorUser,
 		w  => addressRegBank);
 	mirrorUserBar <= NOT(mirrorUser);
-	interrCheckCauseDetection : ENTITY WORK.aftab_ICCD
+	interrCheckCauseDetection : ENTITY WORK.aftab_iccd
 		GENERIC
 		MAP(len => len)
 		PORT
@@ -658,8 +658,6 @@ BEGIN
 		MAP(len => len)
 		PORT
 		MAP(
-		--exceptionRaise                => exceptionRaiseTemp,-- since both exception and interrupt are handled in vectored mode
-		--interruptRaise                => interruptRaiseTemp,-- since both exception and interrupt are handled in vectored mode
 		tvecBase                      => outCSR,
 		causeCode                     => causeCodeTemp,
 		modeTvec                      => modeTvec,

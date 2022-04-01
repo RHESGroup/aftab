@@ -2,10 +2,9 @@
 --	Filename:	aftab_register_file.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
---	History:
---	Date:		16 February 2021
+--	Date:		25 March 2022
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
+-- Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -34,6 +33,7 @@
 --	Register File Unit (RFU) of the AFTAB core
 --
 -- **************************************************************************************
+
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
@@ -60,13 +60,11 @@ ARCHITECTURE behavioral OF aftab_register_file IS
 	ATTRIBUTE ramstyle : string;
 	ATTRIBUTE raminit : string;
 	ATTRIBUTE ramstyle OF rData : SIGNAL IS "M9K";
-	--ATTRIBUTE raminit OF rData : SIGNAL IS "my_init_file.mif";
 	
 BEGIN
 	p1 <= rData(to_integer (unsigned(rs1))) WHEN (rs1 /= "00000") ELSE (OTHERS => '0');
 	p2 <= rData(to_integer (unsigned(rs2))) WHEN (rs2 /= "00000") ELSE (OTHERS => '0');
 	
-	--wrProc : PROCESS (clk) -- FPGA
 	wrProc : PROCESS (clk, rst)
 	 BEGIN
 		IF (rst = '1') THEN

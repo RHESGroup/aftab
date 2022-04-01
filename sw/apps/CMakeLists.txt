@@ -1,4 +1,48 @@
+# **************************************************************************************
+#  Filename: CMakeSim.txt  #
+#  Project:  CNL_RISC-V
+#  Version:  1.0
+#  Date:     29 March, 2022  #
+#
+# Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Teheran
+#
+# This source file may be used and distributed without
+# restriction provided that this copyright statement is not
+# removed from the file and that any derivative work contains
+# the original copyright notice and the associated disclaimer.
+#
+# This source file is free software; you can redistribute it
+# and/or modify it under the terms of the GNU Lesser General
+# Public License as published by the Free Software Foundation;
+# either version 3.0 of the License, or (at your option) any
+# later version.
+#
+# This source is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+# PURPOSE. See the GNU Lesser General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Lesser General
+# Public License along with this source; if not, download it
+# from https://www.gnu.org/licenses/lgpl-3.0.txt
+#
+# **************************************************************************************
+#
+#  File content description:
+#  First-order CMake file for the AFTAB applications  #
+# 
+# **************************************************************************************
+
 set(UTILS_DIR ${CMAKE_SOURCE_DIR}/utils)
+
+# Added by Simone Peraccini 29 October 2021
+set(BOOT_MODE "crt0_boot_M")     
+# set(BOOT_MODE "crt0_boot_MU")
+# set(BOOT_MODE "crt0_boot_MU_test_csr")
+
+
+set(SIM_TIME_NS 1000000 CACHE STRING "Simulation time.")
 
 include(CMakeSim.txt)
 
@@ -40,7 +84,7 @@ macro(add_application NAME SOURCE_FILES)
 
   # changed inserted boot code - modified Gianluca Roascio 28/06/2021
   #add_executable(${NAME}.elf $<TARGET_OBJECTS:crt0> ${SOURCE_FILES})
-  add_executable(${NAME}.elf $<TARGET_OBJECTS:crt0_boot> ${SOURCE_FILES})
+  add_executable(${NAME}.elf $<TARGET_OBJECTS:${BOOT_MODE}> ${SOURCE_FILES}) # Boot object substituted with ${BOOT_MODE}.  Simone Peraccini 29 Ottobre 2021
 
   # set subdirectory for add_executable
   if(NOT "${SUBDIR}" STREQUAL "")
@@ -123,7 +167,6 @@ endmacro()
 
 ################################################################################
 # boot code macro
-# Used to generate the boot code for pulpino
 # Attention: Every application name has to be unique and must have its own
 #            build folder
 ################################################################################
@@ -144,7 +187,7 @@ macro(add_boot_code NAME SOURCE_FILES)
   #   ${CMAKE_SOURCE_DIR}/libs/sys_lib/inc
   # )
 
-  add_executable(${NAME}.elf $<TARGET_OBJECTS:crt0_boot> ${SOURCE_FILES})
+  add_executable(${NAME}.elf $<TARGET_OBJECTS:${BOOT_MODE}> ${SOURCE_FILES})  # Boot object substituted with ${BOOT_MODE}.  Simone Peraccini 29 Ottobre 2021
 
   # set subdirectory for add_executable
   if(NOT "${SUBDIR}" STREQUAL "")
@@ -204,8 +247,17 @@ endmacro()
 
 # add_subdirectory(helloworld)
 
-add_subdirectory(test_add) 
-add_subdirectory(test_asm)
+
+add_subdirectory(test_add)
+add_subdirectory(test_dummy)
+add_subdirectory(test_asm_arithmetic)
+add_subdirectory(test_asm_branches)
+add_subdirectory(test_asm_data_transfer)
+add_subdirectory(test_asm_logical_shift_lui)
+add_subdirectory(test_machine)
+add_subdirectory(test_machine_user)
+add_subdirectory(test_asm_csr)
+
 
 # if(${ARDUINO_LIB})
 #   add_subdirectory(Arduino_tests)

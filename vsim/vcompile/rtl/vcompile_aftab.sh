@@ -1,13 +1,49 @@
 #!/bin/tcsh
+# **************************************************************************************
+#  Filename: vcompile_aftab.sh  #
+#  Project:  CNL_RISC-V
+#  Version:  1.0
+#  History:
+#  Date:     29 March, 2022  #
+#
+# Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Teheran
+#
+# This source file may be used and distributed without
+# restriction provided that this copyright statement is not
+# removed from the file and that any derivative work contains
+# the original copyright notice and the associated disclaimer.
+#
+# This source file is free software; you can redistribute it
+# and/or modify it under the terms of the GNU Lesser General
+# Public License as published by the Free Software Foundation;
+# either version 3.0 of the License, or (at your option) any
+# later version.
+#
+# This source is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+# PURPOSE. See the GNU Lesser General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Lesser General
+# Public License along with this source; if not, download it
+# from https://www.gnu.org/licenses/lgpl-3.0.txt
+#
+# **************************************************************************************
+#
+#  File content description:
+#  Hardware compilation script #
+#
+# **************************************************************************************
+
+
 source ${AFTAB_PATH}/vsim/vcompile/colors.csh
 
 ##############################################################################
 # Settings
 ##############################################################################
 
-# set IP=pulpino
 set IP=aftab
-# set IP_NAME="PULPino"
 set IP_NAME="AFTAB"
 
 
@@ -41,74 +77,45 @@ echo "${Green}--> Compiling ${IP_NAME}... ${NC}"
 # vlib $LIB_PATH
 # vmap $LIB_NAME $LIB_PATH
 
-echo "${Green}Compiling component: ${Brown} ${IP_NAME} ${NC}"
-echo "${NC}"
-
 ##############################################################################
 # Compiling RTL
 ##############################################################################
 
-# # decide if we want to build for riscv or or1k
-# if ( ! $?PULP_CORE) then
-#   set PULP_CORE="riscv"
-# endif
+echo "${Green}Compiling component: ${Brown} generics ${NC}"
+echo "${NC}"
 
-# if ( $PULP_CORE == "riscv" ) then
-#   set CORE_DEFINES=+define+RISCV
-#   echo "${Yellow} Compiling for RISCV core ${NC}"
-# else
-#   set CORE_DEFINES=+define+OR10N
-#   echo "${Yellow} Compiling for OR10N core ${NC}"
-# endif
-
-# # decide if we want to build for riscv or or1k
-# if ( ! $?ASIC_DEFINES) then
-#   set ASIC_DEFINES=""
-# endif
-
-# # components
-# vlog -quiet -sv -work ${LIB_PATH} ${RTL_PATH}/components/cluster_clock_gating.sv    || goto error
-# vlog -quiet -sv -work ${LIB_PATH} ${RTL_PATH}/components/pulp_clock_gating.sv       || goto error
-# vlog -quiet -sv -work ${LIB_PATH} ${RTL_PATH}/components/cluster_clock_inverter.sv  || goto error
-# vlog -quiet -sv -work ${LIB_PATH} ${RTL_PATH}/components/cluster_clock_mux2.sv      || goto error
-# vlog -quiet -sv -work ${LIB_PATH} ${RTL_PATH}/components/pulp_clock_inverter.sv     || goto error
-# vlog -quiet -sv -work ${LIB_PATH} ${RTL_PATH}/components/pulp_clock_mux2.sv         || goto error
-# vlog -quiet -sv -work ${LIB_PATH} ${RTL_PATH}/components/generic_fifo.sv            || goto error
-# vlog -quiet -sv -work ${LIB_PATH} ${RTL_PATH}/components/rstgen.sv                  || goto error
-# vlog -quiet -sv -work ${LIB_PATH} ${RTL_PATH}/components/sp_ram.sv                  || goto error
-
-
-# # files depending on RISCV vs. OR1K
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/core_region.sv        || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/random_stalls.sv      || goto error
-
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/boot_rom_wrap.sv      || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/boot_code.sv          || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/instr_ram_wrap.sv     || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/sp_ram_wrap.sv        || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/ram_mux.sv            || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/axi_node_intf_wrap.sv || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/pulpino_top.sv        || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/peripherals.sv        || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/periph_bus_wrap.sv    || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/axi2apb_wrap.sv       || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/axi_spi_slave_wrap.sv || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/axi_mem_if_SP_wrap.sv || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/clk_rst_gen.sv        || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/axi_slice_wrap.sv     || goto error
-# vlog -quiet -sv -work ${LIB_PATH} +incdir+${RTL_PATH}/includes ${ASIC_DEFINES} ${CORE_DEFINES} ${RTL_PATH}/core2axi_wrap.sv      || goto error
-  
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_register.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_multiplexer.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_comparator.vhd   || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_counter.vhd   || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_imm_sel_sign_ext.vhd  || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_adder.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_full_adder.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_half_adder.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_one_bit_register.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_opt_adder.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_adder.vhd   || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_adder_subtractor.vhd   || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_decoder.vhd   || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_barrel_shifter.vhd   || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_llu.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_sulu.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_register_file.vhd  || goto error
+
+echo "${Green}Compiling component: ${Brown} CSR and Interrupts ${NC}"
+echo "${NC}"
+
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_address_logic.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_addressing_decoder.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_counter.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_isl.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_registers.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_iccd.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_isagu.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_register_bank.vhd  || goto error
+
+echo "${Green}Compiling component: ${Brown} AAU ${NC}"
+echo "${NC}"
+
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_aau/aftab_shift_register.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_controller.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_datapath.vhd  || goto error
@@ -120,19 +127,24 @@ vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_aau/aftab_su_divider/afta
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_aau/aftab_su_divider/aftab_su_divider.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_aau/aftab_aau.vhd  || goto error
 
+echo "${Green}Compiling component: ${Brown} DARU ${NC}"
+echo "${NC}"
 
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_daru/aftab_half_adder.vhd  || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_daru/aftab_full_adder.vhd  || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_daru/aftab_decoder.vhd  || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_daru/aftab_opt_adder.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_daru/aftab_daru_controller.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_daru/aftab_daru_error_detector.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_daru/aftab_daru_datapath.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_daru/aftab_daru.vhd  || goto error
 
+echo "${Green}Compiling component: ${Brown} DAWU ${NC}"
+echo "${NC}"
 
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_dawu/aftab_dawu_controller.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_dawu/aftab_dawu_error_detector.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_dawu/aftab_dawu_datapath.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_dawu/aftab_dawu.vhd  || goto error
+
+echo "${Green}Compiling component: ${Brown} Datapath and Controller ${NC}"
+echo "${NC}"
 
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_datapath.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_controller.vhd  || goto error
@@ -144,6 +156,10 @@ echo ""
 
 vcom -2008 -work work ${TB_PATH}/aftab_memory.vhd  || goto error
 vcom -2008 -work work ${TB_PATH}/aftab_testbench.vhd  || goto error
+
+echo ""
+echo "${Cyan}--> Testbench for ${IP_NAME} compiled with success! Simulation can be started. ${NC}"
+echo ""
 
 exit 0
 

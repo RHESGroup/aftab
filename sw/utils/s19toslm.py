@@ -54,20 +54,31 @@ def dump_bytes( filetoprint, addr, data_s):
 ###############################################################################
 def s19_parse(filename, s19_dict):
     s19_file = open(filename, 'r')
+
+    i = 1
     for line in s19_file:
+        
         rec_field = line[:2]
         prefix    = line[:4]
 
-        if rec_field == "S0" or prefix == "S009" or prefix == "S505" or prefix == "S705" or prefix == "S017" or prefix == "S804" or line == "":
-            continue
+        
+        
+        # Modified by Simone Peraccini 23/09/2021
+        # Record S5,S6,S7,S8,S9 in s19 format does not contain data sequences therefore they should be skipped.
+        # To check if this does not behave correctly in other circumstances.
+        # if rec_field == "S0"  or prefix == "S009" or prefix == "S505" or prefix == "S705" or prefix == "S017" or prefix == "S804" or line == "":
+        if rec_field == "S0" or rec_field == "S9" or rec_field == "S8" or rec_field == "S7" or rec_field == "S6" or rec_field == "S5"  or prefix == "S009" or prefix == "S505" or prefix == "S705" or prefix == "S017" or prefix == "S804" or line == "":
+            continue 
 
         data = line[-6:-4] # extract data byte
         str_addr = line[4:-6]
 
+
         addr = int("0x%s" % str_addr, 0)
 
-
         s19_dict[addr] = data
+
+        
 
     s19_file.close()
 
@@ -131,6 +142,7 @@ s19_parse(sys.argv[1], s19_dict)
 bytes_to_words(s19_dict, slm_dict)
 
 
+
 # word align all addresses
 l2_start   = l2_start   >> 2
 l2_end     = l2_end     >> 2
@@ -162,6 +174,9 @@ flash    = open("flash_stim.slm", 'w')
 ###############################################################################
 # write the stimuli
 ###############################################################################
+
+
+
 for addr in sorted(slm_dict.keys()):
     data = slm_dict[addr]
 
@@ -245,6 +260,8 @@ for i in l2_cut_files:
 
 for i in tcdm_files:
     tcdm_files[i].close()
+
+
 
 spi_stim.close()
 l2_stim.close()

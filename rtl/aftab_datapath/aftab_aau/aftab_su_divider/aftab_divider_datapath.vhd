@@ -2,10 +2,9 @@
 --	Filename:	aftab_divider_datapath.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
---	History:
---	Date:		16 February 2021
+--	Date:		31 March 2022
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
+-- Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -34,6 +33,7 @@
 --	Datapath of generic integer divider for the AFTAB core
 --
 -- **************************************************************************************
+
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
@@ -113,7 +113,8 @@ BEGIN
 		serOut => leftbitOutQ,
 		outReg => Qprev);
 	-- concatenation
-	divisorp <= divisor(len - 1) & divisor;
+	--divisorp <= divisor(len - 1) & divisor;
+	divisorp <= '0' & divisor; -- modified Gianluca
 	-- Reg 33 bit M
 	RegM : ENTITY WORK.aftab_register
 		GENERIC

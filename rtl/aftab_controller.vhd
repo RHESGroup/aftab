@@ -2,10 +2,9 @@
 --	Filename:	aftab_controller.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
---	History:
---	Date:		16 February 2021
+--	Date:		31 March 2022
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
+-- Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -34,6 +33,7 @@
 --	Main controller of the AFTAB core
 --
 -- **************************************************************************************
+
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
 USE IEEE.std_logic_unsigned.ALL;
@@ -542,7 +542,8 @@ BEGIN
 
 			WHEN getData =>
 				ldByteSigned <= NOT(func3(2)) AND NOT(func3(1)) AND NOT(func3(0));
-				ldHalfSigned <= NOT(func3(2)) AND func3(0);
+				--ldHalfSigned <= NOT(func3(2)) AND func3(0); -- modified Gianluca
+				ldHalfSigned <= NOT(func3(2)) and  NOT(func3(1)) and func3(0);
 				load         <= func3(2) OR func3(1);
 				dataInstrBar <= '1';
 				IF (completeDARU = '1') THEN
@@ -554,9 +555,10 @@ BEGIN
 				END IF;
 				--store
 			WHEN storeInstr1 =>
-				selJL   <= '1';
 				muxCode <= sTypeImm;
 				ldADR   <= '1';
+				selJL   <= '1';
+				selP1   <= '1'; -- added Gianluca
 				ldDR    <= '1';
 				ldPC    <= '1';
 				selI4   <= '1';
@@ -623,6 +625,26 @@ BEGIN
 				selP2            <= '1';
 				startDivideAAU   <= func3(2);
 				startMultiplyAAU <= NOT(func3(2));
+				IF (func3(2) = '0') THEN -- it is a multiplication
+					IF (func3(1 DOWNTO 0) = "00") THEN
+						signedSigned <= '1';
+					ELSIF (func3(1 DOWNTO 0) = "01") THEN
+						signedSigned <= '1';
+					ELSIF (func3(1 DOWNTO 0) = "10") THEN
+						signedUnsigned <= '1';
+					ELSIF (func3(1 DOWNTO 0) = "11") THEN
+						unsignedUnsigned <= '1';
+					END IF;
+				ELSIF (func3(2) = '1') THEN -- it is a division
+					IF (func3(1 DOWNTO 0) = "00" OR func3(1 DOWNTO 0) = "10") THEN
+						signedSigned <= '1';
+					ELSIF (func3(1 DOWNTO 0) = "01" OR func3(1 DOWNTO 0) = "11") THEN
+						unsignedUnsigned <= '1';
+					END IF;
+				END IF;
+			WHEN multiplyDivide2 =>
+				selP1 <= '1'; -- added Gianluca start
+				selP2 <= '1';
 				IF (func3(2) = '0') THEN
 					IF (func3(1 DOWNTO 0) = "00") THEN
 						signedSigned <= '1';
@@ -639,8 +661,7 @@ BEGIN
 					ELSIF (func3(1 DOWNTO 0) = "01" OR func3(1 DOWNTO 0) = "11") THEN
 						unsignedUnsigned <= '1';
 					END IF;
-				END IF;
-			WHEN multiplyDivide2 =>
+				END IF; -- added Gianluca end
 				IF (completeAAU = '1') THEN
 					IF (func3(2) = '0') THEN
 						selAAL <= (NOT (func3(1) OR func3(0)));
@@ -714,7 +735,8 @@ BEGIN
 				ldPC         <= '1';
 				selI4        <= '1';
 				pass         <= opcode(5);
-				addSubBar    <= NOT (opcode(5));
+				--addSubBar    <= NOT (opcode(5)); -- modified Gianluca
+				addSubBar    <= '0';
 				selAuipc     <= NOT (opcode(5));
 			WHEN CSR =>
 				selCSRAddrFromInst <= '1';

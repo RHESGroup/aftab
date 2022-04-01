@@ -2,10 +2,9 @@
 --	Filename:	aftab_booth_multiplier_controller.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
---	History:
---	Date:		16 February 2021
+--	Date:		31 March 2022
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+-- Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -34,6 +33,7 @@
 --	Controller of the generic Booth multiplier for the AFTAB core
 --
 -- **************************************************************************************
+
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
@@ -61,7 +61,8 @@ ENTITY aftab_booth_multiplier_controller IS
 END ENTITY aftab_booth_multiplier_controller;
 --
 ARCHITECTURE behavioral OF aftab_booth_multiplier_controller IS
-	TYPE state IS (Idle, Init, Count_Shift);
+	--TYPE state IS (Idle, Init, Count_Shift); modified Gianluca
+	TYPE state IS (Completed, Idle, Init, Count_Shift);
 	SIGNAL pstate, nstate : state;
 	SIGNAL temp           : STD_LOGIC_VECTOR (lenCnt - 1 DOWNTO 0);
 	SIGNAL co             : STD_LOGIC;
@@ -85,10 +86,14 @@ BEGIN
 				IF (co = '0') THEN
 					nstate <= Count_Shift;
 				ELSE
-					nstate <= Idle;
+					--nstate <= Idle;
+					nstate <= Completed;
 				END IF;
+			WHEN Completed=>
+				nstate <= Idle;
 			WHEN OTHERS =>
-				nstate <= Init;
+				--nstate <= Init;
+				nstate <= Completed;
 		END CASE;
 	END PROCESS;
 	PROCESS (pstate, startBooth, co, op) BEGIN
@@ -104,11 +109,14 @@ BEGIN
 		initCnt <= '0';
 		cnt_en  <= '0';
 		CASE pstate IS
-			WHEN Idle =>
+			--WHEN Idle =>
+			WHEN Completed =>
 				done   <= '1';
 			WHEN Init =>
-				ldMr    <= startBooth;
-				zeroP   <= startBooth;
+				--ldMr    <= startBooth; changed Gianluca
+				ldMr    <= '1';
+				--zeroP   <= startBooth; changed Gianluca
+				zeroP   <= '1';
 				ldM     <= '1';
 				initCnt <= '1';
 			WHEN Count_Shift =>

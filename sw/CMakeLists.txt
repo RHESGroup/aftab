@@ -1,4 +1,40 @@
-cmake_minimum_required (VERSION 2.8)
+# **************************************************************************************
+#  Filename: CMakeLists.txt  #
+#  Project:  CNL_RISC-V
+#  Version:  1.0
+#  Date:     30 March, 2022  #
+#
+# Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Teheran
+#
+# This source file may be used and distributed without
+# restriction provided that this copyright statement is not
+# removed from the file and that any derivative work contains
+# the original copyright notice and the associated disclaimer.
+#
+# This source file is free software; you can redistribute it
+# and/or modify it under the terms of the GNU Lesser General
+# Public License as published by the Free Software Foundation;
+# either version 3.0 of the License, or (at your option) any
+# later version.
+#
+# This source is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+# PURPOSE. See the GNU Lesser General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Lesser General
+# Public License along with this source; if not, download it
+# from https://www.gnu.org/licenses/lgpl-3.0.txt
+#
+# **************************************************************************************
+#
+#  File content description:
+#  Root CMake file for the AFTAB software system  #
+# 
+# **************************************************************************************
+
+cmake_minimum_required (VERSION 3.0)
 
 include(CMakeParseArguments)
 
@@ -101,8 +137,9 @@ set(VSIM "vsim" CACHE FILEPATH "Path to the vsim executable")
  #   set(crt0      "ref/crt0.riscv_E.S")
  #   set(crt0_boot "ref/crt0.boot_E.S")
  # else()
-   set(crt0      "ref/crt0.riscv.S")
-   set(crt0_boot "ref/crt0.boot.S")
+   set(crt0_boot_M  "ref/crt0.boot_M.S")   # Added by Simone 29 October 2021
+   set(crt0_boot_MU "ref/crt0.boot_MU.S")  # 
+   set(crt0_boot_MU_test_csr "ref/crt0.boot_MU_test_csr.S") 
  # endif()
 
  # include_directories(libs/sys_lib/inc)
@@ -117,41 +154,33 @@ set(VSIM "vsim" CACHE FILEPATH "Path to the vsim executable")
  # endif()
 
  set_source_files_properties(${crt0} PROPERTIES LANGUAGE C)
- add_library(crt0 OBJECT ${crt0})
-
- add_library(crt0_boot OBJECT ${crt0_boot})
- set_target_properties(crt0_boot PROPERTIES COMPILE_FLAGS "-DBOOT")
+ add_library(crt0_boot_M OBJECT ${crt0_boot_M})
+ add_library(crt0_boot_MU OBJECT ${crt0_boot_MU})  # Added by Simone 29 October 2021
+ add_library(crt0_boot_MU_test_csr OBJECT ${crt0_boot_MU_test_csr})  # Added by Simone 29 October 2021
+ set_target_properties(crt0_boot_M PROPERTIES COMPILE_FLAGS "-DBOOT_M")
+ set_target_properties(crt0_boot_MU PROPERTIES COMPILE_FLAGS "-DBOOT_MU") # Added by Simone 29 October 2021
+ set_target_properties(crt0_boot_MU_test_csr PROPERTIES COMPILE_FLAGS "-DBOOT_MU_test_csr") # Added by Simone 29 October 2021
 
 
 ################################################################################
 # Other targets
 ################################################################################
 
-
 add_custom_target(vcompile
   COMMAND tcsh -c "./vcompile/build_rtl_sim.csh"
   WORKING_DIRECTORY ${AFTAB_MODELSIM_DIRECTORY}
   ${USES_TERMINAL})
 
-# add_custom_target(vcompile.ps
-#   COMMAND tcsh -c "env PL_NETLIST=${PL_NETLIST} ./vcompile/vcompile_ps.csh"
-#   WORKING_DIRECTORY ${PULP_MODELSIM_DIRECTORY}
-#   ${USES_TERMINAL})
+# added Gianluca Roascio 30/03/2022
+add_custom_target(gen_test_instr
+  COMMAND python3 "test_asm_instr_generator.py"
+  WORKING_DIRECTORY ${AFTAB_MODELSIM_DIRECTORY}/../sw/utils
+  ${USES_TERMINAL})
 
-# add_custom_target(vcompile.pl
-#   COMMAND tcsh -c "env PL_NETLIST=${PL_NETLIST} ./vcompile/vcompile_pl.csh"
-#   WORKING_DIRECTORY ${PULP_MODELSIM_DIRECTORY}
-#   ${USES_TERMINAL})
-
-# add_custom_target(vcompile.core.riscy
-#   COMMAND tcsh ./vcompile/vcompile_riscv.csh
-#   WORKING_DIRECTORY ${PULP_MODELSIM_DIRECTORY}
-#   ${USES_TERMINAL})
-
-# add_custom_target(vcompile.core.zero
-#   COMMAND tcsh ./vcompile/vcompile_zero-riscy.csh
-#   WORKING_DIRECTORY ${PULP_MODELSIM_DIRECTORY}
-#   ${USES_TERMINAL})
+add_custom_target(gen_test_csr
+  COMMAND python3 "test_asm_csr_generator.py"
+  WORKING_DIRECTORY ${AFTAB_MODELSIM_DIRECTORY}/../sw/utils
+  ${USES_TERMINAL})
 
 ################################################################################
 
@@ -175,3 +204,28 @@ add_custom_target(vcompile
 # endif()
 
 add_subdirectory(apps)
+
+set( SUB_DIRS "test_add"
+              "test_dummy"
+              "test_asm_arithmetic" 
+              "test_asm_branches" 
+              "test_asm_data_transfer" 
+              "test_asm_logical_shift_lui" 
+              "test_machine" 
+              "test_machine_user"
+              "test_asm_csr") 
+
+set( CLEAN_TARGETS "")
+
+foreach( dir  ${SUB_DIRS})
+ list(APPEND CLEAN_TARGETS "apps/${dir}/${dir}.read" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/${dir}.lst" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/transcript" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/vsim.wlf" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/vsim.log" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/slm_files/dram_dump.txt" )
+endforeach( )
+
+set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CLEAN_TARGETS}")
+                            
+

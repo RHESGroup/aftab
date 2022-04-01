@@ -2,11 +2,9 @@
 --	Filename:	aftab_aau.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
---	History:
---	Date:		16 February 2021
---  Engineer:
+--	Date:		25 March 2022
 --
--- Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Tehran
+-- Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Tehran
 --
 -- This source file may be used and distributed without
 -- restriction provided that this copyright statement is not
@@ -32,9 +30,10 @@
 -- **************************************************************************************
 --
 --	File content description:
---	Attached Arithmetic Unit for the AFTAB core
+--	Attached Arithmetic Unit (AAU) for the AFTAB core
 --
 -- **************************************************************************************
+
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;

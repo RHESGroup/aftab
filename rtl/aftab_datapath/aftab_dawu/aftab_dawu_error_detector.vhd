@@ -31,13 +31,14 @@
 -- **************************************************************************************
 --
 --	File content description:
---
+--	Error detector for the Data Adjustment Write Unit (DAWU) of the AFTAB core
 --
 -- **************************************************************************************
+
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.STD_LOGIC_UNSIGNED.ALL;
-ENTITY aftab_errorDecoderDAWU IS
+ENTITY aftab_dawu_error_detector IS
 	GENERIC
 		(len : INTEGER := 32);
 	PORT
@@ -47,9 +48,9 @@ ENTITY aftab_errorDecoderDAWU IS
 		checkMisalignedDAWU : IN  STD_LOGIC;
 		storeMisalignedFlag : OUT STD_LOGIC
 	);
-END ENTITY aftab_errorDecoderDAWU;
+END ENTITY aftab_dawu_error_detector;
 --
-ARCHITECTURE behavioral OF aftab_errorDecoderDAWU IS
+ARCHITECTURE behavioral OF aftab_dawu_error_detector IS
 	SIGNAL cmp_01 : STD_LOGIC;
 	SIGNAL cmp_10 : STD_LOGIC;
 	SIGNAL cmp_11 : STD_LOGIC;

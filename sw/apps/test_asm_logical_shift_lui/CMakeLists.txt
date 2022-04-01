@@ -1,0 +1,1 @@
+add_application(test_asm_logical_shift_lui test_asm_logical_shift_lui.s)

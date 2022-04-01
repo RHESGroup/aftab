@@ -2,9 +2,6 @@
 ## Prerequisites
 
 A suitable compiler for the RISC-V ISA must be available.
-Since the RI5CY RISC-V core supports additional ISA extensions that are not
-supported by official toolchain, a special compiler must be used to take
-advantage of those.
 
 For the basic RV32I instruction set also the official toolchain can be used.
 
@@ -20,12 +17,11 @@ folder for the software, e.g. `build`
     mkdir build
 
 Then switch to the build folder and copy the cmake template configuration
-script, called cmake-configure.aftab.gcc.sh
+script, called `cmake-configure.aftab.gcc.sh`
 Choose, copy, modify and then execute this script. It will setup the build
 environment for you.
 
 Now you are ready to start compiling software!
-
 
 ## Compiling
 
@@ -41,7 +37,6 @@ To compile the RTL using ModelSim, use
 
     make vcompile
 
-
 ## Executing
 
 To execute an application again CMake can be used. Switch to the build folder
@@ -51,31 +46,18 @@ and execute
 
 to start ModelSim in GUI mode.
 
-To use console mode, use
+To use console mode and final checks of results (if available), use
 
     make applicationName.vsimc
-
-
-## Tests
-
-Automatic regression tests are supported using the ctest framework that comes
-with CMake.
-
-use
-
-    ctest -L "riscv|sequential" --timeout 100
-
-to launch the tests for the RISC-V core and some basic computation benchmarks
-
 
 # Applications
 ## How to add a new application
 
-CMake uses the concept of CMakeLists.txt files in each directory that is
+CMake uses the concept of `CMakeLists.txt` files in each directory that is
 managed by the tool. Those files give instructions to the tool about which
 applications exist and which files belong to it.
 
-An application is defined like this in a CMakeLists.txt file:
+An application is defined like this in a `CMakeLists.txt` file:
 
     add_application(helloworld helloworld.c)
 
@@ -91,7 +73,7 @@ For ease-of-use we recommend that each application has its own source
 directory. Use the `add_subdirectory` macro of CMake to let the tool know about
 folder structures. Those macros are put in the parent folders until you hit a
 folder that is already managed by CMake. Each of the folders needs to have a
-CMakeLists.txt file.
+`CMakeLists.txt` file.
 
 All applications need to have their own build folders. This means that if you
 want to declare multiple applications in the same source folders, you have to
@@ -101,7 +83,7 @@ optional argument `SUBDIR` for `add_application`
     add_application(helloworld helloworld.c SUBDIR "hello"))
 
 The command above would put the application helloworld in a subdirectory called
-hello in the build folder structure.
+`hello` in the `/build` folder structure.
 
 
 # CMake Targets
@@ -113,3 +95,4 @@ Each application supports the following targets:
 * ${NAME}.vsimc: Start modelsim in console
 * ${NAME}.elf: Compile the application and generate the elf file
 * ${NAME}.read: Perform an objdump of the binary and save it as ${NAME}.read
+* ${NAME}.list: Perform an objdump of the binary with -D option (i.e., with data) and save it as ${NAME}.lst

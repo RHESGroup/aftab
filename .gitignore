@@ -1,0 +1,5 @@
+work/
+transcript
+sw/build/*
+sw/apps/CMakeFiles/*
+vsim/work/*
