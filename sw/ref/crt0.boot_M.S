@@ -2,7 +2,7 @@
 #  Filename: crt0.boot_M.S  #
 #  Project:  CNL_RISC-V
 #  Version:  1.0
-#  Date:     30 March, 2022  #
+#  Date:     01 April, 2022  #
 #
 # Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Teheran
 #
@@ -39,8 +39,13 @@
 /* ========================================================= [ entry ] === */
   .section .text
 reset_handler:
-
-
+ 
+  /* added luca, MSTATUS:0x00001800,  MTVEC  :0x00000011*/
+  addi x1,x0,0x180  
+  slli x1,x1,4
+  csrrw  x1,0x300,x1 
+  csrrwi x1,0x305,0x11
+  
   /* set all registers to zero */
   mv  x1, x0
   mv  x2, x1
