@@ -3,7 +3,7 @@
 #  Project:  CNL_RISC-V
 #  Version:  1.0
 #  History:
-#  Date:     30 March, 2022  #
+#  Date:     05 April, 2022  #
 #
 # Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Teheran
 #
@@ -36,6 +36,18 @@
 # **************************************************************************************
 
 vsim -quiet work.aftab_testbench +nowarnTRAN +nowarnTSCALE +nowarnTFMPC -t 10ps -voptargs="+acc -suppress 2103" -dpicpppath /usr/bin/gcc 
+
+#added by Luca to check priviledges
+add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/clk
+add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/rst
+add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/datapathAFTAB/inst
+add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/controllerAFTAB/p_state
+add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/datapathAFTAB/register_bank/CSR_registers/rData(16)
+add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/controllerAFTAB/previousPRV
+add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/datapathAFTAB/CSRISL/outCSR
+add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/datapathAFTAB/register_bank/outRegBank
+add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/datapathAFTAB/curPRV
+
 
 add wave -noupdate -group SYSTEM /aftab_testbench/clk          
 add wave -noupdate -group SYSTEM /aftab_testbench/rst          
