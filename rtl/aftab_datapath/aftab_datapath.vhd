@@ -2,7 +2,7 @@
 --	Filename:	aftab_datapath.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
---	Date:		25 March 2022
+--	Date:		05 April 2022
 --
 -- Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Tehran
 --
@@ -223,9 +223,19 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL CCmie                         : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL interruptStartAddressDirect   : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL interruptStartAddressVectored : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL validAddressCSR               : STD_LOGIC;
+	
 BEGIN
-	--validAccessCSR <= '1';
-	validAccessCSR <= '1' WHEN (curPRV >= addressRegBank(9 DOWNTO 8)) ELSE '0';
+
+	--added luca, if CSR register is not implemented the access cannot be considered valid (Illegal Instr).
+	csr_address_ctrl: ENTITY WORK.aftab_csr_address_ctrl
+	PORT MAP
+	(
+		addressRegBank=>addressRegBank,
+		validAddressCSR=>validAddressCSR
+	);
+	--validAccessCSR <= '1' WHEN (curPRV >= addressRegBank(9 DOWNTO 8)) ELSE '0'; --changed luca
+	validAccessCSR <= '1' WHEN ( curPRV >= addressRegBank(9 DOWNTO 8) AND validAddressCSR = '1') ELSE '0';
 	readOnlyCSR    <= '1' WHEN (addressRegBank(11 DOWNTO 10) = "11") ELSE '0';
 	IR             <= inst;
 	registerFile : ENTITY WORK.aftab_register_file

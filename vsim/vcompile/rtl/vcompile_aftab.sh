@@ -4,7 +4,7 @@
 #  Project:  CNL_RISC-V
 #  Version:  1.0
 #  History:
-#  Date:     29 March, 2022  #
+#  Date:     04 April, 2022  #
 #
 # Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Teheran
 #
@@ -103,6 +103,9 @@ vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_register_file.vhd  || got
 
 echo "${Green}Compiling component: ${Brown} CSR and Interrupts ${NC}"
 echo "${NC}"
+
+#added by Luca
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_address_ctrl.vhd || goto error
 
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_address_logic.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_addressing_decoder.vhd  || goto error
