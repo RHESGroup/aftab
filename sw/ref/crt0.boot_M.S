@@ -43,8 +43,8 @@ reset_handler:
   /* added luca, MSTATUS:0x00001800,  MTVEC  :0x00000011*/
   addi x1,x0,0x180  
   slli x1,x1,4
-  csrrw  x1,0x300,x1 
-  csrrwi x1,0x305,0x11
+  csrrw  x1,mstatus,x1 
+  csrrwi x1,mtvec,0x11
   
   /* set all registers to zero */
   mv  x1, x0
