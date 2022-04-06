@@ -2,7 +2,7 @@
 #  Filename: crt0.boot_MU.S  #
 #  Project:  CNL_RISC-V
 #  Version:  1.0
-#  Date:     30 March, 2022  #
+#  Date:     05 April, 2022  #
 #
 # Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Teheran
 #
@@ -40,6 +40,10 @@
   .section .text
 reset_handler:
 
+  /*added by Luca, initialization of CSR MTVEC 
+   *MTVEC  :0x00000011
+   */
+  csrrwi x1,mtvec,0x11
 
   /* set all registers to zero */
   mv  x1, x0
@@ -98,7 +102,7 @@ main_entry:
   addi x11, x0, 0
   la x1,_end
   la x6,main
-  addi x7, x0, 3
+  addi x7, x0, 3 
   slli x7, x7, 11
   csrrw x0,mepc,x6
   csrrc x7,mstatus,x7
