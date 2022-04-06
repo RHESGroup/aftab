@@ -1,3 +1,40 @@
+ # **************************************************************************************
+#  Filename: test_machine.s  #
+#  Project:  CNL_RISC-V
+#  Version:  1.0
+#  History:
+#  Date:     05 April, 2022  #
+#
+# Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Teheran
+#
+# This source file may be used and distributed without
+# restriction provided that this copyright statement is not
+# removed from the file and that any derivative work contains
+# the original copyright notice and the associated disclaimer.
+#
+# This source file is free software; you can redistribute it
+# and/or modify it under the terms of the GNU Lesser General
+# Public License as published by the Free Software Foundation;
+# either version 3.0 of the License, or (at your option) any
+# later version.
+#
+# This source is distributed in the hope that it will be
+# useful, but WITHOUT ANY WARRANTY; without even the implied
+# warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+# PURPOSE. See the GNU Lesser General Public License for more
+# details.
+#
+# You should have received a copy of the GNU Lesser General
+# Public License along with this source; if not, download it
+# from https://www.gnu.org/licenses/lgpl-3.0.txt
+#
+# **************************************************************************************
+#
+#  File content description:
+#  Example assembly program machine #
+#
+# **************************************************************************************   
+
     .text
 	.globl	main
 	.type	main, @function
@@ -51,7 +88,7 @@ t0:
             # jalr x2,0(x6)
             # sw   x6,0(x1)
 
-            # csrrc x3,0xC10,x0               # Read PRIVLV. In machine mode do not rise Illegal Instruction Exception.   
+            # csrrc x3,0xC10,x0               # Read not implemented register. In machine mode do not rise Illegal Instruction Exception.   
             # jal x1,0x88                    # Since we are already in machine we can direcly jump tp whatever lable.
                                             # If CSR instruction have to be performed the priviledge level is already the maximum.
             # Other tests

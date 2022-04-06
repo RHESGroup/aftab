@@ -3,9 +3,9 @@
 #  Project:  CNL_RISC-V
 #  Version:  1.0
 #  History:
-#  Date:     08 February, 2022  #
+#  Date:     05 April, 2022  #
 #
-# Copyright (C) 2021 CINI Cybersecurity National Laboratory and University of Teheran
+# Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Teheran
 #
 # This source file may be used and distributed without
 # restriction provided that this copyright statement is not
@@ -41,8 +41,9 @@ main:
 # 3 November 2021 
 
             # In file sw/apps/CMakeLists.txt uncomment: set(BOOT_MODE "crt0_boot_MU") to use this program
-
-            csrrc x3,0xC10,x0               # Read PRIVLV. In user mode rise Illegal Instruction Exception.   
+            
+            #csrrc x3,mepc,x0               # Read/Modify MEPC CSR register. In user mode rise Illegal Instruction Exception.
+            csrrc x3,0xC10,x0               # Read not implemented register. Rise Illegal Instruction Exception.   
             ecall                           # If Invalid Exception reach infinite loop ->
                                             # In file sw/ref/crt0.boot_M.S lable end_except:
                                             # Comment   j default_exc_handler
