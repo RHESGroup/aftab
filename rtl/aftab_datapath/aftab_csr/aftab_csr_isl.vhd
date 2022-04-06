@@ -2,7 +2,7 @@
 --	Filename:	aftab_csr_isl.vhd
 --	Project:	CNL_RISC-V
 --  Version:	1.0
---	Date:		25 March 2022
+--	Date:		05 April 2022
 --
 -- Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Tehran
 --
@@ -86,7 +86,8 @@ BEGIN
 		causeCode WHEN selCause = '1' ELSE
 		trapValue WHEN selTval = '1' ELSE
 		PC WHEN selPC = '1' ELSE 
-		(outCSR(31 DOWNTO 13) & curPRV & outCSR(10 DOWNTO 8) & outCSR(3) & outCSR(6 DOWNTO 4) & '0' & outCSR(2 DOWNTO 0)) WHEN machineStatusAlterationPreCSR = '1' ELSE
+		--(outCSR(31 DOWNTO 13) & curPRV & outCSR(10 DOWNTO 8) & outCSR(3) & outCSR(6 DOWNTO 4) & '0' & outCSR(2 DOWNTO 0)) WHEN machineStatusAlterationPreCSR = '1' ELSE
+		(outCSR(31 DOWNTO 13) & previousPRV & outCSR(10 DOWNTO 8) & outCSR(3) & outCSR(6 DOWNTO 4) & '0' & outCSR(2 DOWNTO 0)) WHEN machineStatusAlterationPreCSR = '1' ELSE --changed luca, MPP is substituted with prevPRV 
 		(outCSR(31 DOWNTO 5) & outCSR(0) & outCSR(3 DOWNTO 1) & '0') WHEN userStatusAlterationPreCSR = '1' ELSE
 		(outCSR(31 DOWNTO 8) & '0' & outCSR(6 DOWNTO 4) & '1' & outCSR(2 DOWNTO 0)) WHEN machineStatusAlterationPostCSR = '1' ELSE
 		(outCSR(31 DOWNTO 5) & '0' & outCSR(3 DOWNTO 1) & '1') WHEN userStatusAlterationPostCSR = '1' ELSE
