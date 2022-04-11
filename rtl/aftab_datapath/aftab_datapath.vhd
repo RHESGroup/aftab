@@ -227,14 +227,15 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	
 BEGIN
 
-	--added luca, if CSR register is not implemented the access cannot be considered valid (Illegal Instr).
+	-- if CSR register is not implemented the access cannot be considered valid (Illegal Instr).
+	-- modified Luca
 	csr_address_ctrl: ENTITY WORK.aftab_csr_address_ctrl
 	PORT MAP
 	(
-		addressRegBank=>addressRegBank,
-		validAddressCSR=>validAddressCSR
+		addressRegBank => addressRegBank,
+		validAddressCSR => validAddressCSR
 	);
-	--validAccessCSR <= '1' WHEN (curPRV >= addressRegBank(9 DOWNTO 8)) ELSE '0'; --changed luca
+	--validAccessCSR <= '1' WHEN (curPRV >= addressRegBank(9 DOWNTO 8)) ELSE '0'; -- changed Luca
 	validAccessCSR <= '1' WHEN ( curPRV >= addressRegBank(9 DOWNTO 8) AND validAddressCSR = '1') ELSE '0';
 	readOnlyCSR    <= '1' WHEN (addressRegBank(11 DOWNTO 10) = "11") ELSE '0';
 	IR             <= inst;
@@ -265,7 +266,7 @@ BEGIN
 		load   => ldIR,
 		inReg  => dataDARU,
 		outReg => inst);
-	immSelSignEx : ENTITY WORK.aftab_imm_sel_sign_ext
+	immSelSignEx : ENTITY WORK.aftab_isseu
 		PORT
 		MAP(
 		IR7     => inst (7),
@@ -501,6 +502,7 @@ BEGIN
 		load           => load,
 		dataIn         => dataDARU,
 		dataOut        => adjDARU);
+		
 	--CSR Units
 	--interruptSourceSynchronizationRegister
 	mipCCLd          <= NOT (mipCCLdDisable);

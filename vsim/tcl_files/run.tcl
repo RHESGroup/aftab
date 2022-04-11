@@ -118,12 +118,13 @@ add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/rw/a
 add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/mem
 
 
-run 13000 ns 
-force platformInterruptSignals(15) 1
-run 10000 ns
-force platformInterruptSignals(15) 0
-run 100000 ns
-#run $var ns
+run $var ns
+# uncomment here if you want to debug interrupts
+# run 13000 ns 
+# force platformInterruptSignals(15) 1
+# run 10000 ns
+# force platformInterruptSignals(15) 0
+# run 100000 ns
 
 
 

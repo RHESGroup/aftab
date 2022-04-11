@@ -40,11 +40,11 @@
   .section .text
 reset_handler:
 
-  /* modified luca, MSTATUS:0x00001800,  MTVEC  :0x00000011*/
-  addi x1,x0,0x180  
-  slli x1,x1,4
-  csrrw  x1,mstatus,x1 
-  csrrwi x1,mtvec,0x11
+  /* MSTATUS:0x00001800,  MTVEC  :0x00000011*/
+  addi x1, x0, 0x180  
+  slli x1, x1, 4
+  csrrw  x1, mstatus, x1 
+  csrrwi x1, mtvec, 0x11
 
   /* set all registers to zero */
   mv  x1, x0
@@ -101,17 +101,17 @@ main_entry:
   /* jump to main program entry point (argc = argv = 0) */
   addi x10, x0, 0
   addi x11, x0, 0
-  la x1,_end
-  la x6,main
+  la x1, _end
+  la x6, main
   addi x7, x0, 3 
   slli x7, x7, 11
-  csrrw x0,mepc,x6
-  csrrc x7,mstatus,x7
+  csrrw x0, mepc, x6
+  csrrc x7, mstatus, x7
   
-  #modified by luca, enable all external interrupt
-  addi x7,x0,0
-  lui x7,0xffff0
-  csrrs x7,0x304,x7
+  // enable all external interrupt, modified Luca
+  addi x7, x0, 0
+  lui x7, 0xffff0
+  csrrs x7, mie, x7
   
   addi x6, x0, 0
   addi x7, x0, 0
@@ -166,9 +166,9 @@ end_except:
   mret
   #j default_exc_handler
 
+/* exception codes to be implemented with custom behavior */
 
 /* ================================= [ instruction address misaligned handler] === */
-/*modified luca, exception code to be implemented*/
 
 instruction_address_misaligned_handler:
   j instruction_address_misaligned_handler
@@ -180,40 +180,36 @@ instruction_address_misaligned_handler:
   # jal x0, instruction_access_misaligned_handler_c
 
 /* ================================= [ illegal instruction handler] === */
-/*modified luca, exception code to be implemented*/
 
 illegal_insn_handler:
   j illegal_insn_handler
   #addi x2, x2, -EXCEPTION_STACK_SIZE
   #sw x1, 0x44(x2)
   #jal x1, store_regs
-  #li x9,1
   #j end_except
   # la x1, end_except
-  # jal x0, illegal_instruction_handler_c
+  # jal x0, illegal_insn_handler_c
 
 /* ================================= [ ecall user instruction handler] === */
-/*modified luca, ecall trap will continue the main program in user mode, trap code to be implemented*/
+/* ecall trap will continue the main program in user mode, trap code to be implemented */
 
 ecall_u_handler:
   addi x2, x2, -EXCEPTION_STACK_SIZE
   sw x1, 0x44(x2)
   jal x1, store_regs
   
-  /*added luca, mepc+4 allows mret to continue the program after a ecall*/
+  /* mepc+4 allows mret to continue the program after a ecall, added Luca */
   csrrsi x7, mepc, 0
   addi x7,x7,4
   csrrw x7,mepc,x7
-  
-  //TODO: handle ecall here
   
   j end_except
   # la x1, end_except
   # jal x0, ecall_u_handler_c
 
- /* ================================= [ external interrupt signal handler] === */
- /*modified luca, interrupt handler will resume the main program in user mode, interrupt code to be implemented*/ 
-  
+/* ================================= [ external interrupt signal handler] === */
+/* interrupt handler will resume (machine mode only) the main program, interrupt code to be implemented */
+
 external_interrupt_signal_handler:
   addi x2, x2, -EXCEPTION_STACK_SIZE
   sw x1, 0x44(x2)

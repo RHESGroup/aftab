@@ -37,7 +37,7 @@
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 
-ENTITY aftab_imm_sel_sign_ext IS
+ENTITY aftab_isseu IS
 	PORT (
 		IR7     : IN STD_LOGIC;
 		IR20    : IN STD_LOGIC;
@@ -60,9 +60,9 @@ ENTITY aftab_imm_sel_sign_ext IS
 		selUJ 	: IN  STD_LOGIC;
 		Imm     : OUT STD_LOGIC_VECTOR (31 DOWNTO 0)
 	);
-END ENTITY aftab_imm_sel_sign_ext;
+END ENTITY aftab_isseu;
 --
-ARCHITECTURE Behavioral OF aftab_imm_sel_sign_ext IS
+ARCHITECTURE Behavioral OF aftab_isseu IS
 BEGIN
 	Imm (0) <= IR20 WHEN selI = '1'   ELSE
 				IR7 WHEN selS = '1'	  ELSE

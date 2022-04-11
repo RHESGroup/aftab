@@ -1,3 +1,5 @@
+<img src="logo.png" style="color:#ffffff" width="400px" />
+
 # CNL_RISC-V - AFTAB
 ## 32-bit RV32IM RISC-V core 
 

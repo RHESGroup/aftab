@@ -88,7 +88,7 @@ vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_register.vhd  || goto err
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_multiplexer.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_comparator.vhd   || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_counter.vhd   || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_imm_sel_sign_ext.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_isseu.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_full_adder.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_half_adder.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_one_bit_register.vhd  || goto error
@@ -104,9 +104,7 @@ vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_register_file.vhd  || got
 echo "${Green}Compiling component: ${Brown} CSR and Interrupts ${NC}"
 echo "${NC}"
 
-#added by Luca
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_address_ctrl.vhd || goto error
-
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_address_ctrl.vhd || goto error # added Luca
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_address_logic.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_addressing_decoder.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_csr/aftab_csr_counter.vhd  || goto error
