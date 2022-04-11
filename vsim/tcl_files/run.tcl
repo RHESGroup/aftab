@@ -3,7 +3,7 @@
 #  Project:  CNL_RISC-V
 #  Version:  1.0
 #  History:
-#  Date:     05 April, 2022  #
+#  Date:     08 April, 2022  #
 #
 # Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Teheran
 #
@@ -47,6 +47,11 @@ add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/controll
 add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/datapathAFTAB/CSRISL/outCSR
 add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/datapathAFTAB/register_bank/outRegBank
 add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/datapathAFTAB/curPRV
+
+#added by Luca to check reserved interrupts
+add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/datapathAFTAB/outPC
+add wave -noupdate -group TEST -radix hexadecimal /aftab_testbench/core/datapathAFTAB/interrCheckCauseDetection/interReserved
+
 
 
 add wave -noupdate -group SYSTEM /aftab_testbench/clk          
@@ -112,7 +117,13 @@ add wave -noupdate -group EXC_ADDRESS_GENERATOR /aftab_testbench/core/datapathAF
 add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/rw/adr
 add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/mem
 
-run $var ns
+
+run 13000 ns 
+force platformInterruptSignals(15) 1
+run 10000 ns
+force platformInterruptSignals(15) 0
+run 100000 ns
+#run $var ns
 
 
 
