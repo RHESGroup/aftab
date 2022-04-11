@@ -2,7 +2,7 @@
 #  Filename: crt0.boot_MU.S  #
 #  Project:  CNL_RISC-V
 #  Version:  1.0
-#  Date:     05 April, 2022  #
+#  Date:     08 April, 2022  #
 #
 # Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Teheran
 #
@@ -40,9 +40,10 @@
   .section .text
 reset_handler:
 
-  /*added by Luca, initialization of CSR MTVEC 
-   *MTVEC  :0x00000011
-   */
+  /* modified luca, MSTATUS:0x00001800,  MTVEC  :0x00000011*/
+  addi x1,x0,0x180  
+  slli x1,x1,4
+  csrrw  x1,mstatus,x1 
   csrrwi x1,mtvec,0x11
 
   /* set all registers to zero */
@@ -106,6 +107,12 @@ main_entry:
   slli x7, x7, 11
   csrrw x0,mepc,x6
   csrrc x7,mstatus,x7
+  
+  #modified by luca, enable all external interrupt
+  addi x7,x0,0
+  lui x7,0xffff0
+  csrrs x7,0x304,x7
+  
   addi x6, x0, 0
   addi x7, x0, 0
   mret
@@ -161,39 +168,57 @@ end_except:
 
 
 /* ================================= [ instruction address misaligned handler] === */
+/*modified luca, exception code to be implemented*/
 
 instruction_address_misaligned_handler:
-  addi x2, x2, -EXCEPTION_STACK_SIZE
-  sw x1, 0x44(x2)
-  jal x1, store_regs
-  j end_except
+  j instruction_address_misaligned_handler
+  #addi x2, x2, -EXCEPTION_STACK_SIZE
+  #sw x1, 0x44(x2)
+  #jal x1, store_regs
+  #j end_except
   # la x1, end_except
   # jal x0, instruction_access_misaligned_handler_c
 
 /* ================================= [ illegal instruction handler] === */
+/*modified luca, exception code to be implemented*/
+
 illegal_insn_handler:
-  addi x2, x2, -EXCEPTION_STACK_SIZE
-  sw x1, 0x44(x2)
-  jal x1, store_regs
-  li x9,1
-  j end_except
+  j illegal_insn_handler
+  #addi x2, x2, -EXCEPTION_STACK_SIZE
+  #sw x1, 0x44(x2)
+  #jal x1, store_regs
+  #li x9,1
+  #j end_except
   # la x1, end_except
   # jal x0, illegal_instruction_handler_c
 
 /* ================================= [ ecall user instruction handler] === */
+/*modified luca, ecall trap will continue the main program in user mode, trap code to be implemented*/
+
 ecall_u_handler:
   addi x2, x2, -EXCEPTION_STACK_SIZE
   sw x1, 0x44(x2)
   jal x1, store_regs
+  
+  /*added luca, mepc+4 allows mret to continue the program after a ecall*/
+  csrrsi x7, mepc, 0
+  addi x7,x7,4
+  csrrw x7,mepc,x7
+  
+  //TODO: handle ecall here
+  
   j end_except
   # la x1, end_except
   # jal x0, ecall_u_handler_c
 
-  /* ================================= [ external interrupt signal handler] === */
+ /* ================================= [ external interrupt signal handler] === */
+ /*modified luca, interrupt handler will resume the main program in user mode, interrupt code to be implemented*/ 
+  
 external_interrupt_signal_handler:
   addi x2, x2, -EXCEPTION_STACK_SIZE
   sw x1, 0x44(x2)
   jal x1, store_regs
+  //TODO: handle interrupts here
   j end_except
   # la x1, end_except
   # jal x0, external_interrupt_signal_handler_c
