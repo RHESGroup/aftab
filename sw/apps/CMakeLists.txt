@@ -39,7 +39,6 @@ set(UTILS_DIR ${CMAKE_SOURCE_DIR}/utils)
 # Added by Simone Peraccini 29 October 2021
 set(BOOT_MODE "crt0_boot_M")     
 # set(BOOT_MODE "crt0_boot_MU")
-# set(BOOT_MODE "crt0_boot_MU_test_csr")
 
 
 set(SIM_TIME_NS 1000000 CACHE STRING "Simulation time.")
@@ -256,7 +255,6 @@ add_subdirectory(test_asm_data_transfer)
 add_subdirectory(test_asm_logical_shift_lui)
 add_subdirectory(test_machine)
 add_subdirectory(test_machine_user)
-add_subdirectory(test_asm_csr)
 
 
 # if(${ARDUINO_LIB})

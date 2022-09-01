@@ -139,7 +139,6 @@ set(VSIM "vsim" CACHE FILEPATH "Path to the vsim executable")
  # else()
    set(crt0_boot_M  "ref/crt0.boot_M.S")   # Added by Simone 29 October 2021
    set(crt0_boot_MU "ref/crt0.boot_MU.S")  # 
-   set(crt0_boot_MU_test_csr "ref/crt0.boot_MU_test_csr.S") 
  # endif()
 
  # include_directories(libs/sys_lib/inc)
@@ -156,10 +155,8 @@ set(VSIM "vsim" CACHE FILEPATH "Path to the vsim executable")
  set_source_files_properties(${crt0} PROPERTIES LANGUAGE C)
  add_library(crt0_boot_M OBJECT ${crt0_boot_M})
  add_library(crt0_boot_MU OBJECT ${crt0_boot_MU})  # Added by Simone 29 October 2021
- add_library(crt0_boot_MU_test_csr OBJECT ${crt0_boot_MU_test_csr})  # Added by Simone 29 October 2021
  set_target_properties(crt0_boot_M PROPERTIES COMPILE_FLAGS "-DBOOT_M")
  set_target_properties(crt0_boot_MU PROPERTIES COMPILE_FLAGS "-DBOOT_MU") # Added by Simone 29 October 2021
- set_target_properties(crt0_boot_MU_test_csr PROPERTIES COMPILE_FLAGS "-DBOOT_MU_test_csr") # Added by Simone 29 October 2021
 
 
 ################################################################################
@@ -174,11 +171,6 @@ add_custom_target(vcompile
 # added Gianluca Roascio 30/03/2022
 add_custom_target(gen_test_instr
   COMMAND python3 "test_asm_instr_generator.py"
-  WORKING_DIRECTORY ${AFTAB_MODELSIM_DIRECTORY}/../sw/utils
-  ${USES_TERMINAL})
-
-add_custom_target(gen_test_csr
-  COMMAND python3 "test_asm_csr_generator.py"
   WORKING_DIRECTORY ${AFTAB_MODELSIM_DIRECTORY}/../sw/utils
   ${USES_TERMINAL})
 
@@ -212,8 +204,7 @@ set( SUB_DIRS "test_add"
               "test_asm_data_transfer" 
               "test_asm_logical_shift_lui" 
               "test_machine" 
-              "test_machine_user"
-              "test_asm_csr") 
+              "test_machine_user") 
 
 set( CLEAN_TARGETS "")
 
