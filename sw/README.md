@@ -94,5 +94,5 @@ Each application supports the following targets:
 * ${NAME}.vsim: Start modelsim in GUI mode
 * ${NAME}.vsimc: Start modelsim in console
 * ${NAME}.elf: Compile the application and generate the elf file
-* ${NAME}.read: Perform an objdump of the binary and save it as ${NAME}.read
-* ${NAME}.list: Perform an objdump of the binary with -D option (i.e., with data) and save it as ${NAME}.lst
+* ${NAME}.read: Perform an objdump of the binary and save it as {NAME}.read
+* ${NAME}.list: Perform an objdump of the binary with -D option (i.e., with data) and save it as {NAME}.lst
