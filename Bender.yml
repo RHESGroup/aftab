@@ -1,0 +1,61 @@
+package:
+  name: AFTAB
+  authors:
+    - "Juan Jose Restrepo : Cybersecurity National Lab"
+
+#Specify all the general sources used in the project
+sources:
+  - rtl/aftab_core.vhd
+  - rtl/aftab_controller.vhd
+  #Datapath
+  - rtl/aftab_datapath/aftab_adder_subtractor.vhd
+  - rtl/aftab_datapath/aftab_adder.vhd
+  - rtl/aftab_datapath/aftab_barrel_shifter.vhd
+  - rtl/aftab_datapath/aftab_comparator.vhd
+  - rtl/aftab_datapath/aftab_counter.vhd
+  - rtl/aftab_datapath/aftab_datapath.vhd
+  - rtl/aftab_datapath/aftab_decoder.vhd
+  - rtl/aftab_datapath/aftab_full_adder.vhd
+  - rtl/aftab_datapath/aftab_half_adder.vhd
+  - rtl/aftab_datapath/aftab_isseu.vhd
+  - rtl/aftab_datapath/aftab_llu.vhd
+  - rtl/aftab_datapath/aftab_multiplexer.vhd
+  - rtl/aftab_datapath/aftab_one_bit_register.vhd
+  - rtl/aftab_datapath/aftab_opt_adder.vhd
+  - rtl/aftab_datapath/aftab_register_file.vhd
+  - rtl/aftab_datapath/aftab_register.vhd
+  - rtl/aftab_datapath/aftab_sulu.vhd
+  #AFTAB aau
+  - rtl/aftab_datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_controller.vhd
+  - rtl/aftab_datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier_datapath.vhd
+  - rtl/aftab_datapath/aftab_aau/aftab_booth_multiplier/aftab_booth_multiplier.vhd
+  - rtl/aftab_datapath/aftab_aau/aftab_su_divider/aftab_divider_controller.vhd
+  - rtl/aftab_datapath/aftab_aau/aftab_su_divider/aftab_divider_datapath.vhd
+  - rtl/aftab_datapath/aftab_aau/aftab_su_divider/aftab_divider.vhd
+  - rtl/aftab_datapath/aftab_aau/aftab_su_divider/aftab_su_divider.vhd
+  - rtl/aftab_datapath/aftab_aau/aftab_su_divider/aftab_tcl.vhd
+  - rtl/aftab_datapath/aftab_aau/aftab_aau.vhd
+  - rtl/aftab_datapath/aftab_aau/aftab_shift_register.vhd
+  #AFTAB csr
+  - rtl/aftab_datapath/aftab_csr/aftab_csr_address_ctrl.vhd
+  - rtl/aftab_datapath/aftab_csr/aftab_csr_address_logic.vhd
+  - rtl/aftab_datapath/aftab_csr/aftab_csr_addressing_decoder.vhd
+  - rtl/aftab_datapath/aftab_csr/aftab_csr_addressing_decoder.vhd
+  - rtl/aftab_datapath/aftab_csr/aftab_csr_counter.vhd
+  - rtl/aftab_datapath/aftab_csr/aftab_csr_isl.vhd
+  - rtl/aftab_datapath/aftab_csr/aftab_csr_registers.vhd
+  - rtl/aftab_datapath/aftab_csr/aftab_iccd.vhd
+  - rtl/aftab_datapath/aftab_csr/aftab_isagu.vhd
+  - rtl/aftab_datapath/aftab_csr/aftab_register_bank.vhd
+  #AFTAB daru
+  - rtl/aftab_datapath/aftab_daru/aftab_daru_controller.vhd
+  - rtl/aftab_datapath/aftab_daru/aftab_daru_datapath.vhd
+  - rtl/aftab_datapath/aftab_daru/aftab_daru_error_detector.vhd
+  - rtl/aftab_datapath/aftab_daru/aftab_daru.vhd
+  #AFTAB dawu
+  - rtl/aftab_datapath/aftab_dawu/aftab_dawu_controller.vhd
+  - rtl/aftab_datapath/aftab_dawu/aftab_dawu_datapath.vhd
+  - rtl/aftab_datapath/aftab_dawu/aftab_dawu_error_detector.vhd
+  - rtl/aftab_datapath/aftab_dawu/aftab_dawu.vhd
+
+
